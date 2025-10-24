@@ -1,0 +1,77 @@
+tee	-> read from STI and write into file  output
+sort	-> sort the output
+sed	-> text substitution or editig
+cut	-> extract columns or characters
+
+head	-> show first N lines
+tail	-> show last  N files
+awk 	-> processing column/field
+at	-> to run a job in specific time, one time
+crontab -> to run a job in specific time, repeat every time
+top	-> dynamic view of system process/performance o monitor process and recource usage
+grep	-> used to search for specific patterns within file[global regular exression print]
+find	-> search for file, directry based on name,type,size,modificaton time
+ps	-> process status , to view active process
+pid  	->  process ID a unique number assigned to each runng process
+ppid	-> parent process ID 
+ps aux	->
+	-> a : show process for all users
+	   u : display user-oriented format
+	   x : include processes not attached to a terminal
+	   
+kill	-> to send signals to process, mostly used to stop them
+
+kill -9  -> forceful termination , imedate action
+kill -19 -> pause the process
+kill -15 ->  graceful termination 
+
+uniq 	-> remmove duplicate
+
+
+hash 	-> manage hash table of command paths to speep up comand execution
+
+pipe | 	-> multiple commands   (output of one command and sends it as input to next command)
+
+tar , zip ,tar.gz  -> compress the file and files
+
+diff 	-> comparing differece in the file 
+cksum	-> chk the size of the object in both source and destination
+
+chmod		-> change the permission to the file/fodler
+chown		-> change the owner or group for fie/fodler 	
+groupadd	-> to create a secondary group	
+gpasswd		-> add user into group
+
+visudo
+user1 ALL=ALL	NOPASSWD: ALL		# wont ask password when using sudo command
+user2 ALL=ALL	ALL			# ask password when using sudo command
+
+
+
+adding user3 into wheel group		# ask password when using sudo command, user3 will get same permission what wheel have
+
+ls -r  = reverse
+ls -R  = vide files insde the subdirectory
+
+cp	= copy
+
+mv	= move
+mv	= rename
+
+touch	= create file
+
+mkdir	= create fodler
+
+rm	= remove file
+
+su user1	= swith user without starting a login shell
+ec2-user  $ su - user1
+user1 ec2-user $ 
+	switch to the user but retains the current environment(path,home)
+	get the users shell, but not their full login environment
+	useful for quick command execution as another user
+
+su - user1	=  switch user and simulate a full login
+		loads the users enviornmen completely (path,home)
+		recommended when you want to fully act as that user
+

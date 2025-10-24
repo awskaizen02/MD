@@ -1,0 +1,1018 @@
+249-[LX]-Lab - The Bash Shell
+
+---------------------------------
+Bash Shell Scripting
+
+What are scripts?
+•Scripts are text files of commands and related data.
+•When the text file is processed, the commands are run.
+•Scripts can be set as scheduled tasks by using cron.
+•Automation allows scripts to run more quickly than if they are run manually.
+•Scripts are consistent due to automation removing the potential for manual errors
+
+Common script tasks:
+	•Creating backup jobs
+	•Archivinglog files
+	•Configuring systems and services
+	•Simplifying repetitive task
+	•Automating tasks
+
+
+#!/bin/bash
+
+ls
+date
+cal -m
+
+
+#!/bin/bash
+# Script to backup the home directory
+
+tar -cf backup-home.tar /home/ec2-user
+
+echo “backup job complete at `date`”
+
+
+file should be .sh format 
+provide execute permission +x  to the file
+./sample.sh
+
+
+
+The #character
+
+
+•Bash ignores lines that are preceded with #.
+•The #character is used to define comments or notes to the user that might provide instructions or options.
+
+#!/bin/bash and #comments
+	•#!is referred to as a shebang.
+	•The first line defines the interpreter to use (it gives the path and name of the interpreter).
+	•Scripts must begin with the directive for which shell will run them.
+	•The location and shell can be different.
+	•Each shell has its own syntax, which tells the system what syntax to expect
+	
+#!-->shebang	
+
+
+#!/bin/bash
+sudo dnf update -y
+sudo dnf install -y httpd
+sudo systemctl start httpd  # to start the service
+sudo systemctl enable httpd # to autostart the service while reboot or stop & start
+cd /var/www/html
+sudo touch index.html
+sudo chmod 776 index.html
+echo "WC to webserver using shell script" > index.html
+
+Some administrators create a script template, which contains all the relevant information and sections.
+•The template might include the following:
+	Title
+	Purpose
+	Author’s name and contact information
+	Special instructions or examples
+	
+•Declare (create) your own variables.
+•Use these custom variables in scripts	
+
+
+
+Command				Description
+-------------------------------------------------------------------
+echo				Displays information on the console
+read				Reads a user input
+subStr 				Gets the substring of a string
++				Adds two numbers or combine strings
+file				Opens a file
+mkdir				Creates a directory
+cp				Copies files
+mv				Moves or renames files
+chmod				Sets permissions on files
+rm				Deletes files, folders,etc.
+ls				Lists directories
+
+This table lists the most useful commands that you can use in a script.
+You can use all the shell commands that you saw earlier in the course, 
+such as grep, touch, and redirectors ( >, >>, <, << ).
+You can also use the shell script to create programs using statements 
+such as if, else if, for, while, case, and create functions using the function keyword.
+
+
+[ec2-user@ip-172-31-35-34 ~]$ vi hello.sh
+#!/bin/bash
+echo "Hello World :)"
+
+[ec2-user@ip-172-31-35-34 ~]$ ls -l hello.sh
+-rw-r--r--. 1 ec2-user ec2-user 34 Oct 23 06:14 hello.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ chmod +x hello.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ ./hello.sh
+Hello World :)
+
+[ec2-user@ip-172-31-35-34 ~]$ vi name.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ cat name.sh
+#!/bin/bash
+class="AWS"
+echo "We are currently learning $class"
+
+[ec2-user@ip-172-31-35-34 ~]$ chmod +x name.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ ./name.sh
+We are currently learning AWS
+
+[ec2-user@ip-172-31-35-34 ~]$ vi input.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ cat input.sh
+#!/bin/bash
+echo "Enter your name:"
+read username
+echo "Welcome, $username"
+
+[ec2-user@ip-172-31-35-34 ~]$ chmod +x input.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ ./input.sh
+Enter your name:
+raja
+Welcome, raja
+
+
+--------
+if <condition>
+then
+<command>
+else
+<other command>
+fi
+-----------
+[ec2-user@ip-172-31-35-34 ~]$ vi condition.sh
+
+
+[ec2-user@ip-172-31-35-34 ~]$ cat condition.sh
+#!/bin/bash
+read -p "Enter a number: " num
+if [ $num -gt 10 ]; then
+        echo "Number is greate than 10"
+else
+        echo "Number is 10 or less"
+fi
+
+[ec2-user@ip-172-31-35-34 ~]$ chmod +x condition.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ ./condition.sh
+Enter a number: 8
+Number is 10 or less
+
+[ec2-user@ip-172-31-35-34 ~]$ ./condition.sh
+Enter a number: 11
+Number is greate than 10
+
+[ec2-user@ip-172-31-35-34 ~]$ vi loop.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ cat loop.sh
+#!/bin/bash
+
+# this is sample loop script
+
+
+for i in 1 2 3 4 5
+do
+    echo "Number: $i"
+done
+
+[ec2-user@ip-172-31-35-34 ~]$ chmod +x loop.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ ./loop.sh
+Number: 1
+Number: 2
+Number: 3
+Number: 4
+Number: 5
+
+
+[ec2-user@ip-172-31-35-34 ~]$ vi wl.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ cat wl.sh
+#!/bin/bash
+
+# test while loop
+#
+
+count=2
+while [ $count -le 5 ]
+do
+        echo "count: $count"
+        ((count++))
+done
+
+[ec2-user@ip-172-31-35-34 ~]$ chmod +x wl.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ ./wl.sh
+count: 1
+count: 2
+count: 3
+count: 4
+count: 5
+[ec2-user@ip-172-31-35-34 ~]$ vi wl.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ ./wl.sh
+count: 2
+count: 3
+count: 4
+count: 5
+
+
+[ec2-user@ip-172-31-35-34 ~]$ vi ss.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ cat ss.sh
+#!/bin/bash
+
+# sample substitution script
+#
+
+date_today=$(date)
+echo "Today's date: $date_today"
+
+[ec2-user@ip-172-31-35-34 ~]$ chmod +x ss.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ ./ss.sh
+Today's date: Thu Oct 23 06:37:37 UTC 2025
+
+
+[ec2-user@ip-172-31-35-34 ~]$ vi function.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ cat function.sh
+#!/bin/bash
+
+# sample function script
+#
+
+greet() {
+        echo "Hello, $1"
+}
+
+greet day
+
+[ec2-user@ip-172-31-35-34 ~]$ chmod +x function.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ ./function.sh
+Hello, day
+
+
+[ec2-user@ip-172-31-35-34 ~]$ vi add.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ cat add.sh
+#!/bin/bash
+
+# The = is used to assign the variable to a string
+# The $ is used to evaluate a variable
+# The +is used as a math operator
+
+sum=$(($1+$2))
+
+echo $sum
+
+[ec2-user@ip-172-31-35-34 ~]$ ./add.sh 3 5
+8
+
+[ec2-user@ip-172-31-35-34 ~]$ cat add.sh
+#!/bin/bash
+
+# The = is used to assign the variable to a string
+# The $ is used to evaluate a variable
+# The +is used as a math operator
+
+sum=$(($1+$2))
+
+echo $1 + $2 equals $sum
+
+[ec2-user@ip-172-31-35-34 ~]$ ./add.sh 13 50
+13 + 50 equals 63
+
+
+Conditional statements
+	Conditional statements allow for different courses of action for a script depending on the success or failure of a test.
+	
+	In the following script, the rm command is run only if the cp command is successfully completed
+	
+#!/bin/bash   			
+# shebang
+# Copy file1 from the current directory to /tmp.
+
+cp file1 /tmp			# copy the file1 into /tmp folder
+
+# Delete file1 from the current directory
+# if the copy was successful.
+if [ $? -eq 0 ]; then             # $? captures the exist status of the last command, 0 means success
+rm file1			# remove file1
+fi	
+
+[ec2-user@ip-172-31-35-34 ~]$ ls
+1.sh    condition.sh  file1        hello.sh  loop.sh  ss.sh
+add.sh  cs.sh         function.sh  input.sh  name.sh  wl.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ chmod +x cs.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ ./cs.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ ls
+1.sh    condition.sh  function.sh  input.sh  name.sh  wl.sh
+add.sh  cs.sh         hello.sh     loop.sh   ss.sh
+
+[ec2-user@ip-172-31-35-34 ~]$ ls /tmp | grep file1
+file1
+
+
+The section focuses on basic logical control statements that are frequently included in shell scripts, 
+such as if, if-else, if-elif-else, and test.
+
+
+The if statement
+	An if statement is written as follows: 
+
+if <condition>   # open if
+then
+<command>
+fi 		# close fi
+
+Or if writing everything in one line:
+if <condition>; then <command>; fi 
+Note that the semicolon (;) is required to separate multiple commands on the same line.
+Indentation is used for better readability but is not required.
+
+
+#!/bin/bash   			
+# shebang
+# Copy file1 from the current directory to /tmp.
+
+cp file1 /tmp			# copy the file1 into /tmp folder
+
+# Delete file1 from the current directory
+# if the copy was successful.
+if [ $? -eq 0 ] 
+then             # $? captures the exist status of the last command, 0 means success
+	rm file1			# remove file1
+fi
+
+if <condition>
+then
+<command>
+else
+<other command>
+fi
+
+
+ec2-user@ip-172-31-35-34 ~]$ cat delet.sh
+#!/bin/bash
+# shebang
+# Copy file1 from the current directory to /tmp.
+
+cp file1 /tmp                   # copy the file1 into /tmp folder
+
+# Delete file1 from the current directory
+# if the copy was successful.
+if [ $? -eq 0 ]
+then             # $? captures the exist status of the last command, 0 means success
+        rm file1                        # remove file1
+else echo "Provided file Name not exist in this location."
+fi
+
+[ec2-user@ip-172-31-35-34 ~]$ ./delet.sh
+cp: cannot stat 'file1': No such file or directory
+Provided file Name not exist in this location.
+
+-------------
+The if -elif -else statement
+
+The example compares two numbers passed as parameters to the script:
+•-gt means greater than
+•-lt means lower than 
+
+An if-elif-else statement is written as follows: 
+
+if <condition>
+then
+<command>
+elif 
+<other condition>
+then
+<other command>
+else
+<default  command>
+fi
+
+
+•You can embed if-elif-else statements.
+•You can access all local objects of its immediately enclosing function and also of any function or functions that enclose that function.
+•Nesting is theoretically possible to unlimited depth.
+
+[ec2-user@ip-172-31-35-34 ~]$ vi compare.sh
+
+#!/bin/bash
+# Compares $1 and $2
+if [ $1 -gt $2 ]
+then 
+	echo "the first number is greater then the second number"
+elif [ $1 -lt $2 ]
+then
+	echo "the second number is greater then the first number"
+else
+	echo "the two numbers are equal"
+fi
+
+
+[ec2-user@ip-172-31-35-34 ~]$ chmod +x compare.sh
+[ec2-user@ip-172-31-35-34 ~]$ ./compare.sh 1 5
+the second number is greater then the first number
+[ec2-user@ip-172-31-35-34 ~]$ ./compare.sh 10 5
+the first number is greater then the second number
+[ec2-user@ip-172-31-35-34 ~]$ ./compare.sh 10 10
+the two numbers are equal
+
+
+-----------
+The test command
+
+	•Checks file types and compare values
+	•Conditions are tested, and then the test exits with a 0 for true and a 1 for false.
+	•Syntax: test <EXPRESSION>
+	
+	Integer comparison operators
+	
+•-eq is equal to: if [ "$a" -eq "$b“ ]
+•-ne is not equal to: if [ "$a" -ne "$b" ]
+•-gt is greater than: if [ "$a" -gt "$b" ]
+•-ge is greater than or equal to: if [ "$a" -ge "$b" ]
+•-lt is less than: if [ "$a" -lt "$b" ]
+•-le is less than or equal to: if [ "$a" -le "$b" ]
+•< is less than (with in double parentheses): (("$a" < "$b"))
+•<= is less than or equal to (with in double parentheses): (("$a" <= "$b"))
+•> is greater than (with in double parentheses): (("$a" > "$b"))
+•>= is greater than or equal to (with in double parentheses): (("$a" >= "$b"))	
+
+--------
+
+|Operator| Meaning               | Example          |
+|--------| --------------------- | ---------------- |
+| -eq    | equal to              | `test $a -eq $b` |
+| -ne    | not equal to          | `test $a -ne $b` |
+| -gt    | greater than          | `test $a -gt $b` |
+| -lt    | less than             | `test $a -lt $b` |
+| -ge    | greater than or equal | `test $a -ge $b` |
+| -le    | less than or equal    | `test $a -le $b` |
+
+
+
+#!/bin/bash
+a=10
+b=20
+
+if test $a -lt $b
+then
+  echo "$a is less than $b"
+fi
+
+----------
+
+|Operator| Meaning               | Example            |
+|--------| --------------------- | ------------------ |
+| =      | strings are equal     | `[ "$a" = "$b" ]`  |
+| !=     | strings are not equal | `[ "$a" != "$b" ]` |
+| -z     | string is empty       | `[ -z "$a" ]`      |
+| -n     | string is not empty   | `[ -n "$a" ]`      |
+
+
+
+#!/bin/bash
+name="yuvaraj"
+
+if [ "$name" = "Raja" ]
+then
+  echo "Name matches"
+else
+  echo "Name does not match"
+fi
+
+
+-----------------------
+
+•=or ==is equal to
+	if [ "$a" = "$b" ]
+	if [ "$a" == "$b" ]
+•!= is not equal to 
+	if [ "$a" != "$b" ]
+	Thisoperator uses pattern matching within a[[ ... ]]construct.
+•<is less than, inASCII alphabetical order
+	if [[ "$a" < "$b" ]]
+	if [ "$a" \< "$b" ]
+	Note that the<must beescapedin a [ ]construct
+•>is greater than, in ASCII alphabetical order
+	if [[ "$a" > "$b" ]]
+	if [ "$a" \> "$b" ]
+	Note that the>must be escaped in a [ ]construct.
+
+•-z string isnull (that is, it has zero length)
+•-n string is notnull
+
+
+#!/bin/bash
+# Compares letters $1 and $2
+if [ “$1” = “$2” ]
+then
+	echo letters are the same
+elif [ $1 \< $2 ]
+then
+	echo the first letter is before the second letter
+else
+	echo the second letter is before the first letter
+fi
+
+[ec2-user@ip-172-31-35-34 ~]$ ./com1.sh a a
+letters are the same
+
+[ec2-user@ip-172-31-35-34 ~]$ ./com1.sh a z
+the first letter is before the second letter
+
+[ec2-user@ip-172-31-35-34 ~]$ ./com1.sh z y
+the second letter is before the first letter
+
+[ec2-user@ip-172-31-35-34 ~]$ ./com1.sh c d
+the first letter is before the second letter
+
+[ec2-user@ip-172-31-35-34 ~]$ ./com1.sh d c
+the second letter is before the first letter
+
+Loop statements
+Loops provide you the ability to repeat sections of a script.
+
+Loops can end:
+	•After a specific number of repeats (for statement)
+	•Until a condition is met (until statement)
+	•While a condition is true (while statement)
+
+
+•Loops the command a specified number of times
+•Bracketed by do and done 
+
+The forstatement To loop a command a specific number of times, use the for statement.
+
+#!/bin/bash
+# The for loop
+for x in 1 2 3 4 5 a b c d
+do
+	echo "the value is $x"
+done
+
+[ec2-user@ip-172-31-35-34 ~]$ ./2.sh
+the value is 1
+the value is 2
+the value is 3
+the value is 4
+the value is 5
+the value is a
+the value is b
+the value is c
+the value is d
+
+
+The while statement
+
+	•Continues running the script as long as the specified condition is true
+	•Bracketed by while and done
+
+In this example, the while loop runs as long as the counter is lower or equal to 10, and the counter is not equal to the value of the first parameter passed to the script.
+The body of the loop:
+	•Displays the value of the counter.
+	•Increments the counter by 1 (counter++ means counter = counter+1).
+	•Tests if the counter is equal to the first parameter value and breaks (exits) the loop if this is true.
+
+
+#!/bin/bash
+# The while loop 
+counter=1
+while [ $counter -le 10 ]
+do
+	echo  $counter
+	((counter++))
+	
+	if [ $counter = $1 ]
+	then
+	break
+	fi
+done
+echo "loop exited"
+echo "counter equals $counter"
+
+-------------
+#!/bin/bash
+# this is for testing
+# 
+
+
+Command				Description
+-------------------------------------------------------------------
+echo				Displays information on the console
+read				Reads a user input
+subStr 				Gets the substring of a string
++				Adds two numbers or combine strings
+file				Opens a file
+mkdir				Creates a directory
+cp				Copies files
+mv				Moves or renames files
+chmod				Sets permissions on files
+rm				Deletes files, folders,etc.
+ls				Lists directories
+
+
+This table lists the most useful commands that you can use in a script.
+You can use all the shell commands that you saw earlier in the course, 
+such as grep, touch, and redirectors ( >, >>, <, << ).
+
+You can also use the shell script to create programs using statements 
+such as if, else if, for, while, case, and create functions using the function keyword.
+
+
+[ec2-user@ip-172-31-35-34 ~]$ vi hello.sh
+#!/bin/bash
+echo "Hello World :)"
+
+
+hello.sh  -> to run this script what need to do ?
+
+chmod +x hello.sh	--> provide the permission
+./hello.sh		--> to run the script
+
+
+80k and above -> high salary 
+less than 80k -> less salary
+
+
+if <condition>
+then
+<command>
+else
+<other command>
+fi
+
+#!/bin/bash
+
+# example for if and else script
+
+read -p "Enter Your salary: " salary
+
+if [ "$salary" -ge 80000 ]; then
+	echo "High Salary"
+else
+	echo "Less Salary"
+fi
+
+
+---------------------------------
+
+if <condition>
+then
+<command>
+elif <condition>
+then
+<command>
+else
+<other command>
+fi
+
+80k high
+50-80k medium
+les than 50k low
+
+#!/bin/bash
+
+# example for if and else script
+
+read -p "Enter Your salary: " salary
+
+if [ "$salary" -ge 80000 ]; then
+	echo "High Salary"
+
+elif [ "$salary" -ge 50000 ]; then
+	echo "Medium Salary" 	
+else
+	echo "Low Salary"
+fi
+
+---------
+
+	
+•-eq is equal to: if [ "$a" -eq "$b“ ]
+•-ne is not equal to: if [ "$a" -ne "$b" ]
+•-gt is greater than: if [ "$a" -gt "$b" ]
+•-ge is greater than or equal to: if [ "$a" -ge "$b" ]
+•-lt is less than: if [ "$a" -lt "$b" ]
+•-le is less than or equal to: if [ "$a" -le "$b" ]
+•< is less than (with in double parentheses): (("$a" < "$b"))
+•<= is less than or equal to (with in double parentheses): (("$a" <= "$b"))
+•> is greater than (with in double parentheses): (("$a" > "$b"))
+•>= is greater than or equal to (with in double parentheses): (("$a" >= "$b"))
+
+
+
+
+#!/bin/bash
+
+read -p "Enter first number: " num1
+read -p "Enter second number: " num2
+
+echo "--------------------------------------"
+echo " Using numeric test operators"
+echo "--------------------------------------"
+
+# Equal
+
+if [ "$num1" -eq "$num2" ]; then
+	echo "$num1 is equal to $num2 (-eq)"
+fi
+
+# Not Equal
+
+if [ "$num1" -ne "$num2" ]; then
+	echo "$num1 is not equal to $num2 (-ne)"
+fi
+
+# Grater than
+
+if [ "$num1" -ge "$num2" ]; then
+	echo "$num1 is grater than to $num2 (-ge)"
+fi
+
+# less than
+
+if [ "$num1" -le "$num2" ]; then
+	echo "$num1 is less than to $num2 (-le)"
+fi
+
+
+#!/bin/bash
+
+read -p "Enter first number: " num1
+read -p "Enter second number: " num2
+
+echo "--------------------------------------"
+echo " Using [[ .... ]] with >, >=, <, <= : "
+echo "--------------------------------------"
+
+
+if [[ $num1 < $num2 ]]; then
+	echo "$num1 is less than to $num2 (<)"
+fi
+
+
+if [[ $num1 <= $num2 ]]; then
+	echo "$num1 is less than or equal to $num2 (<=)"
+fi
+
+
+if [[ $num1 > $num2 ]]; then
+	echo "$num1 is greater than to $num2 (>)"
+fi
+
+
+if [[ $num1 >= $num2 ]]; then
+	echo "$num1 is greater than or equal to $num2 (>=)"
+fi
+
+-------------------------------
+#!/bin/bash
+
+#str1="hello"
+#str2="world"
+
+read -p "Enter first string: " str1
+read -p "Enter second string: " str2
+
+
+if [[ "$str1" == "$str2" ]]; then
+	echo "string are equal"
+else
+	echo "string are different"
+fi
+
+
+if [[ "$str1" = "$str2" ]]; then
+	echo "string are equal"
+else
+	echo "string are not equal"
+fi
+
+
+if [[ "$str1" != "$str2" ]]; then
+	echo "string are not equal"
+fi
+
+if [[ "$str1" < "$str2" ]]; then
+	echo "string are not equal"
+fi
+------------------------------------
+#!/bin/bash
+
+for i in {1..5}
+do
+   echo "Number: $i"
+done
+
+----
+#!/bin/bash
+
+for name in Abi Abu Aki Ammy Bha
+do
+   echo "Hello: $name"
+done
+
+-------------
+# while
+
+#!/bin/bash
+
+count=1
+while [ $count -le 5 ]
+do
+   echo "Count: $count"
+   ((count++))
+done   
+
+
+----------------
+# until
+
+
+#!/bin/bash
+
+num=1
+until [ $num -gt 5 ]
+do 
+   echo "Number: $num"
+   ((num++))
+done   
+
+-----
+#!/bin/bash
+# The while loop
+
+counter=1
+
+while [ $counter -le 10 ]
+do
+   echo  $counter
+   ((counter++))
+
+   if [ $counter = $1 ]
+   then
+	break
+   fi
+done
+
+echo "loop exited"
+echo "counter equals $counter"
+
+-----------------------------
+The continue keyword terminates the current loop iteration and returns control back to the top of the loop. 
+In the example, the bottom part of the loop is skipped when the counter is equal to 7. 
+Specifically:
+•The parameter is 7.
+•The if condition is met when counter = 7.
+•When this condition is true, the continue statement is run, and the rest of the loop is skipped.
+•The loop keeps running until counter = 11 (original while condition).
+
+
+#!/bin/bash
+# The continue statement
+
+counter=1
+
+while [ $counter -le 10 ]
+do
+   echo "counter: $counter"
+   
+   if [ $counter = $1 ]
+   then
+     ((counter++))
+     echo "Skipping the rest of the loop for counter=$((counter-1))"
+     continue
+   fi
+   
+   ((counter++))
+   echo "Completed all loop commands"
+done
+
+----------------
+•true and false commands are used with loops to manage their conditions.
+•These commands return predetermined exit status (either a status of true or a status of false).
+•A Boolean expression is an expression that produces avalue or true or false when it is evaluated
+
+
+#!/bin/bash
+while true
+do
+   echo "Enter a number between 1 and 10:"
+   read  val
+   
+   if [ $val -eq 7 ]
+   then
+      echo "You guessed right!"
+      break
+   fi
+
+echo  "Wrong guess!"
+
+done
+
+------------------------------------------
+•Causes script to stop running and exit to the shell.
+•Useful in testing
+•Can return code status. Each code can be associated to a specific error
+•For example:
+	exit 0: The program has completed without any error.
+	exit 1: The program has an error.
+	exit n: The program has a specific error.
+•$? is a command to get the processing status of the last command that ran
+
+
+#!/bin/bash
+touch myfile.txt
+
+if [ $? -eq 0 ]; then
+   echo "File created"
+   exit 0
+else
+	echo  "Error encountered when creating the file"
+exit 1
+fi
+
+
+#!/bin/bash
+if touch myfile.txt; then
+   echo "File Created"
+else
+   echo "File not able cretate"
+fi   
+
+----------------------
+#!/bin/bash
+
+# file will create if there is no file in same name,if same name file available then will get error message
+
+filename='myfile.txt'
+
+if [ -e "$filename" ]; then
+   echo " File '$filename' already exists. Cannot create"
+   exit 1
+else
+   touch "$filename"
+   if [ $? -eq 0   ]; then
+      echo " File '$filename' create sucessfully"
+      exit 0
+   
+   else
+      echo " Error encountered while creating the file"
+      exit 1
+   fi
+fi   
+
+
+-------------------------
+
+Command substitution
+
+•Commands can be placed in the syntax of other commands.
+•Commands are surrounded by backticks (`).
+•Commands can be useful in scripts.
+
+#!/bin/bash
+
+tday=$(date)
+echo "Today: $tday"
+
+#!/bin/bash
+
+file_count=$(ls -l | wc -l)
+echo "There are $file_count files in the current directory"
+
+
+chmod 744 is:
+•Read (r) for the owner, the group of the owner, and others
+•Write (w) for the owner only
+•Execute (x) for the owner only
+•Hence rwxr--r--The second command, chmod u-w, removes the write right for the owner:rwxr--r--becomes r-xr--r--
+
+
+Bash searches for executables by using the $PATH variable. 
+Bash assumes that any runnable command or script will be along that path.
+•If the script is not along the path, then precede the executable name with ./
+•For example, in your home directory, you wrote a script called myscript.sh and you want to run it:
+•myscript.sh fails because Bash does not check your home directory for executables.
+•./myscript.sh succeeds.
+•Be sure to update the settings to persist beyond the current session.
+•Review: A user's profile is loaded from the files that are stored in the user's home directory:
+	•/home/username/.bashrc
+	•/home/username/.bash_history
+	•/home/username/.bash_profile
+
+Running a script in Bash Review this information so that when you run a script in Bash you don’t have any issues.

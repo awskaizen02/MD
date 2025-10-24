@@ -1,0 +1,255 @@
+ Windows - GUI, CLI
+ 
+ Linux - CLI
+
+
+Hardware 
+ MB,
+ ram,
+ cpu,
+ storage -  I/O
+
+
+OS- Linux 
+ 
+ 
+  IS open source
+  	–Code is publicly available,and users can modify and expand it
+  
+  •Supports multiple users and multi-tasking
+  •Is built to handle networking
+  •Provides system tools and utilities
+  
+  
+  AWS cloud -> OS -> AMI -> Amazon Machine Image
+  
+  
+Kernel
+	Provides the core functionality of the operating system
+
+	The kernel refers to the core component of an operatingsystem. 
+	It controls everything in the operating system, including the allocation of CPU time and memory storage to running programs, and access to peripheral devices.
+	
+	The Linux kernel manages the running of multiple applications and the sharing of resources among multiple users. It also controls the interface to the input/output (I/O) devices that are connected to the computer, and it manages files and directories.
+
+Daemons
+	Provide extra support for the system or the user
+	
+	A daemon is computer program that runs in the background and is not under the control of an interactive user. It typically provides a service to other running programs.
+	
+	Examples of daemons include the following:
+	•syslogd: When system or user applications generate messages, the syslogddaemon captures the messages and stores them to a file, which is called a log.
+	•sshd: The sshddaemon handles Secure Shell (SSH) connections to the computer. This type of connection uses encryption to secure the communication between the client and the server
+	
+Applications
+	Include programs such as text editors, web browsers, and databases
+	
+	An application, is a computer program that provides functions that help users perform a type of task or activity. 
+	For example, with a word processor app, users can create and edit text content, and this type of app facilitates document authoring and modification. 
+	Likewise, with a web browser app, userscan access the internet and visit websites.
+	
+Data files
+	Include user content such as text files, music files, and image files
+Configuration files
+	Contain settings for Linux, services, and applications that are stored in text files
+	
+	
+to access Lnux machine using ssh method
+
+puttygen  => helps to convert .pem to .ppk format
+putty  	  => support only .ppk format
+terminal  => can use .pem key format
+
+
+security group
+	ssh	= allow to access linux machine
+	rdp	= allow to access windows machine
+	http	= allow to access internet
+	https	= allow to access internet with secure (certificate)
+	
+	
+transfer the data from windows to linux => winscp	
+
+# https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html
+
+
+.			# current directory (folder)
+..			# parent directory  <folder's before folder>
+cd			# change directory  <from one directory to another directory>
+~			# user local profile <windows, each user have desktop,mydoc,down isolated to another user>
+/			# root directory     < like C drive in windows , os realted files and folders>
+$			# normal user    <limites permission in that system>
+#			# root user	<full access in that system>	
+ls			# to list th file 
+sudo			# super user do < run as administrator in windows>
+su			# switch user < logof and login to another user>
+pwd			# present working directory < to find in which location we are>
+.<folder/file>    	# file or folder start with . is hiden format
+
+cp <source> <destination>     # copy and paste
+cp -r <source> <destination>  # copy and paste with recursive
+mv    <source> <destination>  # move file/folder form source to destination
+mv -f <source> <destination>  # move file/folder form source to destination with force
+mv <old_name> <new_name>      # rename file/fodler	
+rm <file_name>		      # remove the file
+rm -rf			      # remove the folder with recursive
+touch <file_name>	      # to create afile
+mkdir  <folder_name>	      # to create a folder
+mkdir -p <f1/f2/f3 >          # to create a subfolders
+
+cat,more,head,tail	      # to view the files
+
+vi,vim,naon		      # to edit a file
+
+
+[ec2-user@ip-172-31-37-52 ~]$ ls *.txt
+sam.txt   sam3.txt  tim1.txt  tim3.txt  tim5.txt  vam2.txt  vam4.txt
+sam1.txt  sma2.txt  tim2.txt  tim4.txt  vam1.txt  vam3.txt  vam5.txt
+
+[ec2-user@ip-172-31-37-52 ~]$ ls *.sh
+tam1.sh  tam3.sh  tam5.sh  tim2.sh  tim4.sh  vam1.sh  vam3.sh  vam5.sh
+tam2.sh  tam4.sh  tim1.sh  tim3.sh  tim5.sh  vam2.sh  vam4.sh
+
+[ec2-user@ip-172-31-37-52 ~]$ ls t*1*.*
+tam1.py  tam1.sh  tim1.sh  tim1.txt
+
+[ec2-user@ip-172-31-37-52 ~]$ ls t*1*.sh
+tam1.sh  tim1.sh
+
+copy all .sh files into  A1
+copy all .txt files into B2
+copy all .py files into  C3
+
+
+[ec2-user@ip-172-31-37-52 ~]$ cp *.sh A1/
+[ec2-user@ip-172-31-37-52 ~]$ cp *.txt B2
+[ec2-user@ip-172-31-37-52 ~]$ cp *.py C3
+[ec2-user@ip-172-31-37-52 ~]$ ls -R
+
+[ec2-user@ip-172-31-37-52 ~]$ mkdir -p D4/X/Y/Z/
+[ec2-user@ip-172-31-37-52 ~]$ ls D4/
+X
+
+[ec2-user@ip-172-31-37-52 ~]$ ls -R D4/
+D4/:
+X
+
+D4/X:
+Y
+
+D4/X/Y:
+Z
+
+D4/X/Y/Z:
+
+
+cut all .sh files into  Y
+cut all .txt files into Z
+cut all .py files into  X
+
+[ec2-user@ip-172-31-37-52 ~]$ mv *.sh D4/X/Y/
+[ec2-user@ip-172-31-37-52 ~]$ mv *.txt D4/X/Y/Z/
+[ec2-user@ip-172-31-37-52 ~]$ mv *.py D4/X/
+
+[ec2-user@ip-172-31-37-52 ~]$ ls
+A1  AB  B2  C3  Demo-class
+[ec2-user@ip-172-31-37-52 ~]$ sudo su -
+[root@ip-172-31-37-52 ~]# ls
+[root@ip-172-31-37-52 ~]# cd /
+[root@ip-172-31-37-52 /]# ls
+bin   dev  home  lib64  media  opt   root  sbin  sys  usr
+boot  etc  lib   local  mnt    proc  run   srv   tmp  var
+[root@ip-172-31-37-52 /]# exit
+logout
+[ec2-user@ip-172-31-37-52 ~]$ cd /
+[ec2-user@ip-172-31-37-52 /]$ ls
+bin   dev  home  lib64  media  opt   root  sbin  sys  usr
+boot  etc  lib   local  mnt    proc  run   srv   tmp  var
+[ec2-user@ip-172-31-37-52 /]$
+
+[ec2-user@ip-172-31-37-52 ~]$ cat /etc/passwd
+
+[ec2-user@ip-172-31-37-52 ~]$ head /etc/passwd
+
+[ec2-user@ip-172-31-37-52 ~]$ head -2 /etc/passwd
+
+[ec2-user@ip-172-31-37-52 ~]$ tail /etc/passwd
+
+[ec2-user@ip-172-31-37-52 ~]$ tail -2 /etc/passwd
+
+username:password:UID :GID : user name      : user home directory: login shell
+ec2-user:    x   :1000:1000:EC2 Default User:/home/ec2-user      :/bin/bash
+
+
+[ec2-user@ip-172-31-37-52 ~]$ cd Demo-class/X/Y/Z/
+[ec2-user@ip-172-31-37-52 Z]$ pwd
+/home/ec2-user/Demo-class/X/Y/Z
+[ec2-user@ip-172-31-37-52 Z]$ cd ..
+[ec2-user@ip-172-31-37-52 Y]$ cd ..
+[ec2-user@ip-172-31-37-52 X]$ cd ../..
+[ec2-user@ip-172-31-37-52 ~]$ pwd
+/home/ec2-user
+[ec2-user@ip-172-31-37-52 ~]$
+
+root 		: 0
+system 		: 1-999
+normal user 	: 1000 - 60000
+
+
+[ec2-user@ip-172-31-38-81 html]$ uptime
+ 07:18:34 up  2:02,  3 users,  load average: 0.00, 0.00, 0.00
+ 
+[ec2-user@ip-172-31-38-81 html]$ date
+Mon Oct 13 07:18:55 UTC 2025
+
+[ec2-user@ip-172-31-38-81 html]$ timedatectl
+               Local time: Mon 2025-10-13 07:19:38 UTC
+           Universal time: Mon 2025-10-13 07:19:38 UTC
+                 RTC time: Mon 2025-10-13 07:19:38
+                Time zone: n/a (UTC, +0000)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no
+          
+[ec2-user@ip-172-31-38-81 html]$ sudo timedatectl list-timezones
+
+[ec2-user@ip-172-31-38-81 html]$ sudo timedatectl set-timezone Asia/Calcutta
+
+[ec2-user@ip-172-31-38-81 html]$ timedatectl
+               Local time: Mon 2025-10-13 12:51:21 IST
+           Universal time: Mon 2025-10-13 07:21:21 UTC
+                 RTC time: Mon 2025-10-13 07:21:20
+                Time zone: Asia/Calcutta (IST, +0530)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no
+          
+[ec2-user@MB ~]$ echo "hi" > 1.txt
+[ec2-user@MB ~]$ cat 1.txt
+hi
+[ec2-user@MB ~]$ echo "there" >> 1.txt
+[ec2-user@MB ~]$ cat 1.txt
+hi
+there
+
+stdinput  0
+stdoutput 1
+stderror  2
+
+  ./2.sh > output.txt	# move only sucess command into output.txt
+  cat output.txt
+
+  ./2.sh 2> error.txt	# move only error into error.txt
+  cat error.txt
+
+  ./2.sh > of 2>&1	# move all into of1
+  vi of
+  ./2.sh &> of1  	# move all into of1
+  vi of1
+
+  ./2.sh 2> /dev/null  # move error into null
+  
+  [ec2-user@MB ~]$ history
+  
+  [ec2-user@MB ~]$ !101
+ls -la

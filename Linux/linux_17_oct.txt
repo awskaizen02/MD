@@ -1,0 +1,94 @@
+		
+		10:02 = 10:05	
+
+file1 = 541  = u=rx g=4 o=1
+
+file2 = 666  = u=rw g=rw o=rw
+
+file3 = 754  = u=rwx g=rx o=r
+
+file4 = 123  = u=x g=w o=wx
+
+------------------------------------------------
+
+[ec2-user@ip-10-0-10-150 ~]$ sudo usermod -c "ceo" mjackson
+
+[ec2-user@ip-10-0-10-150 ~]$ sudo usermod -c "sample_user for test" mjackson
+
+[ec2-user@ip-10-0-10-150 ~]$ grep mjack /etc/passwd
+mjackson:x:1003:1003:sample_user for test:/home/mjackson:/bin/bash
+
+0
+1
+2
+
+
+
+noclobber variable in linux is used to prevent accidentaly overwriting files  whe redirecting output
+
+set -o noclobber
+
+[ec2-user@ip-10-0-10-150 ~]$ set -o noclobber			// to Enbale noclobber 
+[ec2-user@ip-10-0-10-150 ~]$ echo  "this is testing purpose" > d2
+[ec2-user@ip-10-0-10-150 ~]$ cat d2
+this is testing purpose
+[ec2-user@ip-10-0-10-150 ~]$ echo  "enbaled noclobber" > d2
+-bash: d2: cannot overwrite existing file
+[ec2-user@ip-10-0-10-150 ~]$ set +o noclobber			// to Disabale noclobber
+[ec2-user@ip-10-0-10-150 ~]$ echo  "enbaled noclobber" > d2
+[ec2-user@ip-10-0-10-150 ~]$ cat d2
+enbaled noclobber
+
+[ec2-user@ip-10-0-10-150 ~]$ echo  "even noclobber is enbale possible to overwrite"  >| d2
+
+[ec2-user@ip-10-0-10-150 ~]$ set -o		// to list the current seting
+
+
+st  command in linux is used to change or view shell options and positional parameters
+-o (or) +o turn on or off specific shell behaviours
+
+
+ps -au		// process of all users (a) along with detailed user-oriented information(u)
+
+
+awk is a powerful text processing and pattern scanning tool in linux
+
+awk 'pattern { action } '
+	pattern -> condition to match
+	action  -> what to do when the pattern matches
+	
+[ec2-user@ip-10-0-10-150 ~]$ ps -au | grep ec2-user | awk '{print $1 $2}'
+ec2-user2960
+ec2-user32094
+ec2-user32095
+ec2-user32096
+[ec2-user@ip-10-0-10-150 ~]$ ps -au | grep ec2-user | awk '{print $1 $2 $6}'
+ec2-user29604260
+ec2-user320983996
+ec2-user32099912
+ec2-user321001112
+
+
+
+
+[ec2-user@ip-10-0-10-150 ~]$ ls -l | awk '{print $3, $5 ,$9}'
+
+mjackson 184 companyA
+ec2-user 31 d1
+ec2-user 47 d2
+ec2-user 4096 demo
+
+
+tee command in linux is used to read from standard input and write to both standard output (the screen) and one more file simultaneously
+
+command | teer [option] filename
+
+[ec2-user@ip-10-0-10-150 ~]$ hostname | tee d2
+ip-10-0-10-150.us-west-2.compute.internal
+
+[ec2-user@ip-10-0-10-150 ~]$ cat d2
+ip-10-0-10-150.us-west-2.compute.internal
+
+
+
+sed command is a stream editor used to find, replace , insert,delete or transform text in a file or input stream

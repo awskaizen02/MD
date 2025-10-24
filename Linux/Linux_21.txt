@@ -1,0 +1,448 @@
+LAB = Working with Commands
+
+Managing Linux Processes
+---------------------------
+
+Prior to covering what a process is, you must understand what a program is. 
+	Programs are instructions given to the computer to indicate which actions the computer should take.
+	There are two kinds of programs: 
+		system and application. A systemprogram has the following attributes:
+			•Primal computer functions
+			•Operating system commands 
+			•Usually do not interface with the computer user 
+Utility programs are examples of system programs. An applicationprogram has the following attributes: 
+	•Comprehensive program that performs a specific function
+	•Can be used by a user or another program 
+
+Word processors, database management, and games are examples of application programs.The followingare the two major differences between system and application programs: 
+	•A system program is a native computer function.
+	•An application program is added to the computer.
+	
+program -> a set of functions stored on disk
+process	-> a program that is currently running in memory
+
+
+When a command is run, the system searches the $PATH variable for the executable file for the program corresponding to the command. 
+When the executable is found, the system loads the file into memory, schedules running time for it on the processor, and assigns it a process ID number (PID).Most process administration is done by using this PID. 
+
+
+[ec2-user@ip-10-0-10-32 ~]$ ps
+  PID TTY          TIME CMD
+ 2956 pts/0    00:00:00 bash
+ 3019 pts/0    00:00:00 ps
+ 
+ [ec2-user@ip-10-0-10-32 ~]$ pstree
+ systemd---acpid
+         +-2*[agetty]
+         +-amazon-ssm-agen---8*[{amazon-ssm-agen}]
+         +-atd
+         +-auditd---{auditd}
+         +-chronyd
+         +-crond
+         +-dbus-daemon
+         +-2*[dhclient]
+         +-gssproxy---5*[{gssproxy}]
+         +-irqbalance---{irqbalance}
+         
+When a process runs, it can cycle through various states:
+	1.Start: The process is created.
+	2.Ready: The process is waiting to be assigned processor time.
+	3.Running: The process is in progress. 
+	4.Waiting: The process is waiting for an event.
+	5.Stopped: The process is finished running.
+	
+Some services and applications are complex and require more than one process to provide more functionality. 
+These services spawn child process.
+Child processes can also be known as sub processes. 
+Often, child processes inherit most of the attributes of the parent process. 
+
+What is the pscommand?
+
+The ps (process status)command gives an overview of the current processes that will be running in your operating system (OS). Within this overview, it displays information on the active process that includes the following:
+•Process ID (PID) 
+•Terminal type (TTY) that the user is using 
+•Time that the process has been running
+•Command (CMD), which is the name of the command that launched the process 
+
+You can use the syntax ps [options]command to filter the information of the active processes. 
+Why would you want to use the pscommand?
+Linux is good at running multiple processes at one time. So as a user, you might need to understand what processes are running, how long a process has been running, and what PID a process is under. This information can be useful for troubleshooting purposes to save time and effort. 
+
+Example syntax:
+•ps –ef | grep sshd -> Use the grepoption to filter an exact process. 
+
+[ec2-user@ip-10-0-10-32 ~]$ ps -ef | grep sshd
+root      2310     1  0 04:45 ?        00:00:00 /usr/sbin/sshd -D
+root      2937  2310  0 04:46 ?        00:00:00 sshd: ec2-user [priv]
+ec2-user  2955  2937  0 04:46 ?        00:00:00 sshd: ec2-user@pts/0
+root      3034  2310  0 05:00 ?        00:00:00 sshd: ec2-user [priv]
+ec2-user  3052  3034  0 05:00 ?        00:00:00 sshd: ec2-user@pts/1
+ec2-user  3121  2956  0 05:05 pts/0    00:00:00 grep --color=auto sshd         
+
+In this  example, find the sshd process in the p soutput. 
+If you have multiple running processes, which can be pages long, you can use this command to filter to find an exact process.
+•ps-ef| less ->You can use the lessoption to display all processes in a page-by-page formatHow to display all processes
+
+[ec2-user@ip-10-0-10-32 ~]$ ps -ef | less
+
+•ps –ef-> Don’t use any option to display all processes.
+
+[ec2-user@ip-10-0-10-32 ~]$ ps -ef
+
+UID	-> USER NAME
+PID	-> PROCESS ID
+PPID	-> PARENT PROCESS ID
+C	-> CPU USAGE
+STIME	-> START TIME
+CMD	-> COMMAND THAT STARTED THE PROCESS
+
+
+ps -eo pid,ppid,cmd --forest
+
+-e	-> 	all processes
+-f	-> 	full format(UID,PID,PPID,CMD)
+-u	->	user-oriented format
+-a	->	All users
+-x	->	include processes not attached to a terminal
+aux	->	combind user, memory,CPU info
+--forest-> 	tree view of process
+
+ps –e-> Displays every current process. –A is an identical option.
+ps –a-> Displays all processes not associated with a terminal. The –Toption displays all processes related to the terminal.
+ps –r-> Restricts to running processes only.
+ps –ef -> Views in full-format listing.
+ps –fp <number> -> Lists processes by PID.
+ps L-> Lists all format specifiers.
+
+
+What is the pidof command?
+	The pidof command shows the PID of the current running program. It is used to print the PID name of a specific program. 
+For example, pidof sshd will show the PID of sshd. 
+
+Why would you want to use the pidof command?
+There are not a lot of options when using pidof because the use of pidof is almost like a set filter. 
+
+Because it searches for a specific PID of a specific running program, you use it when you know exactly what you are looking for to save time. 
+The following is example syntax of how to use this command to run with a specific program: pidof [program]-> pidof sshd or pidof bash. 
+The output will give the PID of either program when the command is run. 
+
+The following are options that you can use with pidof [options]:
+•-s-> Returns only one PID 
+•-c-> Returns only PIDs that are in the same root directory
+•-w-> Shows processes that do not show a command line 
+•-S-> Serves as a separator that is used between PIDs
+
+
+What is the pstree command?
+The pstree command displays the current running processes in a tree format. This command merges identical branches denoted by square brackets [ ] and child processes that are under the parent processes as denoted by curly brackets { }.  
+
+Why would you want to use the pstree command?
+The root of the tree will be either the process, such as system (as used in this example), or init. 
+With in the given process, you can see a process in a hierarchal way to understand what the output is. You can also see the parent and child processes.  
+The following is example syntax of how to use this command to run with a specific program: 
+pstree [options] [pid, user] This slide includes an example of how pstree merges identical branches. 
+In the example on this slide, the process system is shown in tree view. 
+•systemd is the given root of the process.
+•Amazon-ssm-agen is the process.
+•The 8* in front of the 8*[{amazon-ssm-agen}] indicates that there are eight amazon-ssm-agen processes running. 
+•In [{amazon-ssm-agen}] the square brackets [ ] indicate that there is a parent process. And the curly brackets { } indicate that there is a child process.
+
+
+[ec2-user@ip-10-0-10-32 ~]$ pstree
+systemd---acpid
+        +-2*[agetty]
+        +-amazon-ssm-agen---8*[{amazon-ssm-agen}] -> indicate that there is a parent []
+        +-anacron
+        +-atd
+        +-auditd---{auditd}  -> child processes {}
+
+
+The following are common options that you can use with pstree [options]:
+	•-a-> Shows arguments in the command line within the output
+	•-p-> Shows the PID, which will show in decimal numbers inside parentheses after a process name
+	•-c-> Expands identical subtrees (and by default, compacts the tree)
+	•-n-> Sorts by the same parent PID instead of process name
+	
+	
+The top command displays a real-time summary of system performance and utilization and lists the processes and threads active in the system.
+
+What is the top command?
+The top command displays a real-time system summary and information of a running system. It displays information and a list of processes or threads being managed. 
+
+Why would you want to use the top command?
+	•It displays system summary information and a list of processes or threads that the Linux kernel is currently managing.
+	•It provides a limited interactive interface for process manipulation and a more extensive interface for personal configuration. Itencompasses every aspect of operation.
+
+To view or alter different aspects of a running system, use top[option]:
+•-hv -> Use this option for help and to show the version.
+	•The -h option gives you the help section for the top command.
+	•The -v option shows the library version.
+•-b-> Use this option to start in batch mode.
+•This option starts topin batch mode, which is used primarily when sending output from topto other programs or other files. 
+
+
+The top command shows tasks (processes or threads) in one of the following states:
+	•Running is a process that is running on the CPU or present in the run queue.
+	•Sleep is a process that is waiting for an I/O operation to complete.
+	•Stopped is a process that has been stopped by a job control signal or that is being traced.
+	•Zombie is a child process whose parent process has been ended.
+	
+	The output of the top command under Tasks contains this information
+
+CPU values in top are sections that show the various CPU usages throughout the system. 
+These are used to analyze the effectiveness of the system. It is measured in percentages based on the latest interval from the most recent refresh.
+
+•usvalue-Time spent running processes in user space
+•syvalue-Time spent running kernel space processes
+•idvalue-Idle time
+•wavalue-Time waiting for I/O to complete
+•hivalue-Time handling hardware problems
+•sivalue-Time handling software problems
+•stvalue-Time lost waiting for other CPU processes to complete
+	
+	
+There are three major memory uses and swaps in top:
+•Memory shows the memory usage of the system.
+•Swap space is used like random access memory (RAM) in a hard disk.
+•RAM usage gets close to full, and regions that are used less frequently are written over to swap space, where they wait until retrieved. 
+Information is viewed at the top of the page after running top.
+The value KiB stands for kibibytes, can be expresses as exbibytes (EiB) based on scaling, and can be enforced with the E option. 
+KiB Memshows the physical memory and shows how much is free, used, and buff or cache.
+KiB Swap shows virtual memory and shows how much is free, used, and available. (The available memory here is physical memory.)
+The output of the top command under KiB Mem and KiB Swap contains this information.
+
+
+
+What is the kill command?
+•It explicitly ends processes usually when the process fails to quit on its own.
+
+Why would you want to use the kill command?
+•If you’ve ever tried to close a program and it doesn’t close but freezes instead, you might have used Task Manager to end the program. 
+This command is very similar to that experience. The following are kill command signals that you can use:
+•-9 SIGKILL–Stops any process immediately
+•-15 SIGTERM–Exits without immediately terminating
+•-19 SIGSTOP–Pauses the process and can use the command line
+
+Note that the name of the kill command will be changed in the future
+	
+[ec2-user@ip-10-0-10-32 ~]$ sleep 100 &
+[1] 3290
+[ec2-user@ip-10-0-10-32 ~]$ ps
+  PID TTY          TIME CMD
+ 2956 pts/0    00:00:00 bash
+ 3290 pts/0    00:00:00 sleep
+ 3291 pts/0    00:00:00 ps
+
+[ec2-user@ip-10-0-10-32 ~]$ kill -9 3290
+[ec2-user@ip-10-0-10-32 ~]$ ps
+  PID TTY          TIME CMD
+ 2956 pts/0    00:00:00 bash
+ 3292 pts/0    00:00:00 ps
+[1]+  Killed                  sleep 100
+[ec2-user@ip-10-0-10-32 ~]$	
+
+
+
+What is the nice command?
+•It manages processes that are scheduled to be run at specific times on the CPU. The nice command manages the schedule priority.
+•The highest priority for the nice command is -20, and the lowest priority is 19.
+
+Why would you use the nice command?
+It helps with running programs on a schedule with certain priorities. With nice, when a program is given a high priority, the kernel allows more CPU to process that request. 
+
+What is the renice command? 
+It adjusts the priority of a process.
+
+Why would you use the renice command?
+You would use this command when you need to adjust or modify the scheduling priority of a running process. 
+
+
+
+Jobs are processes that users start and manage that are identified by a job number.
+	The jobs command will list the job process number with the following syntax:
+		?bg [job process number or name]to run in the background
+			You use bg %jobnumber to move jobs to the background.
+			
+		?fg [job process number or name]to run in the foreground 
+			fg %jobnumberJobs that run in the background continue to run, but the shell becomes available 
+			
+			to use.
+•You must suspend the job with CTRL+Z first
+
+You use the jobs command to manage these processes.
+
+---------------
+
+This command runs a task once at a specified time.
+•This command is used for one-time tasks, for example, running a backup script at 4 PM today only.
+•To display a scheduled job, use the at – loption. 
+•To delete a scheduled job, use the at rm [number]command.
+
+
+at command --> schedule a one-tme task
+	at is used to schedule a command to run once at a speific time in the future
+	
+	at [time]
+	
+at 10:10
+	echo "Backup" >> /home/ec2-user/backup.log
+	
+	to save Ctrl+D
+	
+[ec2-user@ip-10-0-10-188 ~]$ at 12:01
+at> echo "this is demo line need to pirint to chk the at command" >/home/ec2-user/test
+at> <EOT>
+job 3 at Tue Oct 21 12:01:00 2025
+
+[ec2-user@ip-10-0-10-188 ~]$ at -l
+1       Tue Oct 21 12:00:00 2025 a ec2-user
+3       Tue Oct 21 12:01:00 2025 a ec2-user
+
+[ec2-user@ip-10-0-10-188 ~]$ at now + 5 minutes
+at> ls
+at> <EOT>
+job 4 at Tue Oct 21 06:20:00 2025
+
+[ec2-user@ip-10-0-10-188 ~]$ atq
+1       Tue Oct 21 12:00:00 2025 a ec2-user
+3       Tue Oct 21 12:01:00 2025 a ec2-user
+4       Tue Oct 21 06:20:00 2025 a ec2-user
+
+[ec2-user@ip-10-0-10-188 ~]$ atrm 1
+
+[ec2-user@ip-10-0-10-188 ~]$ atq
+3       Tue Oct 21 12:01:00 2025 a ec2-user
+4       Tue Oct 21 06:20:00 2025 a ec2-user	
+	
+
+
+This command runs a task on a regular basis at a specified time.
+•This command is used for repetitive tasks, for example, running backup scripts on a weekly basis at 4 PM.
+•This command maintains the list of tasks to run in a crontabfile	
+
+
+Creates the crontab file that holds the commands and steps that the cron daemon will run
+Can also be used to list, modify, or delete the crontab file
+•The crontab file format has six fields, which stand for the following:
+	•MIN: Minutes –any value from 0 to 59
+	•HOUR: Hour –any value from 0 to 23
+	•DOM: Day of month –any value from 1-31
+	•MON: Month –any value from 1-12
+	•DOW: Day of week  -any value from 0-6
+	•CMD: Command –any command or path
+	
+•crontab specifies commands or scripts to be run at a specific time, which the user can modify. 
+•The crondaemon can check the file each minute for scheduled tasks, and cron will run these tasks. 
+•These commands and steps are stored in the crontab file that holds the commands and steps that the cron daemon will run. 	
+
+Why would youuse it?
+•This command is useful for regularly scheduled backups, clean-up scripts, scripts to rotate log files, or reminder messages.
+
+
+# https://crontab.guru/#0_0_1_*_*
+
+[ec2-user@ip-10-0-10-188 ~]$     crontab -e
+crontab: installing new crontab
+[ec2-user@ip-10-0-10-188 ~]$ crontab -l
+0 0 1 * *  ls
+0 13 * * * ls -ld /etc
+[ec2-user@ip-10-0-10-188 ~]$ crontab -r
+[ec2-user@ip-10-0-10-188 ~]$ crontab -l
+no crontab for ec2-user
+
+
+[ec2-user@ip-10-0-10-188 ~]$ cd companyA/
+[ec2-user@ip-10-0-10-188 companyA]$ pwd
+/home/ec2-user/companyA
+[ec2-user@ip-10-0-10-188 companyA]$ sudo ps -aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.1  0.5 123628  5480 ?        Ss   06:08   0:01 /usr/lib/systemd/s
+root         2  0.0  0.0      0     0 ?        S    06:08   0:00 [kthreadd]
+root         3  0.0  0.0      0     0 ?        I    06:08   0:00 [kworker/0:0]
+
+[ec2-user@ip-10-0-10-188 companyA]$ sudo ps -aux | grep -v root | sudo tee SharedFolders/processes.csv
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+
+[ec2-user@ip-10-0-10-188 companyA]$ cat SharedFolders/processes.csv
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+dbus      1710  0.0  0.4  58356  4284 ?        Ss   06:08   0:00 /usr/bin/dbus-daem
+
+
+
+tee	-> read from STI and write into file  output
+sort	-> sort the output
+sed	-> text substitution or editig
+cut	-> extract columns or characters
+
+head	-> show first N lines
+tail	-> show last  N files
+awk 	-> processing column/field
+at	-> to run a job in specific time, one time
+crontab -> to run a job in specific time, repeat every time
+top	-> dynamic view of system process/performance o monitor process and recource usage
+grep	-> used to search for specific patterns within file[global regular exression print]
+find	-> search for file, directry based on name,type,size,modificaton time
+ps	-> process status , to view active process
+pid  	->  process ID a unique number assigned to each runng process
+ppid	-> parent process ID 
+ps aux	->
+	-> a : show process for all users
+	   u : display user-oriented format
+	   x : include processes not attached to a terminal
+	   
+kill	-> to send signals to process, mostly used to stop them
+
+kill -9  -> forceful termination , imedate action
+kill -19 -> pause the process
+kill -15 ->  graceful termination 
+
+uniq 	-> remmove duplicate
+
+
+hash 	-> manage hash table of command paths to speep up comand execution
+
+pipe | 	-> multiple commands   (output of one command and sends it as input to next command)
+
+tar , zip ,tar.gz  -> compress the file and files
+
+diff 	-> comparing differece in the file 
+cksum	-> chk the size of the object in both source and destination
+
+chmod		-> change the permission to the file/fodler
+chown		-> change the owner or group for fie/fodler 	
+groupadd	-> to create a secondary group	
+gpasswd		-> add user into group
+
+visudo
+user1 ALL=ALL	NOPASSWD: ALL		# wont ask password when using sudo command
+user2 ALL=ALL	ALL			# ask password when using sudo command
+
+
+
+adding user3 into wheel group		# ask password when using sudo command, user3 will get same permission what wheel have
+
+ls -r  = reverse
+ls -R  = vide files insde the subdirectory
+
+cp	= copy
+
+mv	= move
+mv	= rename
+
+touch	= create file
+
+mkdir	= create fodler
+
+rm	= remove file
+
+su user1	= swith user without starting a login shell
+ec2-user  $ su - user1
+user1 ec2-user $ 
+	switch to the user but retains the current environment(path,home)
+	get the users shell, but not their full login environment
+	useful for quick command execution as another user
+
+su - user1	=  switch user and simulate a full login
+		loads the users enviornmen completely (path,home)
+		recommended when you want to fully act as that user
+

@@ -1,0 +1,123 @@
+hash command is used to remember the full path of commands that have been executed
+
+ hash
+    7  hash -d tar
+    8  hash
+    9  hash -r
+   10  hash
+   11  ls
+   12  ls -lha
+   13  ls /etc
+   14  hash
+   15  mkdir 123
+   16  hash
+   17  mkdir 1231
+   18  hash
+   19  hash -ls
+   20  hash -d ls
+   21  hash
+   22  hash -l
+   23  hash --help
+   24  man hash
+   25  hash -p /usr/local/bin/ncmd ncmd
+   26  hash
+   27  hash -p /usr/bin/ls ls
+
+full form for cksum is checkcum
+used to mesaure the size of the file using CRC(cyclic Redundancy Check)
+verify data integrity
+detach file corruption after copying or transission
+
+[ec2-user@ip-10-0-10-188 etc]$ cksum yum.conf
+2360430524 862 yum.conf
+
+
+2360430524  -> CRC checksum
+862	    -> file szie in bytes
+yum.conf    -> file_name
+
+
+The findcommand searches a designated directory for files that match specific criteria
+•Can search by:
+	–Owner–File 
+	name–File 
+	size–File 
+	modification date
+•Can specify which directories to search to narrow the scope
+•Can specify an action to take when the file is found
+
+
+[ec2-user@ip-10-0-10-188 ~]$ find /home -name "Salary.csv"
+/home/ec2-user/CompanyA/Finance/Salary.csv
+
+
+[ec2-user@ip-10-0-10-188 ~]$ sudo find /etc -type f -size +1M
+/etc/selinux/targeted/contexts/files/file_contexts.bin
+/etc/selinux/targeted/policy/policy.31
+/etc/selinux/targeted/active/policy.kern
+/etc/selinux/targeted/active/policy.linked
+/etc/udev/hwdb.bin
+
+[ec2-user@ip-10-0-10-188 ~]$ ls -l demo_sum
+-rw-rw-r-- 1 ec2-user ec2-user 49 Oct 16 06:26 demo_sum
+[ec2-user@ip-10-0-10-188 ~]$ find /home -type f -perm 664
+/home/ec2-user/CompanyA/Management/salary.txt
+/home/ec2-user/123/salary
+/home/ec2-user/demo_sum
+
+[ec2-user@ip-10-0-10-188 ~]$ find /home -type f -name "*.txt" -exec rm {} \;
+
+[ec2-user@ip-10-0-10-188 ~]$ find /home -type f -perm 664
+/home/ec2-user/123/salary
+/home/ec2-user/demo_sum
+
+[ec2-user@ip-10-0-10-188 ~]$ ls 
+123  1231  CompanyA  demo_sum
+
+[ec2-user@ip-10-0-10-188 ~]$ find . -type d -empty -delete
+
+[ec2-user@ip-10-0-10-188 ~]$ ls 
+123  CompanyA  demo_sum
+
+
+Link is reference pointer to another file/directory
+	hard link -> second name for the same file data (shares same inode)
+		points directly to the file's inode(the actual data)
+		even if he original file is deleted, data remains accessible via hard link
+		works only within the same filesystem
+		cannot link to directories
+		
+	Symbolic link (or) soft link -> a shortcout ,pointing to another file or path
+		point to the file_name/path, not the inode
+		if the target file is deleted, the soft link becomes broken(work like short ccut)
+		can link to directories or files , across filesystems
+		
+[ec2-user@ip-10-0-10-188 ~]$ ln 1 1_hard   // to create hard link
+[ec2-user@ip-10-0-10-188 ~]$ ls -l         // cannot fine any symbol
+total 16
+-rw-rw-r-- 2 ec2-user ec2-user  81 Oct 16 06:47 1
+drwxrwxr-x 2 ec2-user ec2-user  20 Oct 16 06:32 123
+-rw-rw-r-- 2 ec2-user ec2-user  81 Oct 16 06:47 1_hard
+-rw-rw-r-- 1 ec2-user ec2-user 255 Oct 16 06:48 2
+drwxr-xr-x 6 ec2-user root      66 Oct 16 06:43 CompanyA
+-rw-rw-r-- 1 ec2-user ec2-user  49 Oct 16 06:26 demo_sum
+[ec2-user@ip-10-0-10-188 ~]$ ln -s 2 2_soft   // to create soft link
+[ec2-user@ip-10-0-10-188 ~]$ ls -l	     // can find l symbol which refers soft link		
+total 16
+-rw-rw-r-- 2 ec2-user ec2-user  81 Oct 16 06:47 1
+drwxrwxr-x 2 ec2-user ec2-user  20 Oct 16 06:32 123
+-rw-rw-r-- 2 ec2-user ec2-user  81 Oct 16 06:47 1_hard
+-rw-rw-r-- 1 ec2-user ec2-user 255 Oct 16 06:48 2
+lrwxrwxrwx 1 ec2-user ec2-user   1 Oct 16 06:56 2_soft -> 2
+drwxr-xr-x 6 ec2-user root      66 Oct 16 06:43 CompanyA
+-rw-rw-r-- 1 ec2-user ec2-user  49 Oct 16 06:26 demo_sum
+
+[ec2-user@ip-10-0-10-188 ~]$ ls -i      // to find the inode id  (hard_link same-id, soft_libnk diff_id)
+12688204 1    12688204 1_hard  12688199 2_soft    12588692 demo_sum
+  413909 123  12688205 2        4913275 CompanyA		
+  
+  
+Tar used to compress (Tape ARchive)
+.tar,.tar.gz,tgz)
+
+tar -cvf  name_of_tar.tar  file_1 file_ folder/

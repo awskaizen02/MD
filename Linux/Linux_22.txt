@@ -1,0 +1,500 @@
+Managing services on Linux
+
+linux uses serice managers like systemd,upstart to control background services(daemons)
+
+systemd based systems (ubuntu 16.04+ , centos7+, debian 8+)
+
+systemctl 
+
+
+The following is the syntax of the systemctl command: systemctl<subcommand> <service name>.
+•The following are common trouble shooting tasks if services aren't working correctly:
+•Restart after any configuration change.
+•Restart when trouble shooting.
+•The systemctl command has many subcommands, including status, start, stop, restart, enable, and disable.
+•Services provide functionality such as networking, remote administration, and security.
+systemctl You can also use the service command to manage services, but systemctl has more options and features.
+
+
+systemctl -> status, start,stop,enable, disable
+
+services  ->  status, start,stop,enable, disable
+
+systemctl status httpd
+systemctl start httpd
+systemctl enable httpd
+
+
+
+After installing httpd(yum install httpd), 
+the sudo systemctl status httpd command 
+shows you that the service is not started or activated 
+(to start the system at boot time) The sudo systemctl start httpd command starts the service.
+The sudo systemctl enable httpd command activates the service so that it is available after restarting the machine
+
+
+sudo systemctl status httpd		# check the status of the service
+sudo systemctl enable httpd		# this command helps to start after reboot the service
+sudo systemctl start httpd 		# this command helps to start the service
+
+
+[ec2-user@ip-172-31-48-253 ~]$ rpm -q httpd
+package httpd is not installed
+
+[ec2-user@ip-172-31-48-253 ~]$ sudo yum install httpd -y
+
+[ec2-user@ip-172-31-48-253 ~]$ sudo systemctl status httpd
+? httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; preset: disa>
+     Active: inactive (dead)
+       Docs: man:httpd.service(8)
+
+[ec2-user@ip-172-31-48-253 ~]$ curl localhost
+curl: (7) Failed to connect to localhost port 80 after 0 ms: Could not connect to server
+
+[ec2-user@ip-172-31-48-253 ~]$ sudo systemctl start httpd
+
+[ec2-user@ip-172-31-48-253 ~]$ curl localhost
+<html><body><h1>It works!</h1></body></html>
+
+[ec2-user@ip-172-31-48-253 ~]$ sudo systemctl status httpd
+? httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; preset: disa>
+     Active: active (running) since Wed 2025-10-22 04:25:35 UTC; 9s ago
+       Docs: man:httpd.service(8)
+   Main PID: 25408 (httpd)
+     Status: "Total requests: 1; Idle/Busy workers 100/0;Requests/sec: 0.111; Byte>
+      Tasks: 177 (limit: 1053)
+     Memory: 13.5M
+        CPU: 76ms
+     CGroup: /system.slice/httpd.service
+             +-25408 /usr/sbin/httpd -DFOREGROUND
+             +-25409 /usr/sbin/httpd -DFOREGROUND
+             +-25410 /usr/sbin/httpd -DFOREGROUND
+             +-25411 /usr/sbin/httpd -DFOREGROUND
+             +-25412 /usr/sbin/httpd -DFOREGROUND
+             
+[ec2-user@ip-172-31-48-253 ~]$ history
+    1  clear
+    2  rpm -q httpd
+    3  sudo yum install httpd -y
+    4  sudo systemctl status httpd
+    5  curl localhost
+    6  sudo systemctl start httpd
+    7  curl localhost
+    8  sudo systemctl status httpd
+    9  sudo init 6
+   10  history
+[ec2-user@ip-172-31-48-253 ~]$ rpm -q httpd
+httpd-2.4.65-1.amzn2023.0.1.x86_64
+
+[ec2-user@ip-172-31-48-253 ~]$ sudo systemctl status httpd
+? httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; preset: disa>
+     Active: inactive (dead)
+       Docs: man:httpd.service(8)
+       
+[ec2-user@ip-172-31-48-253 ~]$ sudo systemctl enable httpd
+Created symlink /etc/systemd/system/multi-user.target.wants/httpd.service ? /usr/lib/systemd/system/httpd.service.
+
+[ec2-user@ip-172-31-48-253 ~]$ sudo systemctl status httpd
+? httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disab>
+     Active: inactive (dead)
+       Docs: man:httpd.service(8)
+
+[ec2-user@ip-172-31-48-253 ~]$ sudo systemctl start httpd             
+
+[ec2-user@ip-172-31-48-253 ~]$ sudo systemctl status httpd
+? httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disab>
+     Active: active (running) since Wed 2025-10-22 04:28:56 UTC; 55s ago
+       Docs: man:httpd.service(8)
+   Main PID: 1753 (httpd)
+     Status: "Total requests: 0; Idle/Busy workers 100/0;Requests/sec: 0; Bytes se>
+      Tasks: 177 (limit: 1053)
+     Memory: 18.1M
+        CPU: 147ms
+     CGroup: /system.slice/httpd.service
+             +-1753 /usr/sbin/httpd -DFOREGROUND
+             +-1801 /usr/sbin/httpd -DFOREGROUND
+             +-1802 /usr/sbin/httpd -DFOREGROUND
+             +-1803 /usr/sbin/httpd -DFOREGROUND
+             +-1804 /usr/sbin/httpd -DFOREGROUND
+             
+[ec2-user@ip-172-31-48-253 ~]$ sudo init 6      // enabe the service the reboot the server, httpd by default start and active
+
+[ec2-user@ip-172-31-48-253 ~]$ sudo systemctl status httpd
+? httpd.service - The Apache HTTP Server
+     Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled; preset: disab>
+     Active: active (running) since Wed 2025-10-22 04:30:41 UTC; 21s ago
+       Docs: man:httpd.service(8)
+   Main PID: 1440 (httpd)
+     Status: "Total requests: 0; Idle/Busy workers 100/0;Requests/sec: 0; Bytes se>
+      Tasks: 177 (limit: 1053)
+     Memory: 18.5M
+        CPU: 93ms
+     CGroup: /system.slice/httpd.service
+             +-1440 /usr/sbin/httpd -DFOREGROUND
+             +-1441 /usr/sbin/httpd -DFOREGROUND
+             +-1442 /usr/sbin/httpd -DFOREGROUND
+             +-1445 /usr/sbin/httpd -DFOREGROUND
+             +-1464 /usr/sbin/httpd -DFOREGROUND
+
+[ec2-user@ip-172-31-48-253 ~]$ systemctl
+  UNIT                                                                      LOAD  >
+  boot-efi.automount                                                        loaded>
+  proc-sys-fs-binfmt_misc.automount                                         loaded>
+  sys-devices-pci0000:00-0000:00:04.0-nvme-nvme0-nvme0n1-nvme0n1p1.device   loaded>
+  sys-devices-pci0000:00-0000:00:04.0-nvme-nvme0-nvme0n1-nvme0n1p127.device loaded>
+
+             
+[ec2-user@ip-172-31-48-253 ~]$ systemctl list-units --type=service
+  UNIT                                                  LOAD   ACTIVE SUB     DESC>
+  acpid.service                                         loaded active running ACPI>
+  amazon-ssm-agent.service                              loaded active running amaz>
+  atd.service                                           loaded active running Defe>             
+             
+[ec2-user@ip-172-31-48-253 ~]$ systemctl list-units --type=service --state=active
+  UNIT                                                  LOAD   ACTIVE SUB     DESC>
+  acpid.service                                         loaded active running ACPI>
+  amazon-ssm-agent.service                              loaded active running amaz>
+  atd.service                                           loaded active running Defe>             
+             
+monitoring 
+
+lscpu		List CPU information
+lshw		List hardware 
+du		Check file and directory sizes
+df 		Display disk size and free space
+fdisk		List and modify partitions on the hard drive
+vmstat		Indicate use of virtual memory
+free		Indicate use of physical memory
+top		Display system’s processes and resource usage
+uptime		Indicate the amount of time that the system has been up, number of users, and central processing unit (CPU) wait time    
+
+
+
+
+
+[ec2-user@ip-172-31-48-253 ~]$ lscpu		// List CPU information
+Architecture:                x86_64
+  CPU op-mode(s):            32-bit, 64-bit
+  Address sizes:             46 bits physical, 48 bits virtual
+  Byte Order:                Little Endian
+CPU(s):                      2
+  On-line CPU(s) list:       0,1
+Vendor ID:                   GenuineIntel
+  Model name:                Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz
+    CPU family:              6
+    Model:                   85
+    Thread(s) per core:      2
+    Core(s) per socket:      1
+    Socket(s):               1
+    Stepping:                7
+    BogoMIPS:                4999.99
+    
+[ec2-user@ip-172-31-48-253 ~]$ df	// Display disk size and free space
+Filesystem       1K-blocks    Used Available Use% Mounted on
+devtmpfs              4096       0      4096   0% /dev
+tmpfs               463276       0    463276   0% /dev/shm
+tmpfs               185312     436    184876   1% /run
+/dev/nvme0n1p1     8310764 1668880   6641884  21% /
+tmpfs               463280       0    463280   0% /tmp
+/dev/nvme0n1p128     10202    1314      8888  13% /boot/efi
+tmpfs                92652       0     92652   0% /run/user/1000    
+
+
+
+[ec2-user@ip-172-31-48-253 ~]$ top  	// Display system’s processes and resource usage
+top - 04:41:53 up 11 min,  1 user,  load average: 0.00, 0.00, 0.00
+Tasks: 104 total,   1 running, 103 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :    904.8 total,    502.6 free,    184.7 used,    217.5 buff/cache
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.    590.4 avail Mem
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    832 root      20   0       0      0      0 I   0.3   0.0   0:00.03 kworker/0:
+
+[ec2-user@ip-172-31-48-253 ~]$ sudo yum install htop -y    
+
+[ec2-user@ip-172-31-48-253 ~]$ htop    // Display system’s processes and resource usage in colourfull way
+
+[ec2-user@ip-172-31-48-253 ~]$ sudo yum install lshw -y
+
+[ec2-user@ip-172-31-48-253 ~]$ lshw
+WARNING: you should run this program as super-user.
+ip-172-31-48-253.us-west-2.compute.internal
+    description: Computer
+    width: 64 bits
+
+[ec2-user@ip-172-31-48-253 ~]$ du /etc/  // to chkec the file and directory size
+0       /etc/sysconfig/console
+0       /etc/sysconfig/modules
+8       /etc/sysconfig/network-scripts
+92      /etc/sysconfig
+
+
+fdisk - partition table Manipulation tool
+the fdisk command is used to view, create, delete or modify disk partitions on linux systems
+it works with MBR(Master Boot Record)
+
+
+[ec2-user@ip-172-31-48-253 ~]$ sudo fdisk -l
+Disk /dev/nvme0n1: 8 GiB, 8589934592 bytes, 16777216 sectors
+Disk model: Amazon Elastic Block Store
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Disklabel type: gpt
+Disk identifier: 4B1AB502-3553-42DE-8FD4-833973E12268
+
+Device           Start      End  Sectors Size Type
+/dev/nvme0n1p1   24576 16777182 16752607   8G Linux filesystem
+/dev/nvme0n1p127 22528    24575     2048   1M BIOS boot
+/dev/nvme0n1p128  2048    22527    20480  10M EFI System
+
+Partition table entries are not in disk order.
+
+vmstat - virtual memory statistics
+vmstat command display real-time performance data about
+	cpu usage
+	memory(RAM, swap)
+	Prcesses
+	Disk I/O
+	System paging
+	
+
+[ec2-user@ip-172-31-48-253 ~]$ vmstat
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0      0 480544   2168 241752    0    0    84    22   38   72  0  0 99  0  0
+
+
+
+[ec2-user@ip-172-31-48-253 ~]$ free		// ram usage
+               total        used        free      shared  buff/cache   available
+Mem:          926556      202276      480304         812      243976      585856
+Swap:              0           0           0
+
+
+[ec2-user@ip-172-31-48-253 ~]$ uptime
+ 04:56:42 up 26 min,  1 user,  load average: 0.00, 0.00, 0.00
+ 
+ 
+ ---
+ AWS Cloud Watch monitors the health and performance of your AWS resources and applications.
+ 	•It offers monitoring of Amazon Elastic Compute Cloud (Amazon EC2) instances, such as CPU usage, disk reads, and writes.
+ 	•You can create alarms. For example, when CPU usage exceeds a certain threshold, a notification is sent through Amazon Simple Notification Service (Amazon SNS)
+ 	
+ Amazon Elastic Compute Cloud (Amazon EC2) is an AWS compute service that you can use to create secure and scalable virtual computing resources.
+ Amazon Simple Notification (Amazon SNS) is a notification service that you can use to send messages to other AWS services or to individuals through email and SMS.
+ The screen capture demon strates the monitoring on an EC2 instance, but Amazon CloudWatch can monitor many other AWS services.
+
+
+
+http server running on 80 port chnage the configuration 80 to 8080 , need to restart the service then only 8080 port will work .no need to restart the server
+
+
+complete Lab => before 11:30 am
+
+
+------------------------------------------
+
+Bash Shell
+
+what is a linux shell?
+	 A shell in linux is a command-line interface (CLI) that allows users to interact with the operating system by typing commands
+	 It acts as a bridge b/w the user and the kernal, interpreting the commands entered by the user and executing them
+	 
+	 there are different types of shelles in linux
+	 	sh (Bourne shell)
+	 	csh (c shell)
+	 	ksh (korn shell)
+	 	bash (Bourne Again Shell)
+	 	zsh (z shell)
+
+what is Bash?
+	Bash (Bourne Again Shell) is the default shell on most linux distributions
+	it is an enhanced version of the original (Bourne Shell) sh , developed by Brian Fox for the GNU project
+	
+	command editing and history (up arrow , down arrow)
+	command completion (using tab to auto-complete)
+	scripting capabilites using variables , loops and conditions
+	input/output redirection and piping
+	Aliases and functions for automation
+
+•A shell accepts and interprets commands.
+•A shell is an environment in which commands, programs, and shell scripts are run.
+•There are many types of Linux shells available. Bash is one of them, and this section discusses it further
+
+
+This section explains what Bash shell variables are, how to name them,what the rules are for writing them, and how to assign a value to them
+
+
+Shell variables
+---------------
+
+In a shell, a variable is used to store values. A variable value can be a string, a number, or special characters; by default, variables are strings
+
+Variables are character strings to which you can assign a value; 
+a value can be assigned as a number, text, file name, device, or other data type. 
+Variables are a symbolic label for a portion of memory used to assign values and read and manipulate contents.
+Scripts or other commands can call shell variables. 
+The values that these shell variables represent are then substituted into the script or command.
+
+name = "Ram"
+contact = 8939987456
+
+echo $name
+
+[ec2-user@ip-172-31-48-253 ~]$ name="ram"
+[ec2-user@ip-172-31-48-253 ~]$ echo $name
+ram
+
+
+There are rules for defining or creating variables in the shell.
+When defining a variable, the variable name must be prefixed with the dollar ($) symbol.
+The variable must contain no spaces or special characters within the variable name. 
+A variable name can contain only letters (a to z or A to Z), numbers (0 to 9), or the underscore character ( _), and they are usually capitalized (e.g. VARIABLE).
+
+
+Naming variables in Bash can be difficult, but if you name variables properly, it is useful.  
+Good variable names are crucial; they assist in making sense of what the variable is used for and the readability of the variable. 
+It is good practice to be consistent in your naming pattern. 
+Unhelpful, confusing, or vague variable names can contribute to the disconnect between a variable and its value.
+The variable names on this slideare examples of a few good and a few bad variable names
+
+
+ by default, all variables are treated as strings, even if a variable is assigned to a number. 
+ Variables are assigned by using the = operator. 
+ There is no space between the variable name and the value.
+ 
+ 
+ To display the value of a variable, use the echo $VARIABLE_NAME.
+ Also use the echo command to view the output from environment variables or system-wide variables.
+ 
+ Environment variables:
+ ----------------------
+ 	Environment variables  are dynamic valus that affect te befaviour or process and programs in the Linux system. they act like global settings that the shell and other applications can access to determine how they should run
+ 	
+Global (Environment) : Available to all child process
+Local (Shell)        : Only available in the current shell session 
+ 
+ Environment variables are structurally the same as shell variables; they are no different from each other. 
+ Both use the key-value pair, and they are separated by the equal (=) sign.   
+ Environment variables are system wide, and all child processes and shells inherit them. 
+ With environment variables, you can pass information about the current operating environment to a program running. Finally, applications and daemons referencee nvironment variables as needed.
+
+
+variable = container for storing data
+Assign with = ,access with $
+use unset to remove
+export makes it global (environment variables)
+can store command outputs and user input
+
+
+[ec2-user@ip-172-31-48-253 ~]$ $PATH
+-bash: /home/ec2-user/.local/bin:/home/ec2-user/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin: No such file or directory
+
+[ec2-user@ip-172-31-48-253 ~]$ $SHELL
+
+[ec2-user@ip-172-31-48-253 ~]$ $USER
+bash: ec2-user: command not found
+
+[ec2-user@ip-172-31-48-253 ~]$ $HOME
+bash: /home/ec2-user: Is a directory
+
+[ec2-user@ip-172-31-48-253 ~]$ echo $HOME
+/home/ec2-user
+
+[ec2-user@ip-172-31-48-253 ~]$ echo $PATH
+/home/ec2-user/.local/bin:/home/ec2-user/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin
+
+In Bash, for example, the output for the $HOME environment variable will display the user's home directory
+
+$PATH is anenvironment variablethat specifies a set ofdirectorieswhere executable programs are located. In general, each runningprocessoruser sessionhas its own PATH setting
+
+ At the command prompt, enter the echo command and an environment variable from the following list:
+ •echo $HOME
+ •echo $SHELL
+ •echo $USER
+ •echo $PATH
+ 
+ 
+ The env command is a shell command for Linux. 
+ You use this command to print a list of environment variables or run another utility in an altered environment.
+
+
+The /etc/profile file contains system-wide environment configurations and startup scripts for login setup. 
+The command line prompt is set within this file. 
+All configurations that you want to apply to all system users’ environments should be added to this file.
+When you log in, Bash reads the /etc/profile instructions. 
+The /etc/profile file usually sets the shell variables PATH, USER, HOSTNAME, etc.
+
+The /etc/bashrc file contains system-wide functions and aliases, including other configurations that apply to all system users
+
+
+login shell:
+	invoked when you login via console,ssh or  explicity with bash login
+	
+	/ect/profile: system-wide settings for all users
+	~/.bash_profile ,~/.bash_login,~/.profile: user-specific settings
+	
+this files typically set environment variables, PATH and run user-specific startup commands	
+
+Non-login interactive shell:
+	invoked when you open terminal emulator or run bash without login
+	
+	~/.bashrc: contains user-specific aliases.functions and shell options
+	
+login shell => 	/ect/profile,~/.bash_profile 	[ssh user@ipadderss]
+Non-login   => 	~/.bashrc			[opening GNOME terminal]
+
+
+Steps to view the .bashrc
+1.Open the Bash shell in a Linux environment. 
+2.At the command prompt, enter the ls -a command to view hidden files.
+3.Enter the cat .bashrc command to display the content of the file.
+
+Steps to view the /etc/profile (/ect/)
+1.At the command prompt, enter cd /etc
+2.Enter ls to see the profilefile
+3.Enter the cat profile commandto view the content of the file
+
+
+[ec2-user@ip-172-31-48-253 ~]$ alias h1='history'
+[ec2-user@ip-172-31-48-253 ~]$ h1
+    1  clear
+    2  rpm -q httpd
+    3  sudo yum install httpd -y
+    4  sudo systemctl status httpd
+    5  curl localhost
+    6  sudo systemctl start httpd
+    7  curl localhost
+    8  sudo systemctl status httpd
+    9  sudo init 6
+   10  history
+   
+   By using aliases,you can define new commands by substitutinga long command with a short one. 
+   Aliases can be set temporarily in the current shell, but it is more common to set them in the user's .bashrc file so that they are permanent.
+   
+   In the example, h1 is often substituted or aliased to history 
+   
+   Extra: In many distributions, you can create an alias of destructive commands—such as rm, cp, and mv —with the -i interactive option.
+
+
+[ec2-user@ip-172-31-48-253 ~]$ unalias h1
+
+[ec2-user@ip-172-31-48-253 ~]$ h1
+bash: h1: command not found
+
+The unalias command removes the configured alias if it is not configured in the .bashrc file.
+In the example, the unalias command is used to remove the new alias that was created earlier.
+
+[ec2-user@ip-172-31-48-253 ~]$ vi .bashrc
+
+alias update='sudo yum update'
+
+
+5 minutes to complete the KC - The Bash Shell

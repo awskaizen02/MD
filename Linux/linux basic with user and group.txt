@@ -1,0 +1,341 @@
+.		# curent location (directory)
+..		# parent directory
+cd		# change directory
+~		# user local profile (user can create file ,directory in that location)
+/		# root directory
+$		# normal user ( limited permission in that system)
+#		# root user   ( have full permission in that system)
+sudo		# super user do ( run as admnistrator in windows)
+su		# switch user (login as a user in windows)
+pwd		# present working directory / curreent working directory
+
+touch		# to create file in any format
+mkdir		# to create a folder
+mkdir -p	# create multiple subfolders [ mkdir -p x/y/z]
+cp		# to copy the file/folder
+mv		# to cut and paste file/folder
+mv		# rename file/folder
+rm		# remove file
+rm -f		# remove folder
+
+man		# get more details about the command
+--help		# get more detail about the command
+
+cat,more,head,tail#  to view the file content 
+vi,vim,nano       # command to edit the file
+		
+clear		# to clear the screen
+
+history
+whoami
+who
+
+ssh
+
+
+[root@ip-172-31-10-60 ~]#     (adminitrattor access full permission in that server)
+[ec2-user@ip-172-31-10-60 ~]$ ( normal user with limitted permission)
+
+[ec2-user@ip-172-31-10-60 ~]$ touch demo.txt    # to create a demo.txt file
+[ec2-user@ip-172-31-10-60 ~]$ ls		# to list the files and folders in that location	
+demo.txt
+
+[ec2-user@ip-172-31-10-60 ~]$ echo "hi" > demo.txt # > to redirect the output into file,it overwrite the existing data
+[ec2-user@ip-172-31-10-60 ~]$ cat demo.txt         # cat used to view the content inside the file
+hi
+
+[ec2-user@ip-172-31-10-60 ~]$ echo "there" >> demo.txt # >> to redirect and ammend the data
+[ec2-user@ip-172-31-10-60 ~]$ cat demo.txt
+hello
+there
+
+[ec2-user@ip-172-31-10-60 ~]$ clear  		# to clear the screen
+[ec2-user@ip-172-31-10-60 ~]$ history		# to list the history
+    1  clear
+    2  ls
+   30  clear
+   31  clear
+   32  history
+   33  clear
+   34  history
+[ec2-user@ip-172-31-10-60 ~]$ !31     	# !with history number to repear the same command    
+
+
+[root@ip-172-31-10-60 ~]$    user local profile( what files,folders stored in this location cannow view by others)
+[root@ip-172-31-10-60 /]#    root directory (os related files and folders any once can view)
+
+[ec2-user@ip-172-31-10-60 /]$ sudo mkdir demo   // sudo [super user do] in windows run as administrator
+
+
+[ec2-user@ip-172-31-10-60 ~]$ tail -2 /etc/passwd  # list last two lines in that file
+tcpdump:x:72:72::/:/sbin/nologin
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+
+ec2-user:   x    :1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+username:password:uid :gid :Display name    :home directory: Default shell
+
+•User name
+•Encrypted password
+•User ID
+•User’s group ID
+•Full name of the user
+•Home directory of the user
+•The shell that is used after login
+
+
+/etc/passwd	// to list all the user name
+/etc/show       // to validate the pasword for all the users
+/etc/group	// to llist the group
+
+
+Default system accounts are created during the installation of Linux and services.
+For example, a root user account is created during the installation, which allows administration of the system
+
+[ec2-user@ip-172-31-10-60 ~]$ sudo useradd mb01  # to create a user
+[ec2-user@ip-172-31-10-60 ~]$ sudo passwd mb01   # to set password to that user
+Changing password for user mb01.		  # password are not visible
+New password:
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password:
+passwd: all authentication tokens updated successfully.
+[ec2-user@ip-172-31-10-60 ~]$ tail -2 /etc/passwd	# to check that user created
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+mb01:x:1001:1001::/home/mb01:/bin/bash
+
+## grep is a command that searches for a string in a file
+
+[ec2-user@ip-172-31-10-60 ~]$ grep mb01 /etc/passwd   # find the mb01 word in passwd file
+mb01:x:1001:1001::/home/mb01:/bin/bash
+
+[ec2-user@ip-172-31-10-60 ~]$ sudo useradd -c "eb user01" es01 # provide user fullname
+
+[ec2-user@ip-172-31-10-60 ~]$ tail -1 /etc/passwd
+es01:x:1002:1002:eb user01:/home/es01:/bin/bash
+
+[ec2-user@ip-172-31-10-60 ~]$ sudo useradd -c "eb user01" es01
+
+[ec2-user@ip-172-31-10-60 ~]$ tail -1 /etc/passwd
+es01:x:1002:1002:eb user01:/home/es01:/bin/bash
+
+[ec2-user@ip-172-31-10-60 ~]$ sudo useradd -e 2025-11-15 es02
+
+[ec2-user@ip-172-31-10-60 ~]$ ls /home
+ec2-user  es01  es02  mb01
+
+[ec2-user@ip-172-31-10-60 ~]$ sudo useradd -d /ab/es03 es03
+
+[ec2-user@ip-172-31-10-60 ~]$ ls /home
+ec2-user  es01  es02  mb01
+
+[ec2-user@ip-172-31-10-60 ~]$ tail -5 /etc/passwd
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+mb01:x:1001:1001::/home/mb01:/bin/bash
+es01:x:1002:1002:eb user01:/home/es01:/bin/bash
+es02:x:1003:1003::/home/es02:/bin/bash
+es03:x:1004:1004::/ab/es03:/bin/bash
+
+
+pipe symbol(|) that redirects the output of the command to another command # used to connect multiple commands
+
+[ec2-user@ip-172-31-10-60 ~]$ ls /etc | grep rc.d
+rc.d
+
+[ec2-user@ip-172-31-10-60 etc]$ tail -5 /etc/passwd
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+mb01:x:1001:1001::/home/mb01:/bin/bash
+es01:x:1002:1002:eb user01:/home/es01:/bin/bash
+es02:x:1003:1003::/home/es02:/bin/bash
+es03:x:1004:1004::/ab/es03:/bin/bash
+
+[ec2-user@ip-172-31-10-60 etc]$ sudo userdel mb01  # only delete the user, keep home directory and files 
+
+[ec2-user@ip-172-31-10-60 etc]$ tail -5 /etc/passwd
+tcpdump:x:72:72::/:/sbin/nologin
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+es01:x:1002:1002:eb user01:/home/es01:/bin/bash
+es02:x:1003:1003::/home/es02:/bin/bash
+es03:x:1004:1004::/ab/es03:/bin/bash
+
+[ec2-user@ip-172-31-10-60 etc]$ ls /home
+ec2-user  es01  es02  mb01
+
+[ec2-user@ip-172-31-10-60 etc]$ sudo userdel -r es01  # delete the user and keep home directory and files 
+
+[ec2-user@ip-172-31-10-60 etc]$ ls /home
+ec2-user  es02  mb01
+
+[ec2-user@ip-172-31-10-60 etc]$ tail -5 /etc/passwd
+rpcuser:x:29:29:RPC Service User:/var/lib/nfs:/sbin/nologin
+tcpdump:x:72:72::/:/sbin/nologin
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+es02:x:1003:1003::/home/es02:/bin/bash
+es03:x:1004:1004::/ab/es03:/bin/bash
+
+---------------------------------
+What are groups
+
+A group is a set of accounts.
+
+•Groups are a convenient way to associate user accounts with similar security needs.
+•For example, it is easier to grant permissions to a group of four users than to grant permissions individually to each of four users individually.
+•The storage location for groups is the /etc/group file
+
+Primary Group # Each user has one primar group. when we created a user by default group will create as same
+
+Secondary Group(Supplementary) # we can create seprately group, users can belog to one or more secondary groups for additional permissions
+
+[ec2-user@ip-172-31-10-60 etc]$ tail -2 /etc/group
+es02:x:1003:
+es03:x:1004:
+
+[ec2-user@ip-172-31-10-60 etc]$ sudo groupadd dev  # toadd dev group
+[ec2-user@ip-172-31-10-60 etc]$ tail -2 /etc/group
+es03:x:1004:
+dev:x:1005:
+
+[ec2-user@ip-172-31-10-60 etc]$ sudo groupmod -n test dev  # to rename group old-name(dev) new-name(test)
+[ec2-user@ip-172-31-10-60 etc]$ tail -2 /etc/group
+es03:x:1004:
+test:x:1005:
+
+test     :x             :1005    :es04
+groupname:group password: groupID: Mmembers of group
+
+[ec2-user@ip-172-31-10-60 etc]$ sudo useradd -m -G test es04 # while creating user can add into exising group
+
+[ec2-user@ip-172-31-10-60 etc]$ tail -3 /etc/group
+es03:x:1004:
+test:x:1005:es04
+es04:x:1006:
+
+
+[ec2-user@ip-172-31-10-60 etc]$ sudo groupadd tester # ceate group tester
+
+[ec2-user@ip-172-31-10-60 etc]$ tail -2 /etc/group
+es04:x:1006:
+tester:x:1007:
+
+[ec2-user@ip-172-31-10-60 etc]$ sudo groupdel tester  # delete group tester
+
+[ec2-user@ip-172-31-10-60 etc]$ tail -2 /etc/group
+test:x:1005:es04
+es04:x:1006:
+
+[ec2-user@ip-172-31-10-60 etc]$ sudo groupadd dev
+[ec2-user@ip-172-31-10-60 etc]$ sudo groupadd prod
+
+[ec2-user@ip-172-31-10-60 etc]$ sudo usermod -aG dev,prod es02  # add es02 user into dev and prod group
+[ec2-user@ip-172-31-10-60 etc]$ tail -5 /etc/group
+es03:x:1004:
+test:x:1005:es04
+es04:x:1006:
+dev:x:1007:es02
+prod:x:1008:es02
+
+-g primarygroup
+-G Secondaryy group
+-aG Append user to extra groups
+
+[ec2-user@ip-172-31-10-60 etc]$ sudo gpasswd -a es03 prod
+Adding user es03 to group prod
+
+[ec2-user@ip-172-31-10-60 etc]$ sudo gpasswd -a es03 wheel
+Adding user es03 to group wheel
+
+[ec2-user@ip-172-31-10-60 etc]$ grep wheel group
+wheel:x:10:ec2-user,es03
+
+
+
+Root user
+     Access any file
+	•Change any file
+	•Control services
+	•Manage any account
+	•Manage hardware
+	•Manage the Linux kernel
+	•Manage software
+
+Standard user
+	•Access any files if given permissions todo so
+	•Control any files that the user owns
+	•Limited access to manage the system	
+	
+[ec2-user@ip-172-31-10-60 etc]$ tail -5 /etc/group
+es03:x:1004:
+test:x:1005:es04
+es04:x:1006:
+dev:x:1007:es02
+prod:x:1008:es02,es03
+
+[ec2-user@ip-172-31-10-60 etc]$ sudo gpasswd -M es03,es04 dev   # to add multiple users in a group using gpasswd
+
+[ec2-user@ip-172-31-10-60 etc]$ tail -5 /etc/group
+es03:x:1004:
+test:x:1005:es04
+es04:x:1006:
+dev:x:1007:es03,es04
+prod:x:1008:es02,es03	
+
+[ec2-user@ip-172-31-10-60 etc]$ grep wheel group
+wheel:x:10:ec2-user,es03
+
+[ec2-user@ip-172-31-10-60 etc]$ sudo gpasswd -d es03 wheel
+Removing user es03 from group wheel
+
+[ec2-user@ip-172-31-10-60 etc]$ grep wheel group
+wheel:x:10:ec2-user
+
+[ec2-user@ip-172-31-10-60 ~]$ sudo gpasswd -a es02 wheel
+Adding user es02 to group wheel
+
+[ec2-user@ip-172-31-10-60 ~]$ grep wheel /etc/group
+wheel:x:10:ec2-user,es02
+
+
+[ec2-user@ip-172-31-10-60 ~]$ su es02   	# Switches to es02 with the current user's environment
+Password:
+[es02@ip-172-31-10-60 ec2-user]$
+
+
+[ec2-user@ip-172-31-10-60 ~]$ su - es02 	# Switches to es02 with the es02 environment
+Password:
+Last login: Sat Oct 11 11:18:55 UTC 2025 on pts/0
+[es02@ip-172-31-10-60 ~]$
+
+
+sudo visudo
+
+user-name	Can become any user     Can runany command without entering any password
+es04    	     ALL=(ALL)      		NOPASSWD:  ALL
+
+[es02@ip-172-31-10-60 ~]$ sudo -lU es04
+Matching Defaults entries for es04 on ip-172-31-10-60:
+    !visiblepw, always_set_home, match_group_by_gid, always_query_group_plugin,
+    env_reset, env_keep="COLORS DISPLAY HOSTNAME HISTSIZE KDEDIR LS_COLORS",
+    env_keep+="MAIL QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE",
+    env_keep+="LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES",
+    env_keep+="LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE",
+    env_keep+="LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY",
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/var/lib/snapd/snap/bin
+
+User es04 may run the following commands on ip-172-31-10-60:
+    (ALL) NOPASSWD: ALL
+[es02@ip-172-31-10-60 ~]$ sudo -lU es02
+Matching Defaults entries for es02 on ip-172-31-10-60:
+    !visiblepw, always_set_home, match_group_by_gid, always_query_group_plugin,
+    env_reset, env_keep="COLORS DISPLAY HOSTNAME HISTSIZE KDEDIR LS_COLORS",
+    env_keep+="MAIL QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE",
+    env_keep+="LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES",
+    env_keep+="LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE",
+    env_keep+="LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY",
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/var/lib/snapd/snap/bin
+
+User es02 may run the following commands on ip-172-31-10-60:
+    (ALL) ALL
+    
+[ec2-user@ip-172-31-10-60 ~]$ sudo journalctl _COMM=sudo
+
+[ec2-user@ip-172-31-10-60 ~]$ sudo journalctl _COMM=sudo -n 20
+
+[ec2-user@ip-172-31-10-60 ~]$ sudo journalctl _COMM=sudo | grep es04

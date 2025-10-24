@@ -1,0 +1,328 @@
+[ec2-user@ip-172-31-52-127 ~]$ tail -2 /etc/passwd
+tcpdump:x:72:72::/:/sbin/nologin
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+
+username:password:UID :GID : login name     : user home directory: user login shell
+ec2-user:x       :1000:1000:EC2 Default User:/home/ec2-user      :/bin/bash
+
+
+[ec2-user@ip-172-31-52-127 ~]$ tail -2 /etc/group
+screen:x:84:
+ec2-user:x:1000:
+
+
+
+root 	0 		0
+system  1-999		1-999
+user	1000-60000	1000-60000
+
+
+[ec2-user@ip-172-31-52-127 ~]$ sudo useradd ab01
+[ec2-user@ip-172-31-52-127 ~]$ sudo passwd ab01
+Changing password for user ab01.
+New password:
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password:
+passwd: all authentication tokens updated successfully.
+[ec2-user@ip-172-31-52-127 ~]$
+
+[ec2-user@ip-172-31-52-127 ~]$ tail -2 /etc/passwd
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+ab01:x:1001:1001::/home/ab01:/bin/bash
+
+
+grep is the command to find the word  to serch in a file and get it
+
+[ec2-user@ip-172-31-52-127 ~]$ grep ab01 /etc/passwd
+ab01:x:1001:1001::/home/ab01:/bin/bash
+
+[ec2-user@ip-172-31-52-127 ~]$ sudo useradd -c student02 ab02
+
+[ec2-user@ip-172-31-52-127 ~]$ grep ab02 /etc/passwd
+ab02:x:1002:1002:student02:/home/ab02:/bin/bash
+
+[ec2-user@ip-172-31-52-127 ~]$ sudo useradd -d /demo-user/ ab04
+
+[ec2-user@ip-172-31-52-127 ~]$ grep ab04 /etc/passwd
+ab04:x:1004:1004::/demo-user/:/bin/bash
+
+[ec2-user@ip-172-31-52-127 ~]$ sudo useradd -d /demo/user/ ab05
+
+[ec2-user@ip-172-31-52-127 ~]$ tail -4 /etc/passwd
+ab02:x:1002:1002:student02:/home/ab02:/bin/bash
+ab03:x:1003:1003::/home/ab03:/bin/bash
+ab04:x:1004:1004::/demo-user/:/bin/bash
+ab05:x:1005:1005::/demo/user/:/bin/bash
+
+[root@ip-172-31-52-127 ~]# ls /etc/ | grep rc.d
+rc.d
+
+| pipe symbol used to join multiple commands
+
+[root@ip-172-31-52-127 ~]# sudo userdel ab05
+
+[root@ip-172-31-52-127 ~]# tail -5 /etc/passwd
+ab01:x:1001:1001::/home/ab01:/bin/bash
+ab02:x:1002:1002:student02:/home/ab02:/bin/bash
+ab03:x:1003:1003::/home/ab03:/bin/bash
+ab04:x:1004:1004::/demo-user/:/bin/bash
+
+[root@ip-172-31-52-127 ~]# sudo useradd -d /sam/ ab06
+[root@ip-172-31-52-127 ~]# ls /
+bin   demo       dev  home  lib64  media  opt   root  sam   srv  tmp  var
+boot  demo-user  etc  lib   local  mnt    proc  run   sbin  sys  usr
+
+[root@ip-172-31-52-127 ~]# tail -1 /etc/passwd
+ab06:x:1004:1004::/sam/:/bin/bash
+
+[root@ip-172-31-52-127 ~]# sudo userdel -r ab06
+[root@ip-172-31-52-127 ~]# ls /
+bin   demo       dev  home  lib64  media  opt   root  sbin  sys  usr
+boot  demo-user  etc  lib   local  mnt    proc  run   srv   tmp  var
+[root@ip-172-31-52-127 ~]#
+
+What are groups?
+ A group is a set of accounts.
+
+ Groups are a convenient way to associate user accounts with similar security needs.
+ 
+ For example, it is easier to grant permissions to a group of four users than to grant permissions individually to each 
+ of four users individually.
+ 
+ The storage location for groups is the /etc/group file.
+
+
+
+2 Types of GROUPS  availabale
+ 	* primary group		# area create by default when user create time
+ 	* secondary goup /  supplementary group
+ 	
+[root@ip-172-31-52-127 ~]# tail -5 /etc/group
+screen:x:84:
+ec2-user:x:1000:
+ab01:x:1001:
+ab02:x:1002:
+ab03:x:1003: 	
+	
+groupname:password:GID:group-member	
+wheel    :x       :10 :ec2-user	
+
+
+[root@ip-172-31-52-127 ~]# sudo groupadd sgrp      // to create a new group
+
+[root@ip-172-31-52-127 ~]# tail -2 /etc/group
+ab03:x:1003:
+sgrp:x:1004:
+
+[root@ip-172-31-52-127 ~]# sudo groupmod -n sgrp01 sgrp  // to rename the exisitng group
+[root@ip-172-31-52-127 ~]# tail -2 /etc/group
+ab03:x:1003:
+sgrp01:x:1004:
+
+[root@ip-172-31-52-127 ~]# sudo groupadd sgp02
+[root@ip-172-31-52-127 ~]# sudo groupadd sgp03
+
+[root@ip-172-31-52-127 ~]# tail -3 /etc/group
+sgrp01:x:1004:
+sgp02:x:1005:
+sgp03:x:1006:
+
+[root@ip-172-31-52-127 ~]# sudo groupdel sgp03		// delete the group
+[root@ip-172-31-52-127 ~]# tail -3 /etc/group
+ab03:x:1003:
+sgrp01:x:1004:
+sgp02:x:1005:
+
+
+Addinga user to a group is a modification of a user, not a group
+•To add a user to a group, you can use:
+•The usermod command
+•The gpasswd command
+
+Add a user to a group
+•The usermod command adds the user mmajor to the groups hr and marketing: 
+usermod -aG hr,marketing mmajor
+•The gpasswd command adds the user jdoe to the marketing group: 
+gpasswd -a jdoe marketing  
+•To append a user to a group without removing them from other groups, use the usermodcommand with -aG options
+
+[root@ip-172-31-52-127 ~]# sudo groupadd hr
+[root@ip-172-31-52-127 ~]# sudo groupadd marketing
+
+[ec2-user@ip-172-31-52-127 ~]$ sudo tail -8 /etc/group
+ec2-user:x:1000:
+ab01:x:1001:
+ab02:x:1002:
+ab03:x:1003:
+sgrp01:x:1004:
+sgp02:x:1005:
+hr:x:1006:
+marketing:x:1007:
+
+[ec2-user@ip-172-31-52-127 ~]$ sudo usermod -aG hr ab01  // add user ab1 into hr group
+
+[ec2-user@ip-172-31-52-127 ~]$ sudo tail -8 /etc/group
+ec2-user:x:1000:
+ab01:x:1001:
+ab02:x:1002:
+ab03:x:1003:
+sgrp01:x:1004:
+sgp02:x:1005:
+hr:x:1006:ab01
+marketing:x:1007:
+
+[ec2-user@ip-172-31-52-127 ~]$ sudo usermod -aG hr,marketing,sgp02 ab02  // add ab02 user into hr,marketing,sgp02 group
+
+[ec2-user@ip-172-31-52-127 ~]$ sudo tail -8 /etc/group
+ec2-user:x:1000:
+ab01:x:1001:
+ab02:x:1002:
+ab03:x:1003:
+sgrp01:x:1004:
+sgp02:x:1005:ab02
+hr:x:1006:ab01,ab02
+marketing:x:1007:ab02
+
+[ec2-user@ip-172-31-52-127 ~]$ groups ab02
+ab02 : ab02 sgp02 hr marketing
+[ec2-user@ip-172-31-52-127 ~]$ id ab02
+uid=1002(ab02) gid=1002(ab02) groups=1002(ab02),1005(sgp02),1006(hr),1007(marketing)
+
+[ec2-user@ip-172-31-52-127 ~]$ tail -3 /etc/passwd
+ab01:x:1001:1001::/home/ab01:/bin/bash
+ab02:x:1002:1002:student02:/home/ab02:/bin/bash
+ab03:x:1003:1003::/home/ab03:/bin/bash
+
+[ec2-user@ip-172-31-52-127 ~]$ sudo useradd -m -G hr ab07  // while creating a user can add into required group
+[ec2-user@ip-172-31-52-127 ~]$ id ab07
+uid=1004(ab07) gid=1008(ab07) groups=1008(ab07),1006(hr)
+
+[ec2-user@ip-172-31-52-127 ~]$ getent group hr     // list all users who are in hr group
+hr:x:1006:ab01,ab02,ab07
+
+what is gpasswd?
+	gpasswd is a linux command used to administrator /etc/group and /etc/gshadow file
+	it allows you to manage group membership, set group administrators and assign group passwords
+	
+[ec2-user@ip-172-31-52-127 ~]$ grep ec2-user /etc/group
+adm:x:4:ec2-user
+wheel:x:10:ec2-user
+systemd-journal:x:190:ec2-user
+ec2-user:x:1000:
+
+[ec2-user@ip-172-31-52-127 ~]$ sudo gpasswd -a ab01 ec2-user  // add ab01 user into ec2-user group
+Adding user ab01 to group ec2-user
+
+[ec2-user@ip-172-31-52-127 ~]$ grep ec2-user /etc/group
+adm:x:4:ec2-user
+wheel:x:10:ec2-user
+systemd-journal:x:190:ec2-user
+ec2-user:x:1000:ab01	
+
+[ec2-user@ip-172-31-52-127 ~]$ sudo gpasswd -M ab02,ab03,ab07 ec2-user  // add multiple user into ec2-user group
+
+[ec2-user@ip-172-31-52-127 ~]$ grep ec2-user /etc/group
+adm:x:4:ec2-user
+wheel:x:10:ec2-user
+systemd-journal:x:190:ec2-user
+ec2-user:x:1000:ab02,ab03,ab07
+
+Root user
+-----------
+•Access any file
+•Change any file
+•Control services
+•Manage any account
+•Manage hardware
+•Manage the Linux kernel
+•Manage software
+
+Standard user
+-------------
+•Access any files if given permissions todo so
+•Control any files that the user owns
+•Limited access to manage the system
+
+
+Security best practice: 
+•Do not log in to the system with administrative permissions
+•Log in as a standard user, and then elevate permissions only when necessary
+•The root user is a powerful Linux account; mistakes can make the system in operable
+•The root user command prompt ends with #
+•The standard user command prompt ends with $
+
+A user with root privileges could mistakenly run a command such as delete / that would erase the entire system.
+
+[ec2-user@ip-172-31-52-127 ~]$ su root				// substitute user
+Password:
+[root@ip-172-31-52-127 ec2-user]# 
+[root@ip-172-31-52-127 ec2-user]# exit
+exit
+[ec2-user@ip-172-31-52-127 ~]$ su - root
+Password:
+Last login: Tue Oct 14 06:22:30 UTC 2025 on pts/0
+[root@ip-172-31-52-127 ~]#
+
+[ab03@ip-172-31-52-127 ~]$ 					// no sudores permission to ab03
+
+[ab03@ip-172-31-52-127 ~]$ su ab01
+Password:
+[ab01@ip-172-31-52-127 ab03]$ sudo useradd user21		// login as ab03 and su ab01(sudo previllage user)
+[ab01@ip-172-31-52-127 ab03]$
+
+[ab01@ip-172-31-52-127 ab03]$ sudo -lU ab01
+Matching Defaults entries for ab01 on ip-172-31-52-127:
+    !visiblepw, always_set_home, match_group_by_gid, always_query_group_plugin,
+    env_reset, env_keep="COLORS DISPLAY HOSTNAME HISTSIZE KDEDIR LS_COLORS",
+    env_keep+="MAIL QTDIR USERNAME LANG LC_ADDRESS LC_CTYPE",
+    env_keep+="LC_COLLATE LC_IDENTIFICATION LC_MEASUREMENT LC_MESSAGES",
+    env_keep+="LC_MONETARY LC_NAME LC_NUMERIC LC_PAPER LC_TELEPHONE",
+    env_keep+="LC_TIME LC_ALL LANGUAGE LINGUAS _XKB_CHARSET XAUTHORITY",
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/var/lib/snapd/snap/bin
+
+User ab01 may run the following commands on ip-172-31-52-127:
+    (ALL) NOPASSWD: ALL
+    
+[ab01@ip-172-31-52-127 ab03]$ sudo -lU ab03
+User ab03 is not allowed to run sudo on ip-172-31-52-127.
+
+[ab01@ip-172-31-52-127 ab03]$ sudo --help
+ -l, --list                    list user's privileges or check a specific
+                                command; use twice for longer format
+ -U, --other-user=user         in list mode, display privileges for user            
+ 
+  sudo journalctl _COMM=sudo | grep ab01
+    18  sudo journalctl _COMM=sudo | grep ab02
+    19  sudo journalctl _COMM=sudo | grep ab04
+    20  sudo journalctl _COMM=sudo | grep ab03
+    21  sudo journalctl _COMM=sudo | grep ec2-user
+   22  sudo journalctl _COMM=sudo --since "2025-10-14" > ~/log.tx
+   
+   VIM
+   
+   h = right side
+   
+   j = down
+   
+   k = up
+   
+   l = left
+   
+dd to  delete line
+4 dd to delet 4 lines
+x delete the character
+:set number // to set the line numbers
+i inset in to the text file
+O inset into next line
+A Enter insert mode and enter text after the cursor 
+u undo
+:wq  // to save and quit the file
+:q!  // to without save and quite the file
+
+:w    Writes file (save)
+:q    Quits Vim
+:wq   Writes file and then quits Vim
+:wq!  Writes file and forcesquit
+:q!   Quits Vim without saving changes
+
+•Enables processing of additional commands ESC : wq
