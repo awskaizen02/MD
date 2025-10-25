@@ -1,0 +1,332 @@
+25-10-2025
+
+software management
+
+Task-1 : logininto ec2 server
+
+Task 2: Update your Linux machine
+
+[ec2-user@ip-10-0-10-81 ~]$ ls
+companyA
+
+[ec2-user@ip-10-0-10-81 ~]$ cd companyA/
+
+[ec2-user@ip-10-0-10-81 companyA]$ pwd
+/home/ec2-user/companyA
+
+[ec2-user@ip-10-0-10-81 companyA]$ ls
+CEO        Employees          HR          Roster.csv  SharedFolders
+Documents  FolderListing.csv  Management  Sales       Shipping
+
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum check-update
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum check-update -y
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum -y check-update
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum update --security
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+No packages needed for security; 0 packages available
+No packages marked for update
+
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum -y upgrade
+
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum install httpd -y
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+
+Task 3: Roll back a package
+
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum history list
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+ID     | Command line             | Date and time    | Action(s)      | Altered
+-------------------------------------------------------------------------------
+     3 | install httpd -y         | 2025-10-25 04:28 | Install        |    9
+     2 | install java-17-amazon-c | 2025-10-25 04:27 | Install        |    1
+     1 | install java-17-amazon-c | 2025-10-25 04:27 | Install        |   13 EE
+history list
+
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum history info httpd  <name from history>
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Transaction ID : 3
+Begin time     : Sat Oct 25 04:28:41 2025
+Begin rpmdb    : 469:afaffad4fe967de93cdc86f22d921087e06bde08
+End time       :            04:28:42 2025 (1 seconds)
+End rpmdb      : 478:aa0f77bf7b0ff8283b02279c66dbfa2e5e2fb9e6
+User           : EC2 Default User <ec2-user>
+Return-Code    : Success
+Command Line   : install httpd -y
+Transaction performed with:
+    Installed     rpm-4.11.3-48.amzn2.0.5.x86_64 installed
+    Installed     yum-3.4.3-158.amzn2.0.7.noarch installed
+Packages Altered:
+    Dep-Install apr-1.7.2-1.amzn2.0.1.x86_64               @amzn2-core
+    Dep-Install apr-util-1.6.3-1.amzn2.0.1.x86_64          @amzn2-core
+    Dep-Install apr-util-bdb-1.6.3-1.amzn2.0.1.x86_64      @amzn2-core
+    Dep-Install generic-logos-httpd-18.0.0-4.amzn2.noarch  @amzn2-core
+    Install     httpd-2.4.65-1.amzn2.0.2.x86_64            @amzn2-core
+    Dep-Install httpd-filesystem-2.4.65-1.amzn2.0.2.noarch @amzn2-core
+    Dep-Install httpd-tools-2.4.65-1.amzn2.0.2.x86_64      @amzn2-core
+    Dep-Install mailcap-2.1.41-2.amzn2.noarch              @amzn2-core
+    Dep-Install mod_http2-1.15.19-1.amzn2.0.2.x86_64       @amzn2-core
+history info
+
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum history list
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+ID     | Command line             | Date and time    | Action(s)      | Altered
+-------------------------------------------------------------------------------
+     3 | install httpd -y         | 2025-10-25 04:28 | Install        |    9
+     2 | install java-17-amazon-c | 2025-10-25 04:27 | Install        |    1
+     1 | install java-17-amazon-c | 2025-10-25 04:27 | Install        |   13 EE
+history list
+
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum history info 2 <number from history>
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Transaction ID : 2
+Begin time     : Sat Oct 25 04:27:45 2025
+Begin rpmdb    : 468:791c99e26a24a897b814d1c155515af545a19ad3
+End time       :            04:27:46 2025 (1 seconds)
+End rpmdb      : 469:afaffad4fe967de93cdc86f22d921087e06bde08
+User           : EC2 Default User <ec2-user>
+Return-Code    : Success
+Command Line   : install java-17-amazon-corretto-devel
+Transaction performed with:
+    Installed     rpm-4.11.3-48.amzn2.0.5.x86_64 installed
+    Installed     yum-3.4.3-158.amzn2.0.7.noarch installed
+Packages Altered:
+    Install java-17-amazon-corretto-devel-1:17.0.16+8-1.amzn2.1.x86_64 @amzn2-core
+history info
+
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum history list
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+ID     | Command line             | Date and time    | Action(s)      | Altered
+-------------------------------------------------------------------------------
+     3 | install httpd -y         | 2025-10-25 04:28 | Install        |    9
+     2 | install java-17-amazon-c | 2025-10-25 04:27 | Install        |    1
+     1 | install java-17-amazon-c | 2025-10-25 04:27 | Install        |   13 EE
+history list
+
+
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum history info 2
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Transaction ID : 2
+Begin time     : Sat Oct 25 04:27:45 2025
+Begin rpmdb    : 468:791c99e26a24a897b814d1c155515af545a19ad3
+End time       :            04:27:46 2025 (1 seconds)
+End rpmdb      : 469:afaffad4fe967de93cdc86f22d921087e06bde08
+User           : EC2 Default User <ec2-user>
+Return-Code    : Success
+Command Line   : install java-17-amazon-corretto-devel
+Transaction performed with:
+    Installed     rpm-4.11.3-48.amzn2.0.5.x86_64 installed
+    Installed     yum-3.4.3-158.amzn2.0.7.noarch installed
+Packages Altered:
+    Install java-17-amazon-corretto-devel-1:17.0.16+8-1.amzn2.1.x86_64 @amzn2-core
+history info
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum -y history undo 2
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Undoing transaction 2, from Sat Oct 25 04:27:45 2025
+    Install java-17-amazon-corretto-devel-1:17.0.16+8-1.amzn2.1.x86_64 @amzn2-core
+Resolving Dependencies
+--> Running transaction check
+---> Package java-17-amazon-corretto-devel.x86_64 1:17.0.16+8-1.amzn2.1 will be erased
+--> Finished Dependency Resolution
+amzn2-core/2/x86_64                                         | 3.6 kB  00:00:00
+
+Dependencies Resolved
+
+===================================================================================
+ Package                        Arch    Version                 Repository    Size
+===================================================================================
+Removing:
+ java-17-amazon-corretto-devel  x86_64  1:17.0.16+8-1.amzn2.1   @amzn2-core  941 k
+
+Transaction Summary
+===================================================================================
+Remove  1 Package
+
+Installed size: 941 k
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Erasing    : 1:java-17-amazon-corretto-devel-17.0.16+8-1.amzn2.1.x86_64      1/1
+  Verifying  : 1:java-17-amazon-corretto-devel-17.0.16+8-1.amzn2.1.x86_64      1/1
+
+Removed:
+  java-17-amazon-corretto-devel.x86_64 1:17.0.16+8-1.amzn2.1
+
+Complete!
+
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum history list
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+ID     | Command line             | Date and time    | Action(s)      | Altered
+-------------------------------------------------------------------------------
+     4 | -y history undo 2        | 2025-10-25 04:34 | Erase          |    1
+     3 | install httpd -y         | 2025-10-25 04:28 | Install        |    9
+     2 | install java-17-amazon-c | 2025-10-25 04:27 | Install        |    1
+     1 | install java-17-amazon-c | 2025-10-25 04:27 | Install        |   13 EE
+history list
+
+[ec2-user@ip-10-0-10-81 companyA]$ sudo yum -y history undo 1
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Undoing transaction 1, from Sat Oct 25 04:27:12 2025
+    Dep-Install alsa-lib-1.1.4.1-2.amzn2.x86_64                               @amzn2-core
+    Dep-Install dejavu-fonts-common-2.33-6.amzn2.noarch                       @amzn2-core
+    Dep-Install dejavu-sans-fonts-2.33-6.amzn2.noarch                         @amzn2-core
+    Dep-Install dejavu-sans-mono-fonts-2.33-6.amzn2.noarch                    @amzn2-core
+    Dep-Install dejavu-serif-fonts-2.33-6.amzn2.noarch                        @amzn2-core
+    Dep-Install fontconfig-2.13.0-4.3.amzn2.x86_64                            @amzn2-core
+    Dep-Install fontpackages-filesystem-1.44-8.amzn2.noarch                   @amzn2-core
+    Install     java-17-amazon-corretto-headless-1:17.0.16+8-1.amzn2.1.x86_64 @amzn2-core
+    Dep-Install javapackages-tools-3.4.1-11.amzn2.noarch                      @amzn2-core
+    Dep-Install libxslt-1.1.28-6.amzn2.0.5.x86_64                             @amzn2-core
+    Dep-Install log4j-cve-2021-44228-hotpatch-1.3-7.amzn2.noarch              @amzn2-core
+    Dep-Install python-javapackages-3.4.1-11.amzn2.noarch                     @amzn2-core
+    Dep-Install python-lxml-3.2.1-4.amzn2.0.7.x86_64                          @amzn2-core
+Resolving Dependencies
+--> Running transaction check
+---> Package alsa-lib.x86_64 0:1.1.4.1-2.amzn2 will be erased
+---> Package dejavu-fonts-common.noarch 0:2.33-6.amzn2 will be erased
+---> Package dejavu-sans-fonts.noarch 0:2.33-6.amzn2 will be erased
+---> Package dejavu-sans-mono-fonts.noarch 0:2.33-6.amzn2 will be erased
+---> Package dejavu-serif-fonts.noarch 0:2.33-6.amzn2 will be erased
+---> Package fontconfig.x86_64 0:2.13.0-4.3.amzn2 will be erased
+---> Package fontpackages-filesystem.noarch 0:1.44-8.amzn2 will be erased
+---> Package java-17-amazon-corretto-headless.x86_64 1:17.0.16+8-1.amzn2.1 will be erased
+---> Package javapackages-tools.noarch 0:3.4.1-11.amzn2 will be erased
+---> Package libxslt.x86_64 0:1.1.28-6.amzn2.0.5 will be erased
+---> Package log4j-cve-2021-44228-hotpatch.noarch 0:1.3-7.amzn2 will be erased
+---> Package python-javapackages.noarch 0:3.4.1-11.amzn2 will be erased
+---> Package python-lxml.x86_64 0:3.2.1-4.amzn2.0.7 will be erased
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===================================================================================
+ Package                          Arch   Version                 Repository   Size
+===================================================================================
+Removing:
+ alsa-lib                         x86_64 1.1.4.1-2.amzn2         @amzn2-core 1.3 M
+ dejavu-fonts-common              noarch 2.33-6.amzn2            @amzn2-core 127 k
+ dejavu-sans-fonts                noarch 2.33-6.amzn2            @amzn2-core 5.1 M
+ dejavu-sans-mono-fonts           noarch 2.33-6.amzn2            @amzn2-core 1.1 M
+ dejavu-serif-fonts               noarch 2.33-6.amzn2            @amzn2-core 2.6 M
+ fontconfig                       x86_64 2.13.0-4.3.amzn2        @amzn2-core 645 k
+ fontpackages-filesystem          noarch 1.44-8.amzn2            @amzn2-core 0.0
+ java-17-amazon-corretto-headless x86_64 1:17.0.16+8-1.amzn2.1   @amzn2-core 237 M
+ javapackages-tools               noarch 3.4.1-11.amzn2          @amzn2-core 156 k
+ libxslt                          x86_64 1.1.28-6.amzn2.0.5      @amzn2-core 478 k
+ log4j-cve-2021-44228-hotpatch    noarch 1.3-7.amzn2             @amzn2-core 157 k
+ python-javapackages              noarch 3.4.1-11.amzn2          @amzn2-core  65 k
+ python-lxml                      x86_64 3.2.1-4.amzn2.0.7       @amzn2-core 3.3 M
+
+Transaction Summary
+===================================================================================
+Remove  13 Packages
+
+Installed size: 252 M
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Erasing    : 1:java-17-amazon-corretto-headless-17.0.16+8-1.amzn2.1.x86_    1/13
+/usr/lib/jvm/java-17-amazon-corretto.x86_64/jre has not been configured as an alternative for jre_17
+warning: %postun(java-17-amazon-corretto-headless-1:17.0.16+8-1.amzn2.1.x86_64) scriptlet failed, exit status 2
+Non-fatal POSTUN scriptlet failure in rpm package 1:java-17-amazon-corretto-headless-17.0.16+8-1.amzn2.1.x86_64
+  Erasing    : javapackages-tools-3.4.1-11.amzn2.noarch                       2/13
+  Erasing    : python-javapackages-3.4.1-11.amzn2.noarch                      3/13
+  Erasing    : dejavu-serif-fonts-2.33-6.amzn2.noarch                         4/13
+  Erasing    : dejavu-sans-mono-fonts-2.33-6.amzn2.noarch                     5/13
+Removed symlink /etc/systemd/system/multi-user.target.wants/log4j-cve-2021-44228-hotpatch.service.
+  Erasing    : log4j-cve-2021-44228-hotpatch-1.3-7.amzn2.noarch               6/13
+  Erasing    : fontconfig-2.13.0-4.3.amzn2.x86_64                             7/13
+  Erasing    : dejavu-sans-fonts-2.33-6.amzn2.noarch                          8/13
+  Erasing    : dejavu-fonts-common-2.33-6.amzn2.noarch                        9/13
+  Erasing    : python-lxml-3.2.1-4.amzn2.0.7.x86_64                          10/13
+  Erasing    : fontpackages-filesystem-1.44-8.amzn2.noarch                   11/13
+  Erasing    : libxslt-1.1.28-6.amzn2.0.5.x86_64                             12/13
+  Erasing    : alsa-lib-1.1.4.1-2.amzn2.x86_64                               13/13
+  Verifying  : 1:java-17-amazon-corretto-headless-17.0.16+8-1.amzn2.1.x86_    1/13
+  Verifying  : log4j-cve-2021-44228-hotpatch-1.3-7.amzn2.noarch               2/13
+  Verifying  : libxslt-1.1.28-6.amzn2.0.5.x86_64                              3/13
+  Verifying  : python-javapackages-3.4.1-11.amzn2.noarch                      4/13
+  Verifying  : dejavu-serif-fonts-2.33-6.amzn2.noarch                         5/13
+  Verifying  : dejavu-sans-fonts-2.33-6.amzn2.noarch                          6/13
+  Verifying  : fontconfig-2.13.0-4.3.amzn2.x86_64                             7/13
+  Verifying  : python-lxml-3.2.1-4.amzn2.0.7.x86_64                           8/13
+  Verifying  : dejavu-fonts-common-2.33-6.amzn2.noarch                        9/13
+  Verifying  : fontpackages-filesystem-1.44-8.amzn2.noarch                   10/13
+  Verifying  : alsa-lib-1.1.4.1-2.amzn2.x86_64                               11/13
+  Verifying  : dejavu-sans-mono-fonts-2.33-6.amzn2.noarch                    12/13
+  Verifying  : javapackages-tools-3.4.1-11.amzn2.noarch                      13/13
+
+Removed:
+  alsa-lib.x86_64 0:1.1.4.1-2.amzn2
+  dejavu-fonts-common.noarch 0:2.33-6.amzn2
+  dejavu-sans-fonts.noarch 0:2.33-6.amzn2
+  dejavu-sans-mono-fonts.noarch 0:2.33-6.amzn2
+  dejavu-serif-fonts.noarch 0:2.33-6.amzn2
+  fontconfig.x86_64 0:2.13.0-4.3.amzn2
+  fontpackages-filesystem.noarch 0:1.44-8.amzn2
+  java-17-amazon-corretto-headless.x86_64 1:17.0.16+8-1.amzn2.1
+  javapackages-tools.noarch 0:3.4.1-11.amzn2
+  libxslt.x86_64 0:1.1.28-6.amzn2.0.5
+  log4j-cve-2021-44228-hotpatch.noarch 0:1.3-7.amzn2
+  python-javapackages.noarch 0:3.4.1-11.amzn2
+  python-lxml.x86_64 0:3.2.1-4.amzn2.0.7
+
+Complete!
+
+[ec2-user@ip-10-0-10-81 companyA]$ java -version
+-bash: /usr/bin/java: No such file or directory
+
+
+
+
+Task 4: Install the AWS CLI on Red Hat Linux
+
+[ec2-user@ip-10-0-10-81 ~]$ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+[ec2-user@ip-10-0-10-81 ~]$ unzip awscliv2.zip
+[ec2-user@ip-10-0-10-81 ~]$ sudo ./aws/install
+
+[ec2-user@ip-10-0-10-81 ~]$ aws --version
+aws-cli/2.31.22 Python/3.13.7 Linux/4.14.355-280.698.amzn2.x86_64 exe/x86_64.amzn.2
+
+[ec2-user@ip-10-0-10-81 ~]$ aws help
+
+[ec2-user@ip-10-0-10-81 ~]$ aws configure
+AWS Access Key ID [None]: A4
+AWS Secret Access Key [None]: ******
+AWS Session Token [None]: *****
+Default region name [None]: us-west-2
+Default output format [None]: json
+
+[ec2-user@ip-10-0-10-81 ~]$ cd .aws
+
+[ec2-user@ip-10-0-10-81 .aws]$ ls
+config  credentials
+
+[ec2-user@ip-10-0-10-81 .aws]$ cat config  credentials
+
+[default]
+region = us-west-2
+output = json
+
+[default]
+aws_access_key_id = *******
+aws_secret_access_key = *******
+[ec2-user@ip-10-0-10-81 ~]$ aws ec2 describe-instances --instance-ids i-053fdfd2878c726ea
+
+[ec2-user@ip-10-0-10-81 ~]$ aws ec2 describe-instance-attribute --instance-id i-053fdfd2878c726ea --attribute instanceType
+{
+    "InstanceId": "i-053fdfd2878c726ea",
+    "InstanceType": {
+        "Value": "t3.micro"
+    }
+}
+

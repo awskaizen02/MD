@@ -1,0 +1,97 @@
+245-[LX]-Lab - Managing Log Files
+
+Task 1: Use SSH to connect to an Amazon Linux EC2 instance
+.
+	ssh -i labsuser.pem ec2-user@public-ip
+
+Task 2: Review secure log files
+
+[ec2-user@ip-10-0-10-25 ~]$ ls
+companyA
+
+[ec2-user@ip-10-0-10-25 ~]$ cd companyA/
+
+[ec2-user@ip-10-0-10-25 companyA]$ pwd
+/home/ec2-user/companyA
+
+[ec2-user@ip-10-0-10-25 companyA]$ sudo less /tmp/log/secure
+
+[ec2-user@ip-10-0-10-25 companyA]$ sudo lastlog
+Username         Port     From             Latest
+root                                       **Never logged in**
+bin                                        **Never logged in**
+daemon                                     **Never logged in**
+adm                                        **Never logged in**
+lp                                         **Never logged in**
+sync                                       **Never logged in**
+shutdown                                   **Never logged in**
+halt                                       **Never logged in**
+mail                                       **Never logged in**
+operator                                   **Never logged in**
+games                                      **Never logged in**
+ftp                                        **Never logged in**
+nobody                                     **Never logged in**
+systemd-network                            **Never logged in**
+dbus                                       **Never logged in**
+rpc                                        **Never logged in**
+libstoragemgmt                             **Never logged in**
+sshd                                       **Never logged in**
+rpcuser                                    **Never logged in**
+nfsnobody                                  **Never logged in**
+ec2-instance-connect                           **Never logged in**
+postfix                                    **Never logged in**
+rngd                                       **Never logged in**
+chrony                                     **Never logged in**
+tcpdump                                    **Never logged in**
+ec2-user         pts/0    42.111.161.35    Sat Oct 25 06:40:27 +0000 2025
+ljuan                                      **Never logged in**
+mmajor                                     **Never logged in**
+mjackson                                   **Never logged in**
+eowusu                                     **Never logged in**
+nwolf                                      **Never logged in**
+arosalez                                   **Never logged in**
+jdoe                                       **Never logged in**
+psantos                                    **Never logged in**
+smartinez                                  **Never logged in**
+ssarkar                                    **Never logged in**
+
+[ec2-user@ip-10-0-10-25 companyA]$ sudo lastlog ec2-user
+lastlog: unexpected argument: ec2-user
+
+
+---------------------------------------------------------------------
+Write a Bash script based on the following requirements:
+
+Creates 25 empty (0 KB) files. (Hint: Use the touch command.)
+The file names should be <yourName><number>, <yourName><number+1>, <yourName><number+2>, and so on.
+Design the script so that each time you run it, it creates the next batch of 25 files with increasing numbers starting with the last or maximum number that already exists.
+
+
+
+Do not hard code these numbers. You need to generate them by using automation.
+Test the script. Display a long list of the directory and its contents to validate that the script created the expected files.
+
+
+
+#!/bin/bash
+name="raj"
+
+last_name=$(ls ${name}[0-9]* 2> /dev/null | grep -o '[0-0]\+' | sort -n | tail -1)
+
+if [ -z "$last_name" ]; then
+    last_name=0
+fi
+
+start=$((last_name + 1))
+end=$((last_name + 25))
+
+echo "Creating files from ${name}${start} to ${name}${end}..."
+
+for ((i=$start; i<=$end; i++))
+do
+   touch "${name}${i}"
+   
+done   
+
+echo "files created sucessfully. Current directory listing:"
+ls -l ${name}*
