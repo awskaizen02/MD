@@ -1,0 +1,315 @@
+#  https://www.geeksforgeeks.org/linux-unix/linux-commands-cheat-sheet/
+
+
+You will learn how to:
+	•Explain networking in the cloud
+	•Explain virtual networking in the cloud with Amazon Virtual Private Cloud (Amazon VPC)
+	•Describe the key components of a virtual private cloud (VPC)
+	•Relate subnetting and Classless Inter-Domain Routing (CIDR)block addressing to Amazon VPC features
+	
+Recall virtual networking 
+	Earlier, you compared the similarities between Amazon Web Services (AWS) services and traditional network topologies:	
+	
+----------------------------------------------------------
+Traditional topology			AWS service
+----------------------------------------------------------
+Data center				Amazon VPC
+Router					Route tables
+Switches (subnets)			Subnets
+Firewall				Security groups and network access control lists (network ACLs)
+Servers and operating systems		Amazon Elastic Compute Cloud (Amazon EC2) instances
+Modem - ISP [Broadband]			Internet gateway	
+
+
+class A		10.0.0.0		10.255.255.255		N.H.H.H
+class B		172.16.0.0		172.31.255.255		N.N.H.H
+class C		192.168.0.0		192.168.255.255		N.N.N.H
+
+loopback address	127.0.0.0	127.255.255.255
+
+As described earlier, networking in the cloud is similar to regular networking in a data center:
+
+•A data center as a whole most closely resembles the function of a VPC. 
+In a VPC, you can launch multiple AWS services that are needed to create a working, scalable network. 
+However, within a VPC, no maintenance is required, and you can create an isolated architecture within minutes.
+
+•A data center involves multiple components: internet, servers, firewalls, switches, and more. 
+Like a data center, a VPC requires the same services to operate. 
+
+•A router in a traditional environment has multiple functions, such as filtering packets, routing traffic, and storing them in a route table. 
+In AWS, the service that most closely resembles a router is a route table, where the owner inputs routes with in the VPC. 
+
+•A switch acts as a subnet and switches data as it comes in. 
+AWS uses subnets in every architecture. Every node (EC2 instance) belongs in a subnet. 
+Although the functions of a switch and an AWS subnet do not match, the functions of a subnet from both work the same architecturally. 
+Subnets are used to logically isolate groups of internet protocols together. 
+
+•Firewalls block traffic based on a set of rules. 
+AWS has security groups that block traffic at the node (Amazon EC2 level) and network ACLs that block traffic at the subnet level. 
+These security groups also block traffic based on a set of rules. 
+
+•A data center has servers and operating systems. In AWS, you can use an EC2 
+instance to launch an array of servers or operating systems. 
+
+•Everything must be connected to the internet through an internet service provider (ISP). 
+One that you might be familiar with is called a modem, where an ISP provides internet to your home. 
+Like a modem, a VPC on AWS and its services receive internet only through an internet gateway.
+
+# https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html
+per region can have vpc 5 
+each region comes with one primary vpc (Default-VPC)
+can create multiple vpc in same n/w
+when creating vpc by default comes with one Route table - RT
+create Internet Gateway - IGW and attach to respected vpc
+CREATE SUBNET in required AZ, by mistake created in diff AZ then need to delete and recreate it again in required AZ
+create new RT, Edit routes Destination 0.0.0.0/0  Target IGW
+subnet associations, Edit subnet associations select he required subnet that will be public-subnet
+to make auto assign ip address enable for public subnet , go to subet and Edit subnet settings Enable Auto-assign IP settings
+
+
+# https://www.subnet-calculator.com/
+
+192.168.0.0/24  =  
+2^N-2 = find the value N = totalbit-slash number = 32-24 = 8  = 2^8-2 = 2*2*2*2*2*2*2*2-2 = 256-2 = 254
+
+Subnet ID
+Broadcast Address
+
+192.168.0.0/24 create 4 subnets each need 10 ips
+from 192.168.0.0	till = 192.168.0.255
+
+sn1 = 192.168.0.1/28
+sn2 = 192.168.0.16/28
+sn3 = 192.168.0.32/28
+sn4 = 192.168.0.48/28
+
+
+
+192.168.0.0/24 create 4 subnets each need 100 ips
+from 192.168.0.0	till = 192.168.0.255
+
+sn1 = 192.168.0.1/25
+sn2 = 192.168.0.128/25
+sn3 = Not valid
+sn4 = Not Valid
+
+192.168.0.0/22 create 4 subnets each need 100 ips
+from 192.168.0.0	till = 192.168.3.255
+
+sn1 = 192.168.0.1/25
+sn2 = 192.168.0.128/25
+sn3 = 192.168.1.1/25
+sn4 = 192.168.1.128/25
+
+
+
+•You can spin up a logical environment of what was previously in a data center within minutes in the cloud. 
+•It is more cost-effective than maintaining equipment in a company data center; you pay for only the resources that you use.
+•It is designed so that companies can migrate and use AWS Cloud services easily.
+•It’s secure, scalable, and reliable. 
+•It works with many innovative AWS and third-party services. 
+•You can create multiple Amazon VPCs and create test environments before they go live.
+•It replaces the need for your own data center.
+•You can create multiple Amazon VPCs for testing, owning customer accounts, and more. 
+•It works with many other services through AWS Marketplace (third-party software that is approved through AWS).
+•Step-by-step guides are available on how to use an Amazon VPC; everything is well documented
+
+An Amazon VPC includes the following features:
+	•It is dedicated to an AWS account.
+	•It belongs to a single AWS Region.
+	•It can span multiple Availability Zones.
+	•It is logically isolated from other Amazon VPCs.
+
+
+
+
+•The smallest permitted block size is /28 and the largest is /16. 
+•A publicly routable CIDR block that falls outside the private range can be used; however, it is not recommended. 
+This situation can cause issues if you are using publicly routable resources to the internet
+
+10.0.0.0–10.255.255.255		10.0.0.0/16 
+172.16.0.0–172.31.255.255	172.31.0.0/16
+192.168.0.0–192.268.255.255 	192.168.0.0/16
+
+
+Why is this information important? 
+•RFC 1918 (https://datatracker.ietf.org/doc/html/rfc1918) shows the private address space and its use case
+(within enterprise use). 
+However, when the public IP address is enabled or an Elastic IP address is assigned, it gives a public IP address to the instance. 
+This public IP address allows it to be routable on the internet regardless of the private address. 
+This address is unique and is from the Amazon pool of IP addresses. 
+•It is recommended that you use the private IPv4 address range. 
+•When using anything outside the IPv4 address range, you run into the possibility of receiving replies from other resources that are not your own resources. 
+These replies might be from other random sources on the internet.  •
+Some third-party tools can assist in calculating and creating IPv4 subnet and CIDR blocks. 
+Try searching for “subnet calculator” or “CIDR calculator.” 
+•Within each subnet CIDR block, AWS reserves the first four IP addresses and the last IP address :
+	•10.0.0.0 –Network address
+	•10.0.0.1 –VPC router
+	•10.0.0.2 –Domain Name System (DNS) server
+	•10.0.0.3 –Reserved for future use 
+	•10.0.0.255 –Network broadcast, not supported in the VPC, but still reserved
+
+•You can always add a secondary CIDR block to an Amazon VPC
+
+
+The following concepts are important within the VPC:
+
+•CIDR block:A private range should be given in the range /16–/28. To determine the private IP address range allocation, you can use RFC 1918: https://datatracker.ietf.org/doc/html/rfc1918. 
+To determine the CIDR block and range, various third-party tools are available to determine how many IP addresses can fit into each CIDR range.  
+
+•Subnets:Subnets allocate a range of IP addresses within your VPC. 
+These subnets are either public or private subnets. 
+Public subnets have the route table with the internet gateway associated with them, but the private subnets do not. Like the VPC CIDR block, subnets need a range. 
+A third-party tool can also be used. 
+
+•Route table:A route table contains rules (also known as routes) that the VPC uses to route traffic. 
+Targets are services like the internet gateway, VPC endpoint, or NAT gateway. 
+The routes are the specific routes that go to the specific targets. 
+For example, for the internet gateway (internet gateway), the route will be 0.0.0.0/0 because it is routing to the internet, and the target will be IGW-xxxxxxxx. 
+
+•Internet gateway: An internet gateway attaches to your VPC and allows communication from VPC to internet. 
+This service must be created and attached to the VPC. 
+After it is attached, it must be added to the route table of the public subnet in order for resources to reach the internet. 
+
+•VPC endpoint:A VPC endpoint is a private connection between AWS services without the need of the internet.
+
+
+SG   - ec2 level firewall
+NACL - subnet level firewall
+
+•An Amazon VPC is a logically isolated environment for your resources within the cloud. 
+You can choose a Region here. 
+•The internet gateway gives the Amazon VPC internet connectivity. 
+•The network address translation (NAT) gateway is attached to the private subnet. 
+It provides network address translation so that the private subnet can reach out to the internet. 
+•A route table holds the route and target information required to route traffic within the Amazon VPC.
+•A public subnet is associated with a route table that has a route to an internet gateway.
+You can choose Availability Zones here. 
+•A private subnet does not have an internet gateway on the route table that is associated to it. 
+However, a NAT gateway can be a route on this route table. Like public subnets, Availability Zones can be chosen here. 
+
+•Security groups are like firewalls at an EC2 instance level. They are stateful by nature. 
+•Network ACLs are like firewalls for subnets. They are stateless by nature.
+
+
+
+NAT-Gaetway = N-G/W
+
+N-G/W charges per Hour 
+data transfer perGB using N-G/W
+to creaet N-G/W required EIP
+per region can creaet 5 N-G/W
+create diff RT for NGW and attache required subnet in the same
+
+
+
+
+What is a security group? 
+	Acts as a firewall for associated Amazon EC2 instances.
+	Controls both inbound and outbound traffic at the instance level.
+	You can secure your VPC instances using only security groups.
+	Supports allow rules only.
+	Stateful (Return traffic is automatically allowed, regardless of any rules).
+	Evaluates all rules before deciding whether to allow traffic.
+	Applies only to the instance that is associated to it.	
+	Has separate rules for inbound and outbound traffic.	
+	A newly created security group denies all inbound traffic by default.	
+	A newly created security group has an outbound rule that allows all outbound traffic by default	
+	Instances associated with a security group can’t talk to each other unless you add rules allowing it.	
+	Security groups are associated with network interfaces.	
+	
+Network Access Control List
+	Acts as a firewall for associated subnets.
+	Controls both inbound and outbound traffic at the subnet level.
+	Network ACLs are an additional layer of defense.
+	Supports allow rules and deny rules.
+	Stateless (Return traffic must be explicitly allowed by rules).
+	Evaluates rules in number order when deciding whether to allow traffic, starting with the lowest numbered rule
+	Applies to all instances in the subnet it is associated with.
+	Has separate rules for inbound and outbound traffic.
+	A default NACL allows inbound and outbound traffic by default.
+	A custom NACLs deny inbound and outbound traffic by default unless you explicitly add rules to allow traffic.
+	Each subnet in your VPC must be associated with a network ACL. If none is associated, the default nACL is selected.
+	You can associate a network ACL with multiple subnets; however, a subnet can be associated with only one network ACL at a time.
+
+
+
+
+		
+LAB -263-Create Subnets in a VPC
+
+vpc = 172.16.0.0/16
+
+sn1 = 172.16.0.0/26		edit subnet setting , enable autoassign public-ip
+sn2 = 172.16.64.0/18
+
+RT-pb
+0.0.0.0/0 igw sn1
+
+RT-Rri
+0.0.0.0/0 nat-gateway sn2	
+
+
+-------------------------------------------
+Subnetting is the technique for logically partitioning a single physical network into multiple smaller subnetworks or subnets. 
+•An organization can use subnetting to conceal network complexity and reduce network traffic by adding subnets without a new network number. 
+•Organizations use subnets to subdivide large networks into smaller,more efficient subnetworks.
+•Subnets split larger networks into a groupings of smaller, inter connected networks to help minimize traffic
+
+
+Organizations use subnets to:
+	•Minimize traffic
+	•Maximize the efficiency of IP addressing 
+	•Reduce network traffic by eliminating collision and broadcast traffic 
+	•Provide the efficient application of network security policies at the interconnection between subnets
+	•Facilitate spanning of large geographical distances
+	•Prevent the allocation of large numbers of unused IP network addresses
+	
+Classes are important to know about in regard to subnetting.
+
+Each IP address belongs to a class of IP addresses depending on the number in the first octet. 
+
+Standard IPv4 address classes have three network ID sizes: 8 bits for Class A (which allows for more hosts),
+16 bits for Class B, and 24 bits for Class C (which can have more subnetworks). 
+
+However, in many cases, standard sizes do not fit all. With subnetting, you can have more control over the length of the network ID portion of an IP address. 
+Your options go beyond the bounds of the standard 8-bit, 16-bit, or 24-bit lengths.
+
+Therefore, you can create more Host IDs for host devices per subnetwork.
+The opposite of subnetting is supernetting, where you combine two or more subnets to create a single supernet. 
+You can refer to this supernet by using a CIDR prefix. 
+
+What is the use of Class D and Class E IP addresses?Class D and Class E IP addresses are mostly reserved for experimental purposes. 
+For example, a Class D IP address is almost exclusively reserved for multicasting applications. (Multicasting is a method of routing data on a computer network by which a single or group of senders can communicate with a group of receivers.) Unlike Classes A, B, and C, Class D is not available for use in normal networking 	operations. 
+
+They don’t have subnet potential because Class D has no host bits within its address space
+.Class E is often cited as having been created for future use, research, and development. Although these IP addresses are reserved, their actual use has never developed. As a result, most network implementations disregard this class altogether.
+In fact, Class E is sometimes classified as illegal or undefined. 
+The one exception is IP address 255.255.255.255, which can be used as a broadcast address.
+(A broadcast address is a network address in which devices connect to a multiple-access communications network)
+
+
+
+
+A 32-bit IP address uniquely identifies a single device on an IP network. 
+
+The subnet mask divides the 32 binary bits into the host and network sections, but they are also broken into four 8-bit octets. 
+Each subnet is a network inside a network and contains the following parts:
+
+•Network ID: 
+	This portion of the IP address identifies the network and makes it unique. 
+
+•Subnet mask: 
+	A subnet mask defines the range of IP addresses that can be used within a network or subnet. 
+	It also separates an IP address into two parts: 
+	network bits and host bits.
+•Host ID range: 
+	This range consists of all of the IP addresses between the subnet address and the broadcast address. 
+	To calculate, take the number of usable host IP addresses within the subnet minus the first and last.
+•Number of usable host IDs: 
+	This number depends on the class and prefix of subnet. Depending on the CIDR (covered in the last section of this module), it can run between 30 and 254.
+	It is always minus the broadcast ID and the first character of the IP address (minus 2).
+•Broadcast ID: 
+	This IP address is used to target all systems on a specific subnet instead of a single host.
+	It permits traffic to be sent to all devices on a specific subnet rather than a specific host.

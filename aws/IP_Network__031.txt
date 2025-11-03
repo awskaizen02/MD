@@ -1,0 +1,359 @@
+You will learn how to:
+	•Distinguish between different types of networks
+	•Describe common network topologies and network management models
+	•List different types of network protocols 
+	
+LAN:
+   A LAN connects devices in a limited geographical area, such as a floor, building, or campus
+
+
+•In the example above, a LAN with one router, two switches, and three nodes under each switch. Each switch or subnet, can represent an office floor or building within the same corporate office or school. 
+•LANs commonly use the Ethernet standard for connecting devices, and they usually have a high data-transfer rate. •Wireless technology is also commonly used for a LAN	
+
+WAN:
+•In the example above, a WAN with three routers, two switches and three nodes under each switch. 
+Examples of WANs are two corporate offices located across the United States connected by a WAN (the internet). 
+•WANs use technologies such as fiber-optic cables and satellites to transmit data which are used to connect LANs. 
+•The internet is considered to be the largest WAN
+
+
+What is a network topology?
+•A topology is a pattern(or diagram) that shows how nodes connect to each other.
+•Computer networks use different topologies to share information.
+•The two topologies are:
+	•Physical topology–Refers to the physical layout of wires in the network
+	•Logical topology–Refers to how data moves through the network
+	
+Its important to understand network management models because they define the roles and relationships of the devices in your network. 
+•Examples of network topologies include: Bus, Star, Mesh, and Hybrid	
+
+
+Physical topology refers to how devices are connected within a network
+
+	Bus topology    – positions all the devices along a single cable
+	
+			 •The physical topology positions all the devices on a network along a single cable. 
+			 They run in a single direction from one end of the network to the other. 
+			 A bus topology is also called a line topology or backbone topology.
+			 •This is simple to configure, however, it only allows one computer to send a signal at a time, which can cause network collisions that will bring down the network.
+			 
+			 
+	Star topology   – every node in the network is directly connected to one central switch
+			 
+			 •The physical topology is set up so that every node in the network is directly connected to one central switch by using coaxial, twisted-pair, or fiber-optic cables
+	
+	Hybrid topology – combines two or more topology structures. This one is called a star-bus topology
+	
+			 •A hybrid topology combines two or more different topology structures. 
+			 It is usually found in large organizations where separate departments have personalized network topologies to accommodate their network usage and other requirements. 
+			 •Today, the star-bus topology is the most common hybrid topology. 
+			 
+	Meshtopology: 
+		•A meshtopology is a complex structure of connections that are similar to peer-to-peer, where the nodes are interconnected.
+		Mesh networks can be full mesh or partial mesh. 
+		
+		•In a partial-meshtopology, all devices are connected to at least two other devices.			 
+		
+		•In a full-mesh topology, all nodes are interconnected. 
+			A full-mesh topology provides full redundancy for the network. 
+			It is an expensive topology because it requires each node to have multiple network adapters and cables. You will most likely find a full-mesh topology in a WAN
+
+Logical topology refers to how data moves through a network. 
+	
+	Amazon Virtual Private Cloud (VPC) is an example of a logical topology:
+	•A VPC is a virtual network that allows you to launch AWS resources that you define. 
+		This VPC looks and works just like a normal network within a data center with the benefits of using AWS services for scalability. 
+	•Bus, Star, Mesh, and Hybrid topologies all have logical portions as well
+	
+What is a logical topology?
+	•Refers to how data moves through a network.	
+	
+VPC topology:
+	•Is a virtual network that allows you to launch AWS resources that you define. It’s a logical network	
+	
+	
+What is a Amazon VPC?
+	•An Amazon VPC is a virtual network that allows you to launch AWS resources that you define. 
+	This VPC looks and works just like a normal network within a data center with the benefits of using AWS services for scalability.  
+	•In the following table, you will see the similarities between AWS services and traditional network topologies at the most basic function	
+	
+	
+global	S3
+	
+	ec2	vpc
+global	iam
+	ebs	vpc
+	lambda  vpc
+	cloudwatch
+global	r-53
+	redsift  vpc
+	dynamodb vpc
+	rdms     vpc
+	
+----------------------------------------------------------------	
+Traditional topology		AWS service or capability
+----------------------------------------------------------------
+Isolated network			Amazon VPC
+Network segment				Subnet
+Firewall			Security Group and Network Access Control List (NACL)
+Server				Elastic Compute Cloud (EC2) instance	
+-------------------------------------------------------------------------------------------------------------------
+
+Why is it important?
+	•Its important to understand network management models because they define the roles and relationships of the devices in your network. 
+	•The two most common for LAN are:
+		•Client-server
+		•Peer-to-peer
+
+•In a client-server network model, the data management and application hosting are centralized at the server, and distributed to the clients. 
+•If the server goes down, no client can access the network until the server is restored. 
+•Examples of client-server models are:•File server and desktop clients• Print server and desktop clients
+
+
+•In a peer-to-peer model, each node has its own data and applications and is responsible for its own management and security. 
+•Peers are equally privileged participants in the architecture. 
+•For example, files can be shared directly between systems on the network without a central server. 
+•This model might be considered under the following conditions:
+	•Users are responsible for backing up each node.
+	•Security requirements are not restrictive.
+	•A limited number of peers are used
+	
+	
+What is a network protocol?
+	•A network protocol defines the rules for formatting and transmitting data between devices on a network. 
+	•It typically operates at layer 3 (Network) and layer 4 (Transport) of the OSI model. 
+	•It falls into two categories:	
+		Connection-oriented protocol
+		Connectionless protocol
+		
+		
+•With a connection-oriented protocol, there is typically a larger overhead because it ensures that a connection is established. 
+•It checks if the message was received or not received. If the message was received, a session is then established. 
+If an error occurs or the message is not received, it sends the message again. 
+•It uses synchronous communication which means it happens in real time.
+For example, it requires two parties to establish a connection like a phone call between two people.
+
+
+•With a connectionless protocol, there is typically little overhead because it doesn’t care if there is a session established.  
+•This is faster then a connection-oriented protocol and uses asynchronous communication which means that one of the parties does not have to be available for data to be sent. 
+•As far as connectionless protocol is concerned, it just sends the data and it doesn’t care if the receiving end gets the data or not.  
+•An example of this is like sending mail. You mail a letter or package and once it leave your mailbox or post office it is asynchronous between the sender and receiver. 
+The party isn’t readily available to receive the package and you won’t know exactly when they will be, you just sent the mail hoping they will get it
+
+
+
+•TCP/IP is a connection-orientedprotocol. 
+	It defines how to establish and maintain network communication in which application programs can exchange data. Data sent via this protocol is broken down into smaller chunks called packets. 
+	The goal of TCP/IP was to support an interconnection of networks (internet). 
+	•TCP is great for transferring important files since there is a guarantee of connection, even though there is a larger overhead (time). 
+	•With TCP, there is something called the TCP handshake. 
+	This handshake is comprised of three messages:
+		•Synchronize (SYN)
+		•Synchronize/Acknowledge (SYN/ACK)
+		•Acknowledge (ACK)
+	•During this handshake, the protocol establishes parameters that support the data transfer between two hosts. For example:
+	•Host A sends a SYN packet to Host B. 
+       •Host B sends the SYN with an ACK attached to acknowledge that they received it with the message back to Host A.
+	•Host A sends the last message with ACK to Host B letting them know they received the SYN/ACK message.
+	
+•UD Puses connectionless communication and there is no guarantee of the delivery or ordering of data. 
+	The best example and use case of UDP is media. 
+	When streaming services such as a movie, UDP is used because it is fast, however, there are times when you might see buffering and things may seem off or out of order like the words do not match up to the picture. 
+	That is UDP delivering the data and the streaming service trying to order the data as UDP doesn’t guarantee the order or delivery
+	
+------------------------------------------------------------------------------------------------------------------
+
+You will learn how to:
+	•Describe the Internet Protocol (IP) and its features
+	•Explain the purpose of an IP address and its notation 
+	•Distinguish between different classes of IP addresses
+	•Convert an IP address to binary 
+	•Describe port numbering and its use
+	
+What is IP?
+	•IP is a network protocol that establishes the rules for relaying and routing data in the internet.
+	•Uses IP addresses to identify devices.
+	•Uses port numbers to identify endpoints.
+	•Supports subnetting to subdivide a network.	
+	
+IP is a critical standard within the larger TCP/IP protocol suite when it is combined with the connection-oriented Transmission Control Protocol (TCP). 
+TCP/IP implements the set of protocols that provides a crucial service for the internet because it enables the successful routing of network traffic among devices on a network	
+
+
+IP addresses:
+	•Work at layer 3 of the OSI model and are used to identify a host and a network. 
+	•Can be assigned in a dynamic or static way:
+		•Dynamic is when an assigned IP address can change.
+		•Static is when an assigned IP address does not change. 
+	•Can be made public or private:
+		•A public IP address can be accessed over the internet.
+		•A private IP address cannot be accessed over the internet.
+
+Ip helps to communicate b/w diff devices
+
+ipv4 	= 32 bits 	public	private  = we use ipv4 
+ipv6 	= 128bits	public	private  = mostly handle by ISP or large users
+			  ISP	 by us
+			  
+			  
+public	- like a mobile number can access from anyware
+private - like intercom , connect only inside the org
+
+we use only private-ip
+
+class a	= 10.0.0.0		10.255.255.255		N.H.H.H
+class b = 172.16.0.0		172.31.255.255		N.N.H.H
+class c = 192.168.0.0		192.168.255.255		N.N.N.H
+
+There are two parts to an IPv4 address:
+	•The network portion
+	•The host portion
+	
+The network portion of the IP address is the number assigned to your network.	
+The host portion of the IP address is the number you assign to each host.
+
+
+localhost # 127.0.0.0	127.255.255.255  -> by default this ip assign to all the devices
+
+8  .8  .8  .8 = 32
+0  .0  .0  .0
+255.255.255.255
+
+128	64	32	16	8	4	2	1	= 255 [ 0 to 255 = 256]
+0	0	0	0	0	0	0	0
+
+
+1 = on
+0 = off
+
+0.0.0.0/24
+
+128	64	32	16	8	4	2	1
+0	0	0	0	0	0	0	0
+							1
+						1	0
+						1	1
+					1	0	0
+					1	0	1
+					1	1	0
+					1	1	1
+				1	0	0	0	
+1	1	1	1	1	1	1	1					
+
+
+IPv6 standard extends the range of IPv4 addresses by a factor of 1,028. 
+It uses a group of hexadecimal numbers that are separated by eight colons (:). 
+•Increases security 
+•Handles packets more efficiently 
+•Improves performance 
+•The numbers identify both the network  and device on the network
+
+
+•Why is this important for issues and troubleshooting?
+
+•You might have experience latency, where a site or application is taking a long time to load, possibly to the point that it times out. 
+In corporate settings, latency is a big deal, and finding out exactly where and what is causing it can save time and money. 
+When troubleshooting latency, at layer 3, there is a command called traceroute where it provides a report on the path the packet takes from source to destination, each server is called a hop, and it checks for packet loss as well. 
+This will be covered more in detail in a later module. 
+•You might come across an issue where a server is not responding to requests, could it be layer 3 related? Or layer 4? Starting at the bottom and working your way up will assist in a solid troubleshooting method. 
+Checking the Physical aspects first at layer 1 if possible, understanding what operates at layer 2, and working your way up to layer 3 IP addresses. 
+An example of this is a server may not be responding because it was assigned a dynamic IP address, even though layer 1 and layer 2 are fine, however, you will not be able to get past layer 3 because of a troubleshooting command called ping.
+This will be discussed in further detail in another module. 
+•Understanding how, where, and what works at each layer will assist you in troubleshooting basic networking issues. 
+
+
+			  
+Layer 3 of the OSI model
+	Layer 3 (the network layer) translates logical network addresses into physical addresses such as MAC addresses. •The network layer determines how to deliver the message.
+	•It determines how to break down a message if it’s too large.
+	•There are many protocols that belong in the network layer:
+	•Layer address and its information
+	•Routing protocols 
+
+•Why is it important?
+	•Layer 2 (data link) establishes the connection between two nodes. 
+		These nodes have the physical components that use a MAC address. 
+		This needs to be translated to a logical address. 
+		At layer 3 (network), this translation between logical and physical takes place. 
+	•This is important to understand the differences of where MAC and IP addresses live and work when troubleshooting issues in the future.
+	
+Public or private IP addresses:
+•Public IP address can be accessed over the internet. Its globally unique IP address that is assigned to a computing device that must access the internet. 
+•Private IP address cannot be accessed from the internet. 
+Example: the application and database servers in your data center are assigned private IP addresses because you might not want other devices to know about these servers	
+
+
+IP addresses –
+summaryIP addresses can be made public or private. 
+•A publicIP address is an IP address that can be accessed over the internet. 
+•A public IP address is similar to a phone number that can be found in a public phone book or on the internet. 
+•With a public IP address such as 54.239.28.85 [amazon.com], anyone can publicly access this over the internet. 
+
+•A privateIP address is assigned to computers within a private network and they cannot be accessed from the internet. •A private IP address is similar to a phone number that is privately listed, or personal number that is not made publicly available. 
+•With a private IP address such as 10.0.0.0, it can only be accessed within a logically isolated private network. 
+
+•EC2 instances have both private and public IP addresses. 
+	•Private IP addresses are used to route traffic with in the VPC
+	•Public IP addresses (when enabled) can be used to interact with the internet
+	
+
+IP addresses –
+special purpose When a network is assigned a range of IP addresses, such as 10.0.0.0 - 10.255.255.255, a few addresses have a special purpose. 
+They are not assigned as host addresses. 
+•The default router address is typically the second address in the range: 10.0.0.1. 
+•The broadcast address is the last address in the range: 10.255.255.255 
+
+Special purpose IP addresses:
+	•The default router address is typically the second address,
+	for example in the range of 10.0.0.0-10.255.255.255, 10.0.0.1 is the default router address. 
+	•Its also known as the gateway address
+	•It’s the IP address of the network router
+	•The broadcast address is the last address in the range: 10.255.255.255. 
+	•The broadcast address is used to transmit messages to all devices that are connected to a network. 
+	If a message is sent to a broadcast address, then all nodes on the network can receive it	
+	
+	
+What is a port number?
+•A port number allows a device in a network to further identify the other devices or applications that communicate with it. 
+•It is also known as an endpoint.
+•An example is to think of a port number like an extension to a phone number. 
+You might have the number to the hospital (IP), but you will need the extension (or port) in order to get to the exact office (endpoint) you are trying to reach.
+
+Port numbers:
+•A device might send or receive data from multiple devices at the same time. 
+A port number, in combination with an IP address, enables the device to determine the exact source or destination of the data, which is also known as the endpoint. 
+•A computer can receive and send information in a similar way to the earlier phone example. 
+It can enable multiple types of data to be sent to the same IP address, and still be parsed and acted on in separate and unique ways. 
+This functionality enables a computer download a file over File Transfer Protocol (FTP) from an Amazon Simple Storage Service (Amazon S3) bucket, stream a live video from Twitch, and receive email messages –all at the same time. 
+•Common Port number examples:
+	•Port 22: SSH –used to create a secure network connection 
+	•Port 53: DNS –used for the modern internet and Amazon uses it as a service Route53
+	•Port 80: HTTP –protocol used to connect to a page like http://www.amazon.com 
+	•Port 443: HTTPS –A secure version of HTTP, used more for purchases and the need for secure sites. Such as https://www.amazon.com
+	•Port 3389: RDP –With this protocol users can remotely connect to their desktop from another computer.
+
+
+Why is this important? 
+•When a port is blocked by a firewall, or if using a VPC it can be blocked by an AWS service like a Security Group or Network Access Control List, the source will not be able to send or receive traffic depending on the rules. 
+Essentially ports can be blocked or allowed to certain traffic for security reasons. 
+•When troubleshooting issues, you can use commands such as netstat, ss, and telnet. 
+These commands are used at layer 4 of the OSI, but some can be used at layer 7. 
+These will be covered more into detail in later sections. 
+•The command netstat confirms established connections, so if a port is blocked, it will not show as a established connection. 
+•The command telnet confirms TCP connections to a web server, note, that this can also be used at layer 7 in the OSI model 
+•The command ssis very similar to netstat, however, it confirms IPv4 connections only.
+
+
+KC - Internet Protocol [IP] - 5 minutes
+
+ -----------------------------------------------------------------------------------------------------------------
+ 	OSI Model	AWS infrastructure
+ -----------------------------------------------------------------------------------------------------------------	
+Layer 7	Application 	(how the end user sees it)			Application
+Layer 6	Presentation 	(translator between layers)			Web Servers, application servers
+Layer 5	Session 	(session establishment, security)		EC2 instances
+Layer 4	Transport 	(TCP, flow control)				Security group. NACL
+Layer 3	Network 	(Packets which contain IP addresses)		Route Tables, IGW, Subnets
+Layer 2	Data Link 	(Frames which contain physical MAC addresses)	Route Tables, IGW, Subnets
+Layer 1	Physical 	(cables, physical transmission bits and volts)	Regions, Availability Zones
+ -----------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,145 @@
+ip helps to communicate b/w devices
+ipv4 = 32 bit public	private
+ipv6 = 128bit
+
+
+
+public  = isp
+private = we custamize as per requirement
+
+static  =  fixed
+dynamic = auto change
+
+lan	= limted are n/w in one location/office
+wan	= connect diff place n/w
+
+aws lan = vpc
+aws wan = peering
+
+Network fist and Host can change
+
+class A = 10.0.0.0	10.255.255.255		N.H.H.H  
+class B = 172.16.0.0	172.31.255.255		N.N.H.H
+class C = 192.168.0.0	192.168.255.255		N.N.N.H
+
+localhost = 127.0.0.0	127.255.255.255
+
+min = /28 = 14
+max = /16 = 65534
+
+vpc 1 = 10.0.0.0/16    = private-ip can create
+vpc 2 = 90.90.90.0/24  = public-ip not advice to create 
+
+
+netstat,ss and telnet are used to check N/W connections,open ports and test connectivity
+
+[ec2-user@ip-10-0-10-124 ~]$ systemctl list-unit-files --type=service | grep httpd
+[ec2-user@ip-10-0-10-124 ~]$ sudo systemctl start httpd
+[ec2-user@ip-10-0-10-124 ~]$ sudo systemctl enable httpd
+[ec2-user@ip-10-0-10-124 ~]$ curl localhost
+
+[ec2-user@ip-10-0-10-124 ~]$ sudo netstat -tulnp | grep httpd
+tcp6       0      0 :::80                   :::*                    LISTEN      2570/httpd
+
+[ec2-user@ip-10-0-10-124 ~]$ sudo ss -tulnp | grep httpd
+tcp   LISTEN 0      128                                 *:80              *:*    users:(("httpd",pid=2647,fd=4),("httpd",pid=2641,fd=4),("httpd",pid=2581,fd=4),("httpd",pid=2579,fd=4),("httpd",pid=2573,fd=4),("httpd",pid=2572,fd=4),("httpd",pid=2571,fd=4),("httpd",pid=2570,fd=4))
+[ec2-user@ip-10-0-10-124 ~]$ telnet localhost 80
+-bash: telnet: command not found
+
+[ec2-user@ip-10-0-10-124 ~]$ sudo yum install telnet -y
+
+
+[ec2-user@ip-10-0-10-124 ~]$ telnet localhost 80
+
+
+
+[ec2-user@ip-10-0-10-124 ~]$ traceroute google.com
+traceroute to google.com (142.251.33.78), 30 hops max, 60 byte packets
+ 1  240.1.228.70 (240.1.228.70)  8.539 ms 240.1.228.15 (240.1.228.15)  6.209 ms 240.1.228.69 (240.1.228.69)  6.236 ms
+ 2  242.4.195.193 (242.4.195.193)  5.591 ms 242.16.82.235 (242.16.82.235)  5.998 ms 242.16.83.239 (242.16.83.239)  8.194 ms
+ 3  * * *
+ 4  99.83.117.221 (99.83.117.221)  5.664 ms  5.655 ms *
+ 5  * * *
+ 6  142.251.229.76 (142.251.229.76)  5.697 ms 142.251.241.136 (142.251.241.136)  5.567 ms 216.239.56.222 (216.239.56.222)  6.567 ms
+ 7  142.251.50.245 (142.251.50.245)  5.778 ms 142.251.249.236 (142.251.249.236)  5.707 ms sea09s28-in-f14.1e100.net (142.251.33.78)  5.857 ms
+ 
+ [ec2-user@ip-10-0-10-124 ~]$ ping google.com
+ PING google.com (142.251.33.78) 56(84) bytes of data.
+ 64 bytes from sea09s28-in-f14.1e100.net (142.251.33.78): icmp_seq=1 ttl=117 time=7.33 ms
+ 64 bytes from sea09s28-in-f14.1e100.net (142.251.33.78): icmp_seq=2 ttl=117 time=7.33 ms
+ 64 bytes from sea09s28-in-f14.1e100.net (142.251.33.78): icmp_seq=3 ttl=117 time=7.34 ms
+ 64 bytes from sea09s28-in-f14.1e100.net (142.251.33.78): icmp_seq=4 ttl=117 time=7.33 ms
+64 bytes from sea09s28-in-f14.1e100.net (142.251.33.78): icmp_seq=5 ttl=117 time=7.39 ms
+
+[ec2-user@ip-10-0-10-124 ~]$ ping -c 2 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=7.37 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=117 time=7.37 ms
+
+--- 8.8.8.8 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 7.372/7.375/7.379/0.085 ms
+[ec2-user@ip-10-0-10-124 ~]$ ping 8.8.8.8 -c 2
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=7.36 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=117 time=7.36 ms
+
+--- 8.8.8.8 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 7.361/7.362/7.364/0.085 ms
+
+[ec2-user@ip-10-0-10-124 ~]$ traceroute 8.8.8.8
+traceroute to 8.8.8.8 (8.8.8.8), 30 hops max, 60 byte packets
+ 1  240.1.228.15 (240.1.228.15)  6.055 ms  6.748 ms 240.1.228.12 (240.1.228.12)  6.151 ms
+ 2  242.16.83.107 (242.16.83.107)  6.439 ms 242.16.83.105 (242.16.83.105)  7.306 ms 242.16.83.111 (242.16.83.111)  7.973 ms
+ 3  * * *
+ 4  99.83.117.223 (99.83.117.223)  5.712 ms 99.82.10.7 (99.82.10.7)  5.596 ms 99.83.117.221 (99.83.117.221)  5.575 ms
+ 5  * * *
+ 6  dns.google (8.8.8.8)  5.491 ms  5.542 ms  7.608 ms
+ 
+ [ec2-user@ip-10-0-10-124 ~]$ telnet localhost 80
+ Trying 127.0.0.1...
+ Connected to localhost.
+ Escape character is '^]'.
+ ^]
+ telnet> quit
+ Connection closed.
+ [ec2-user@ip-10-0-10-124 ~]$ telnet 34.217.174.125 80
+ Trying 34.217.174.125...
+ Connected to 34.217.174.125.
+ Escape character is '^]'.
+ ^]
+ telnet> quit
+Connection closed.
+
+
+  10  systemctl list-unit-files --type=service | grep enabled
+   11  cd /var/www/html/
+   12  ls
+   13  systemctl list-unit-files --type=service | grep httpd
+   14  sudo systemctl start httpd
+   15  sudo systemctl enable httpd
+   16  curl localhost
+   17  cd
+   18  clear
+   19  sudo netstat -tulnp | grep httpd
+   20  sudo ss -tulnp | grep httpd
+   21  telnet localhost 80
+   22  sudo yum install telnet -y
+   23  telnet localhost 80
+   24  history
+   25  ping google.com
+   26  traceroute google.com
+   27  tracert google.com
+   28  sudo yum install traceroute -y
+   29  tracert google.com
+   30  ping -c 2 8.8.8.8
+   31  ping 8.8.8.8 -c 2
+   32  traceroute 8.8.8.8
+   33  tracert 8.8.8.8
+   34  netstat -tp
+   35  telnet localhost 80
+   36  telnet 34.217.174.125 80
+   37  curl -vLo /dev/null https://aws.com
+   
+   ------------------------------------------------
