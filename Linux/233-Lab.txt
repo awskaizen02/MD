@@ -1,0 +1,90 @@
+233-Lab  - Working with the File System
+
+
+Task 2: Create a Folder Structure
+
+[ec2-user@ip-10-0-10-219 ~]$ ls
+
+[ec2-user@ip-10-0-10-219 ~]$ pwd
+/home/ec2-user
+
+[ec2-user@ip-10-0-10-219 ~]$ mkdir CompanyA
+
+[ec2-user@ip-10-0-10-219 ~]$ cd CompanyA
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ mkdir Finance HR Management
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ ls
+Finance  HR  Management
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ cd HR
+
+[ec2-user@ip-10-0-10-219 HR]$ ls
+
+[ec2-user@ip-10-0-10-219 HR]$ touch Assessments.csv TrialPeriod.csv
+
+[ec2-user@ip-10-0-10-219 HR]$ ls
+Assessments.csv  TrialPeriod.csv
+
+[ec2-user@ip-10-0-10-219 HR]$ pwd
+/home/ec2-user/CompanyA/HR
+
+[ec2-user@ip-10-0-10-219 HR]$ cd ../Finance
+
+[ec2-user@ip-10-0-10-219 Finance]$ pwd
+/home/ec2-user/CompanyA/Finance
+
+[ec2-user@ip-10-0-10-219 Finance]$ touch Salary.csv  ProfitAndLossStatements.csv
+
+[ec2-user@ip-10-0-10-219 Finance]$ ls
+ProfitAndLossStatements.csv  Salary.csv
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ pwd
+/home/ec2-user/CompanyA
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ ls
+Finance  HR  Management
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ touch Management/Managers.csv Management/Schedule.csv
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ ls Management/
+Managers.csv  Schedule.csv
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ ls -laR
+
+Task 3: Delete and reorganize folders
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ pwd
+/home/ec2-user/CompanyA
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ cp -r Finance HR
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ ls -R HR/
+HR/:
+Assessments.csv  Finance  TrialPeriod.csv
+
+HR/Finance:
+ProfitAndLossStatements.csv  Salary.csv
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ ls
+HR  Management
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ mv Management HR
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ ls HR/
+Assessments.csv  Finance  Management  TrialPeriod.csv
+
+[ec2-user@ip-10-0-10-219 CompanyA]$ cd HR/
+
+[ec2-user@ip-10-0-10-219 HR]$ mkdir Employees
+
+[ec2-user@ip-10-0-10-219 HR]$ ls
+Assessments.csv  Employees  Finance  Management  TrialPeriod.csv
+
+[ec2-user@ip-10-0-10-219 HR]$ mv Assessments.csv TrialPeriod.csv Employees/
+
+[ec2-user@ip-10-0-10-219 HR]$ ls
+Employees  Finance  Management
+
+[ec2-user@ip-10-0-10-219 HR]$ ls Employees/
+Assessments.csv  TrialPeriod.csv

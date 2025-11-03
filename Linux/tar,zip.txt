@@ -1,0 +1,267 @@
+You will learn how to:
+•Describe the use of the hash, cksum, find, grep, and diff commands
+•Differentiate hard links from symbolic links
+•Compare the tar, gzip, and zip commands
+
+The hashcommand
+	•Displays a list of recently run programs, their location, and the number of times they have run
+	•Information is maintained by the command in a hash table
+	•Can be used to reset or modify the hash table
+	•Location information includes the program’s full path name
+	•Syntax: hash [options] [-p pathName] [options] [commandName ...]
+	
+[ec2-user@ip-10-0-10-215 ~]$ hash
+hits    command
+   1    /usr/bin/touch
+   1    /usr/bin/mkdir
+   3    /usr/bin/ls
+   1    /usr/bin/clear
+   
+   
+   
+   Some command options are as follows.
+   	•-d: Deletes the location for command Name from the hash table
+   	•-l: Displays output in a format that can be used as input to another command
+   	•-p: Sets path Nameas the the full path location for command Name
+   	•-r: Empties the hash table
+   	•-t: Displays the location of command Name
+
+[ec2-user@ip-10-0-10-215 ~]$ hash
+hits    command
+   3    /usr/bin/touch
+   3    /usr/bin/mkdir
+   1    /usr/bin/ls
+[ec2-user@ip-10-0-10-215 ~]$ hash -d ls
+[ec2-user@ip-10-0-10-215 ~]$ hash
+hits    command
+   3    /usr/bin/touch
+   3    /usr/bin/mkdir
+   
+[ec2-user@ip-10-0-10-215 ~]$ hash -l
+builtin hash -p /usr/bin/touch touch
+
+[ec2-user@ip-10-0-10-215 ~]$ hash -p ~/12/l pa
+[ec2-user@ip-10-0-10-215 ~]$ hash
+hits    command
+   3    /usr/bin/touch
+   3    /usr/bin/mkdir
+   0    /home/ec2-user/12/l
+   
+[ec2-user@ip-10-0-10-215 ~]$ hash -t ls
+/usr/bin/ls
+
+•This command generates a checksum value for a file or stream of data.
+•It is used to see whether the file was corrupted during transfer.
+•The cksum command displays a cyclic redundancy check (CRC) value and the byte count for a file. 
+•If the file’s CRC value is the same before and after a transfer, the file was not corrupted
+• the size (in bytes) of the file
+                 copy
+file1-400mb	--------> file2-400mb
+
+[ec2-user@ip-10-0-10-215 etc]$ cksum yum.conf
+2360430524 862 yum.conf
+
+
+2360430524 	862	 yum.conf
+crc-        	size	  filename
+[cyclic redundancy check]
+
+[ec2-user@ip-10-0-10-215 etc]$ cksum vimrc virc updatedb.conf
+4001511097 4242 vimrc
+3878069201 1183 virc
+3311548822 557 updatedb.conf
+
+[ec2-user@ip-10-0-10-215 etc]$ echo "hi there" | cksum
+3310114445 9
+
+
+•The find command searches a designated directory for files that match specific criteria
+•Can search by:
+	–Owner
+	–File name
+	–File size
+	–File modification date
+•Can specify which directories to search to narrow the scope
+•Can specify an action to take when the file is found
+•Syntax: find [directory to start from][options][what to find]
+	–Example: find /home/student01 -name fileA.txt
+	
+	
+	
+Option				Description
+-name <file name>		Searches by file name
+-iname <file name>		Searches by file name but ignores case
+-user <user name>		Searches by file owner
+-type <file type>		Searches by file type	
+
+[ec2-user@ip-10-0-10-215 ~]$ find /home -name "ran*.txt"
+/home/ec2-user/ran1.txt
+/home/ec2-user/ran2.txt
+/home/ec2-user/ran3.txt
+/home/ec2-user/ran4.txt
+/home/ec2-user/ran5.txt
+
+[ec2-user@ip-10-0-10-215 ~]$ find /home -iname "ran*.txt"
+/home/ec2-user/ran1.txt
+/home/ec2-user/ran2.txt
+/home/ec2-user/ran3.txt
+/home/ec2-user/ran4.txt
+/home/ec2-user/ran5.txt
+/home/ec2-user/RaN1.txt
+/home/ec2-user/RaN2.txt
+/home/ec2-user/RaN3.txt
+/home/ec2-user/RaN4.txt
+/home/ec2-user/RaN5.txt
+
+
+[ec2-user@ip-10-0-10-215 ~]$ find /home/ec2-user/ -name "*.txt" -fprint file_test.t
+xt
+[ec2-user@ip-10-0-10-215 ~]$ cat file_test.txt
+/home/ec2-user/ram1.txt
+/home/ec2-user/ram2.txt
+/home/ec2-user/ram3.txt
+/home/ec2-user/ram4.txt
+/home/ec2-user/ram5.txt
+/home/ec2-user/ran1.txt
+/home/ec2-user/ran2.txt
+/home/ec2-user/ran3.txt
+/home/ec2-user/ran4.txt
+/home/ec2-user/ran5.txt
+/home/ec2-user/RaN1.txt
+/home/ec2-user/RaN2.txt
+/home/ec2-user/RaN3.txt
+/home/ec2-user/RaN4.txt
+/home/ec2-user/RaN5.txt
+/home/ec2-user/file_test.txt
+
+
+[ec2-user@ip-10-0-10-215 ~]$ find /home/ -type f -empty -exec rm {} \;
+[ec2-user@ip-10-0-10-215 ~]$ find /home/ec2-user/ -size 0
+[ec2-user@ip-10-0-10-215 ~]$ ls
+12     CompanyA       ram4.txt  ran2.txt  ran4.txt  yum.conf
+12344  file_test.txt  ran1.txt  ran3.txt  sample
+
+•The first example shows how to search for a file that is named fileA.txt and starts in the current directory. 
+The search should ignore the case of the letters in the file name pattern.
+
+•The second example shows how to search for files that student01 owns, which start in the /home/student01 directory.
+
+•The third example shows how to search for files with a file name extension of .jpg that start in the /home/student01 directory.
+•The fourth example shows how to search for files with a file name extension of .conf that start in the /etc directory. 
+
+The search should be case insensitive and return only those matching files that were modified exactly 168 (7x 24) hours ago.
+
+GREP = GLOBAL REGULAR EXPRESSION PRINT
+
+grep Command
+
+•Searches the contents of a file for a particular text pattern or string and displays each occurrence
+•Can also search files in a directory
+•Provides options to control the search behavior and output
+•Syntax: grep <text pattern or string> <where to search>
+
+
+Option			Description
+-i			Ignorecase
+-r			Recursive searches
+-l			List only file names
+-n			Display linenumber
+-c			Count of matchinglines
+--files-with-matches	Names of files that contain selected  lines are written to  standard outpu
+
+
+[ec2-user@ip-10-0-10-215 ~]$ ls | grep file
+file_test.txt
+[ec2-user@ip-10-0-10-215 ~]$ grep file_test.txt
+
+[ec2-user@ip-10-0-10-215 ~]$ cat /etc/passwd | grep root
+root:x:0:0:root:/root:/bin/bash
+operator:x:11:0:operator:/root:/sbin/nologin
+
+[ec2-user@ip-10-0-10-215 ~]$ cat /etc/passwd | grep ec2-user
+ec2-user:x:1000:1000:EC2 Default User:/home/ec2-user:/bin/bash
+
+[ec2-user@ip-10-0-10-215 ~]$ grep fail /var/log/secure
+grep: /var/log/secure: Permission denied
+
+[ec2-user@ip-10-0-10-215 ~]$ sudo grep fail /var/log/secure
+Oct 25 11:30:33 ip-10-0-10-215 sshd[2393]: reverse mapping checking getaddrinfo for abts-tn-dynamic-024.14.164.122.airtelbroadband.in [122.164.14.24] failed - POSSIBLE BREAK-IN ATTEMPT!
+Oct 25 12:09:08 ip-10-0-10-215 sudo: ec2-user : TTY=pts/0 ; PWD=/home/ec2-user ; USER=root ; COMMAND=/bin/grep#040fail#040/var/log/secure
+
+[ec2-user@ip-10-0-10-215 ~]$ grep -n "root" /etc/passwd
+1:root:x:0:0:root:/root:/bin/bash
+10:operator:x:11:0:operator:/root:/sbin/nologin
+
+[ec2-user@ip-10-0-10-215 ~]$ grep -r "pass" /etc
+grep: /etc/sysconfig/crond: Permission denied
+/etc/sysconfig/rpcbind:# Optional arguments passed to rpcbind. See rpcbind(8)
+/etc/sysconfig/network-scripts/ifup-ppp:  # just in case a full path to the configuration file is passed in
+/etc/sysconfig/network-scripts/network-functions:    # Append the hostname options to the content of passed variable name:
+/etc/sysconfig/network-scripts/ec2net-functions:  # DHCP6 server ID. 
+
+
+		find						grep
+---------------------------------------------------------------------------------------------------------		
+Description	Searches files based on given criteria	Searches file content for a given string or text 
+pattern		Use Is used to locate files		Is used to find a string in a file 
+Output		Returns file names			Returns occurrences of a searched string
+---------------------------------------------------------------------------------------------------------		
+
+The diff command
+
+•Compares files line by line and displays the differences 
+•Valuable for comparing two files
+•Output is called a diff
+•Syntax: diff [options] File1 File2
+
+
+You can use a link to refer to a given file by using different names. 
+By creating multiple links for the same file, you can access it from more than one location in the file system.
+
+Linux has two types of links:
+	
+	•Hard link: Every file has an object that is called inode, which stores the file’s disk block locations and attributes. An inode is identified with a unique number. A hard link is a pointer to a file’s inode.
+	
+	ln sore_name<original_name>  destination_name<anyname as_we_want>
+	hardlinke use same_id <inode>
+	
+	•Symbolic link: Also known as a soft link or symlink, a symbolic link points to the original file name or a hard link
+	softlink diff_id <inode>
+	
+	[ec2-user@ip-10-0-10-215 123]$ ln a.txt 123/samplelink
+	
+	[ec2-user@ip-10-0-10-215 123]$ ln -s /home/ec2-user/123/b.txt  soft_test.txt
+	[ec2-user@ip-10-0-10-215 123]$ ls -l
+	total 8
+	-rw-rw-r-- 1 ec2-user ec2-user 155 Oct 25 12:19 b.txt
+	-rw-rw-r-- 2 ec2-user ec2-user 148 Oct 25 12:18 samplelink
+	lrwxrwxrwx 1 ec2-user ec2-user  24 Oct 25 12:29 soft_test.txt -> /home/ec2-user/123
+	
+	
+	
+•Bundles a collection of files into a single archive file for easier copying or downloading
+•Created bundle is called a tarball
+•Contents of an archive file can optionally be compressed
+•The command is also used to unbundle an archive file
+•For example:  –To bundle and compress file1, file2, and file3 into a file called tarball.tar:
+tar -cvf tarball.tar file1 file2 file3–To 
+unbundle or extract files from the tarball:
+tar -xf tarball.tar
+
+
+tar -cvf  backup.tar sample1.txt sam2.txt demo/
+
+
+Compresses or decompresses files, including tarballs•
+Examples:–To compress a tarball: gzip salesdata.tar
+	–To decompress a tarball:gzip -d salesdata.tar.gz The gzip command Use the gzip command to compressor decompress files, including tarballs:
+
+•Common with internet downloads
+•Common with archiving log files
+•Common with archiving old dataFiles can be both tarred and gzipped, and files that are created with the gzip command will have the .gz extension.
+
+
+•The zip command is used as a compression tool.
+	–Syntax: zip –r [FolderName]
+•The unzip command is used as an extraction tool. 
+	–Syntax: unzip [FolderName].zip

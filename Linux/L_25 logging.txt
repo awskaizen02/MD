@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 What you will learnYou will learn how to:
 	•Define log files
@@ -136,3 +137,143 @@ Logrotation
 	
 [ec2-user@ip-10-0-10-25 log]$ sudo cat yum.log
 
+=======
+
+What you will learnYou will learn how to:
+	•Define log files
+	•Use commands to read different types of messages in a log file 
+	•Recognize the benefits of log rotation
+
+What is logging?
+	•Logs keep records of events on the system, which helps with auditing.
+	•The following are types of logs:
+		System logs (system startup information and system shutdown times)
+		Events logs(user login and logout events)
+		Applications logs (startup time, actions, and errors)
+		Services log 
+		
+Logs are a record of what happened in the operating system or an application.
+They are particularly useful if an issue occurs.
+Administrators, developers, and others can trace which application triggered an error, which user made a wrong action, or which outside host accessed the server.
+
+
+
+system Logs:
+	record system-level events
+	system startup,shutdown times, kernal messages
+	file : /var/log/syslog (or) /var/log/messages
+	
+Event Logs
+	Record user-related activites, such as login,logouts and authentication attempts
+	File: /var/log/auth.log , /var/log/secure
+	
+Application Logs
+	Record events from specific application (msql(db),webserver(apache))
+	inclusing startup time, user action and error messages
+	example: /var/log/httpd/error_log
+
+service logs:
+	Record actions of sysem services such as web server,mail servers ,db servers
+	/var/log/nginx/access/log
+	
+Auditing	: Track who did what and when
+Troublesooting	: Helps identify causes of errors or crashes
+Security Monitoring : Detecs unauthorized acces or suspicious behavior
+performance Monitoring : Reveals performance bottlenecks or resource issues
+
+
+
+
+
+Logging can help troubleshoot issues:
+	What or who caused an error? Did anyone wrongfully access a file, a database, or a server?
+	Logs are a key to security audits (gathering information about the system) and service-level agreements (troubleshooting must start within x hours after an issue occurs)
+	
+	
+sudo cat /var/log/yum.log 	     # file lists programs that were installed or updated	
+sudocat /var/log/httpd/error_logfile # is the log file of the httpd, a web server service. 
+
+
+Severity_Level   Identification				Description
+0		EMERGENCY	Logs messages when the system becomes unstable
+1		ALERT		Logs when immediate action is needed
+2		CRITICAL	Logs only messages for critical errors; the system may become unusable 
+3		ERROR		Logs only messages that indicate non-critical error conditions or more seriousmessages
+4		WARN		Logs only messages that are warnings or more serious messages 
+				(usually the default log level on Linux distributions)
+5		NOTICE		Logs messages for normal events but of significant importance
+6		INFO		Logs all informational messages and more seriousmessages
+7		DEBUG		Logs all debug-level and INFO messages
+
+
+Logging levels These logging levels are the logs that the Linux operating system offers. 
+Some programs or libraries may offer fewer logging levels, such as debug, info, warning, and error, with a default logging level set to info.
+The logs of the current logging level and higher levels are displayed. 
+For example, when choosing WARN, level 4, the logs of NOTICE, INFO and DEBUG are also displayed.
+
+
+cat, less, more, tail,and head are all commands that are useful to read logs. 
+Using the pipe redirector| and grep is an efficient way to look for a specific pattern in a log.
+You can also open the files using editors such as vi or gedit
+
+
+Using grep to search log files•
+
+The grep command searches the given file for lines that containa match to the specified strings or words.
+•Add the grep command when you look for a specific string of text in log files.
+•grep is one of the most useful commands in Linux.
+•The following are examples:
+cat your log.log | grepERROR
+tail -f your log.log | grep error
+sudo cat/tmp/log/secure | grep LOGIN > SharedFolders/logins.csv
+
+
+Where does Linux store logfiles?
+•Linux and applications normally store log files in the /var/log directory.
+•The /var directory is used to store files that might rapidly and unpredictably change in size.
+
+Linux usually stores log files in the /var/log directory.
+
+
+LogFile				Description
+------------------------------------------------------------------------------------------------
+/var/log/syslog			Stores systeminformation
+/var/log/secure			Stores authentication information for RedHat-deriveddistributions
+/var/log/kern			Stores Linux kernel information
+/var/log/boot.log		Stores startup messages
+/var/log/maillog		Stores mail messages
+/var/log/daemon.log		Stores information about running background services
+/var/log/auth.log		Stores authentication information for Debian-derived distributions
+/var/log/cron.log		Stores cron messages for scheduled tasks
+/var/log/httpd			Stores Apache information for Red Hat-derived distributions
+/var/log/YUM			Stores YUM installer information for Red Hat-derived distributions
+/var/log/apache2/access.log	Stores Apache authentication information for Debian-derived distributions
+/var/log/lastlog		Stores information about successful logins to the host
+
+------------------------------------------------------------------------------------------------
+
+
+
+Reports recent login information for the system 
+Can report all logins or login information for a specific user
+
+
+The lastlog command retrieves user information from the /var/log/lastlog file and outputs it in the console.
+lastlog –u ec2-user displays information of the ec2-user only.
+lastlog –t 1 displays login information more recent than 1 day ago.
+Use man lastlog for more options.
+
+
+Logrotation
+	•Servers typically run large applications.
+		Servers often log every request.
+		This logging leads to bulky log files.
+	•Log rotation can help with the following in regard to bulky logs:
+		It is a way to limit the total size of the logs that are retained.
+		It still helps analysis of recent events.
+	•Log rotation is an automated process that is used in system administration where dated log files arearchived
+	
+	
+[ec2-user@ip-10-0-10-25 log]$ sudo cat yum.log
+
+>>>>>>> ab66f395dbfe6c0611d70074c345e47ea40748ff

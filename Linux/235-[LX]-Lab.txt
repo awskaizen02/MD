@@ -1,0 +1,147 @@
+235-[LX]-Lab - Working with Files
+
+
+
+
+
+
+Task 1: Use SSH to connect to an Amazon Linux EC2 instance
+
+
+Task 2: Create a backup
+
+[ec2-user@ip-10-0-10-136 ~]$ ls
+CompanyA
+[ec2-user@ip-10-0-10-136 ~]$ cd CompanyA/
+[ec2-user@ip-10-0-10-136 CompanyA]$ pwd
+/home/ec2-user/CompanyA
+[ec2-user@ip-10-0-10-136 CompanyA]$ ls
+Employees  Finance  HR  IA  Management  SharedFolders
+[ec2-user@ip-10-0-10-136 CompanyA]$
+
+[ec2-user@ip-10-0-10-136 ~]$ tar -csvpzf backup.CompanyA.tar.gz CompanyA
+CompanyA/
+CompanyA/Management/
+CompanyA/Management/Sections.csv
+CompanyA/Management/Promotions.csv
+CompanyA/Employees/
+CompanyA/Employees/Schedules.csv
+CompanyA/Finance/
+CompanyA/Finance/Salary.csv
+CompanyA/HR/
+CompanyA/HR/Managers.csv
+CompanyA/HR/Assessments.csv
+CompanyA/IA/
+CompanyA/SharedFolders/
+[ec2-user@ip-10-0-10-136 ~]$ ls
+backup.CompanyA.tar.gz  CompanyA  spz
+
+
+Task 3: Log the backup
+
+[ec2-user@ip-10-0-10-136 ~]$ cd CompanyA/
+[ec2-user@ip-10-0-10-136 CompanyA]$ ls
+Employees  Finance  HR  IA  Management  SharedFolders
+[ec2-user@ip-10-0-10-136 CompanyA]$ touch SharedFolders/backups.csv
+[ec2-user@ip-10-0-10-136 CompanyA]$ date
+Mon Oct 27 09:28:55 UTC 2025
+[ec2-user@ip-10-0-10-136 CompanyA]$  echo "Mon Oct 27 ,09:28:55 UTC 2025, backup.CompanyA.tar.gz" | sudo tee SharedFolders/backups.csv
+Mon Oct 27 ,09:28:55 UTC 2025, backup.CompanyA.tar.gz
+[ec2-user@ip-10-0-10-136 CompanyA]$ cat SharedFolders/backups.csv
+Mon Oct 27 ,09:28:55 UTC 2025, backup.CompanyA.tar.gz
+
+Task 4: Move the backup file
+
+[ec2-user@ip-10-0-10-136 CompanyA]$ pwd
+/home/ec2-user/CompanyA
+[ec2-user@ip-10-0-10-136 CompanyA]$ ls
+Employees  Finance  HR  IA  Management  SharedFolders
+[ec2-user@ip-10-0-10-136 CompanyA]$ cd
+[ec2-user@ip-10-0-10-136 ~]$ ls
+backup.CompanyA.tar.gz  CompanyA  spz
+[ec2-user@ip-10-0-10-136 ~]$ cd CompanyA/
+[ec2-user@ip-10-0-10-136 CompanyA]$ mv ~/backup.CompanyA.tar.gz IA/
+[ec2-user@ip-10-0-10-136 CompanyA]$ ls . IA
+.:
+Employees  Finance  HR  IA  Management  SharedFolders
+
+IA:
+backup.CompanyA.tar.gz
+
+
+[ec2-user@ip-10-0-10-136 ~]$ tar -czvf 2nd_gnta.tar.qz CompanyA/
+CompanyA/
+CompanyA/Management/
+CompanyA/Management/Sections.csv
+CompanyA/Management/Promotions.csv
+CompanyA/Employees/
+CompanyA/Employees/Schedules.csv
+CompanyA/Finance/
+CompanyA/Finance/Salary.csv
+CompanyA/HR/
+CompanyA/HR/Managers.csv
+CompanyA/HR/Assessments.csv
+CompanyA/IA/
+CompanyA/IA/backup.CompanyA.tar.gz
+CompanyA/SharedFolders/
+CompanyA/SharedFolders/backups.csv
+[ec2-user@ip-10-0-10-136 ~]$ ls -lha
+total 40K
+drwx------ 4 ec2-user ec2-user 143 Oct 27 09:35 .
+drwxr-xr-x 3 root     root      22 Oct 27 09:14 ..
+-rw-rw-r-- 1 ec2-user ec2-user 10K Oct 27 09:33 1st_tar.tar
+-rw-rw-r-- 1 ec2-user ec2-user 918 Oct 27 09:35 2nd_gnta.tar.qz
+-rw-r--r-- 1 ec2-user ec2-user  18 Jul 15  2020 .bash_logout
+-rw-r--r-- 1 ec2-user ec2-user 193 Jul 15  2020 .bash_profile
+-rw-r--r-- 1 ec2-user ec2-user 231 Jul 15  2020 .bashrc
+drwxr-xr-x 8 ec2-user root      97 Oct 27 09:14 CompanyA
+-rw-rw-r-- 1 ec2-user ec2-user 10K Oct 27 09:25 spz
+drwx------ 2 ec2-user ec2-user  29 Oct 27 09:14 .ssh
+[ec2-user@ip-10-0-10-136 ~]$ zip 3rdzipdemo.zip CompanyA/
+  adding: CompanyA/ (stored 0%)
+[ec2-user@ip-10-0-10-136 ~]$ zip -r 3rdzipdemo.zip CompanyA/
+updating: CompanyA/ (stored 0%)
+  adding: CompanyA/Management/ (stored 0%)
+  adding: CompanyA/Management/Sections.csv (stored 0%)
+  adding: CompanyA/Management/Promotions.csv (stored 0%)
+  adding: CompanyA/Employees/ (stored 0%)
+  adding: CompanyA/Employees/Schedules.csv (stored 0%)
+  adding: CompanyA/Finance/ (stored 0%)
+  adding: CompanyA/Finance/Salary.csv (stored 0%)
+  adding: CompanyA/HR/ (stored 0%)
+  adding: CompanyA/HR/Managers.csv (stored 0%)
+  adding: CompanyA/HR/Assessments.csv (stored 0%)
+  adding: CompanyA/IA/ (stored 0%)
+  adding: CompanyA/IA/backup.CompanyA.tar.gz (stored 0%)
+  adding: CompanyA/SharedFolders/ (stored 0%)
+  adding: CompanyA/SharedFolders/backups.csv (stored 0%)
+[ec2-user@ip-10-0-10-136 ~]$ ls -lh
+total 32K
+-rw-rw-r-- 1 ec2-user ec2-user  10K Oct 27 09:33 1st_tar.tar
+-rw-rw-r-- 1 ec2-user ec2-user  918 Oct 27 09:35 2nd_gnta.tar.qz
+-rw-rw-r-- 1 ec2-user ec2-user 3.1K Oct 27 09:36 3rdzipdemo.zip
+drwxr-xr-x 8 ec2-user root       97 Oct 27 09:14 CompanyA
+-rw-rw-r-- 1 ec2-user ec2-user  10K Oct 27 09:25 spz
+[ec2-user@ip-10-0-10-136 ~]$ unzip -l 3rdzipdemo.zip
+Archive:  3rdzipdemo.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  10-27-2025 09:14   CompanyA/
+        0  10-27-2025 09:14   CompanyA/Management/
+        0  10-27-2025 09:14   CompanyA/Management/Sections.csv
+        0  10-27-2025 09:14   CompanyA/Management/Promotions.csv
+        0  10-27-2025 09:14   CompanyA/Employees/
+        0  10-27-2025 09:14   CompanyA/Employees/Schedules.csv
+        0  10-27-2025 09:14   CompanyA/Finance/
+        0  10-27-2025 09:14   CompanyA/Finance/Salary.csv
+        0  10-27-2025 09:14   CompanyA/HR/
+        0  10-27-2025 09:14   CompanyA/HR/Managers.csv
+        0  10-27-2025 09:14   CompanyA/HR/Assessments.csv
+        0  10-27-2025 09:31   CompanyA/IA/
+      366  10-27-2025 09:23   CompanyA/IA/backup.CompanyA.tar.gz
+        0  10-27-2025 09:27   CompanyA/SharedFolders/
+       54  10-27-2025 09:29   CompanyA/SharedFolders/backups.csv
+---------                     -------
+      420                     15 files
+      
+-----------------------------------------------------------------      
