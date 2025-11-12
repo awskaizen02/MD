@@ -1,0 +1,253 @@
+At the core of the lesson You will learn how to:
+
+•Define programming
+•Explain the function and features of an integrated development environment (IDE)
+•Describe the cycle of programming
+
+programming is the process of iving instructions to a computer, so it can perfom specific task
+
+A purpose for programming: Automation
+
+Automation refers to any technology that removes human interaction from a system, equipment, or process.
+Scripts are often written to automate labor-intensive tasks and streamline workflows.
+Before you automate a process, consider the following:
+
+How much automation is needed to achieve your goals?
+Identify the proper processes to automate.
+Find the balance between over-automation and under-automation.
+Don’t automate a bad process.
+
+A programming language is a set of instructions and rules that allow humans to communicate with computers
+
+Perform calculations.
+Analyze some text.
+Read and write files.
+Display an image on the screen.
+Accept input from the user.
+
+•Many different languages exist
+•Each language has its own:
+	–Grammar and syntax
+	–Common uses
+	–Community
+
+javascript = mainly used for websites and webapps
+c++        = powerful and fast , used for games an systes software
+java       = used for web and mobile application
+python     = easy automation scrpting, web development, data analysis & visalization , ai &Ml
+
+Software is written by using text files.
+Software is written by using a computer language.
+
+•Some text editors *include features that help programmers write code.
+
+	
+•Examples: 
+	–Microsoft Visual Studio Code
+	–Sublime Text
+	–Vi or Vim
+	–nano
+	–GNU emacs
+	–Notepad++
+	–TextEdit
+
+Integrated development environment (IDE)
+	An IDE can tell you which words are spelled incorrectly, which phrases are unclear, and syntax that you wrote incorrectly.
+	Most IDEs will suggest a fix for the issue.
+	Some IDEs work with only one language, such as PyCharm for Python. 
+	It will not show syntax errors for Java or C# to you.
+
+
+Compilers and interpreters take the high-level language that you are developing in, and turn it into low-level machine code.
+
+Compilers do this process all at one time after changes are made, but before it runs the code.
+
+Interpreters do this process one step at a time while the code is running
+
+Compiled languages
+	•C/C++
+	•Basic
+	•GoLang (the language that Google developed)
+
+Interpreted languages
+	•Python
+	•Ruby
+	•JavaScript
+	
+JavaScript is interpreted when it is loaded into a webpage.
+Java is compiled before the program runs on a computer	
+
+Categorize a value as a data type
+
+You will learn how to:
+•Define the term data type
+•Correctly match data types to data
+•Assign values to variables and variables to data types
+
+
+
+Text Type:	str
+Numeric Types:	int, float, complex
+Sequence Types:	list, tuple, range
+Mapping Type:	dict
+Set Types:	set, frozenset
+Boolean Type:	bool
+Binary Types:	bytes, bytearray, memoryview
+None Type:	NoneType
+
+
+Example						Data Type	
+x = "Hello World"				str	
+x = 20						int	
+x = 20.5					float	
+x = 1j						complex	
+x = ["apple", "banana", "cherry"]		list	
+x = ("apple", "banana", "cherry")		tuple	
+x = range(6)					range	
+x = {"name" : "John", "age" : 36}		dict	
+x = {"apple", "banana", "cherry"}		set	
+x = frozenset({"apple", "banana", "cherry"})	frozenset	
+x = True					bool	
+x = b"Hello"					bytes	
+x = bytearray(5)				bytearray	
+x = memoryview(bytes(5))			memoryview	
+x = None					NoneType
+
+
+In memory
+•In memory, everything consists of 0s and 1s.
+•Data typing tells the computer how to:
+	–Encode a data value into memory
+	–Decode a data value out of memory
+	
+	
+	What is a variable?
+	
+A variable is lke a container that stores data or informatation in a program
+
+•A variable is an identifier in your code that represents a value in memory.
+•The variable name helps humans to remember what the value means.
+
+Assigning a variable to a value
+	•Nearly all languages have an assignment operator.
+	•Most languages use the equal sign (=)
+	
+		Course="AWS"
+		Class="Morning"
+		
+American Standards Association for Information Interchange (ASCII) is a system that associates encoding characters into computers.
+Use the ASCII table at ASCII Table to decipher the following message	
+
+What is a composite data type?
+
+
+Until now, you have used primitive data types. 
+
+Primitive data type
+	•Data types that are built into a coding language with no modification
+
+Composite data type	
+	•Combines multiple data types into a single unit
+	(also called a collection or complex data type)
+
+All modern programming languages have a way to create composite data types
+
+
+	
+Each movie could be described with:
+•A name(data type would be a string)							# string
+•A yearthat it was released (data type would be a number, or integer)			# integer
+•A flag to indicate whether you have seen it or not (data type would be a Boolean)	# boolean
+
+why use composite data types?
+	the organize and group related data
+	to make dataeasier to manage and process
+	to handle collections of items in loops and functions
+	
+Functions:
+	A function is a block of code that performs a specific task
+	you can defin it once and reuseit whenever required
+	
+	* Avoid repatin code
+	* Organize your program into smaller, easy-to-understand parts
+	* reuse logic anywahere in your program
+	* debug and maintain code more easily
+	
+array:
+	A collection (or arry) is a group of multiple values stored togther i once variables
+	
+	num1 = 10
+	num2 = 20
+	num3 = 30
+	
+	numbers = [10, 20, 30]
+	
+	numbers = [10,20,30,40,50,60]
+	print(numbers)
+	print(numbers[0])
+	print(numbers[-1])
+
+The table shows a basic array of ages. Each age is assigned a slot, is of the same data type, and is adjacent to the previous age and the next age in memory.
+Example collection: Array
+•The first slot is almost always 0 in every language.
+•Notice that the values do not need to be in any order.
+
+List:
+a list in python is collection used to store mltiple items in a single variable
+A Python List is an ordered collection of items.
+	•Each item can be of a different data type.
+	•Items can be accessed using an index.
+	•Items can have duplicate values.
+	
+	numbers = [10,20,30,40,50,60,"apple", "banana", "cherry", "apple", "cherry"]
+	num2=len(numbers)
+	print(num2)
+	
+What does execution pathmean?
+
+•The sequence of steps that the program performs when it runs
+•The program might ...
+	–Come to an either-or choice
+	–Come to multiple choices
+	–Perform work on each item in a loop
+•The programmer must be able to predict what those steps will be...
+	–When they write the code initially
+	–When they debug problems that they encounter	
+	
+A program flow refers to the sequence of stpes or instructions that a program follows whe it runs
+	when a program is executed, the computer follows these steps in order, unless specific conditions change that flow(like choices or loops)
+	
+** Sequence:
+	the program runs statments on after another , from top to bottom
+	
+	print("start")
+	print("Processing")
+	print("End")
+	
+** Selection (Decision-making)
+	The program can make choice based on condition
+	* Either-or choice(if / else)
+	
+age = 18
+if age >= 18:
+	print("You can able to vote")
+else:
+	print("You are not bale to vote this year)
+	
+** Multiple chose (if/elif/else)
+
+grade = 85
+if grade >= 90:
+	print("A")
+elif grade >= 75:
+	print("B")	
+else:
+	print("C")	
+	
+	** Looping
+the program can repeat actions for each items or until a condition is met
+
+fruits = ["apple", "banana", "cherry"]
+for x in fruits:
+  print(x)
+	

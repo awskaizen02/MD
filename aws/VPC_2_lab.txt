@@ -1,0 +1,98 @@
+You will learn how to:
+	•Identify other types of communication protocols
+	•Describe common transport, application, and network management protocols
+	•Use tools to discover information about network communications
+	
+	
+A communication protocol isa system of rules. 
+These rules permit two or more entities of a communications system to transmit information throughany variation of a physical quantity.
+The different types of communication protocols include transport, application, management, and support protocols. Transport protocols run over the best-effort IP layer to provide a mechanism for applications to communicate with each other. 
+The two general types of transport protocols are a connectionless protocol (User Datagram Protocol) and a 
+connection-oriented protocol (Transmission Control Protocol).
+Application protocols govern various processes, from downloading a webpage to sending an email. 
+Examples include HTTP, SSL, TLS, mail protocols (SMTP, POP, and IMAP), and remote desktop protocols (RDP and SSH).
+Management protocols are used to configure and maintain network equipment. Support protocols facilitate and improve network communications	
+
+
+In the OSI model, the protocol layer above the internet layer is the transport layer.
+The two most important protocols in the transport layer are TCP and UDP. 
+TCP provides reliable data delivery service with end-to-end error detection and correction, and
+UDP provides low-overhead, connectionless datagram delivery service. 
+Both protocols deliver data between the application layer and the internet layer.
+
+
+Why is this information important for issues and troubleshooting?
+	Because TCP and UDP use ports for communication, most layer 4 transport problems revolve around ports being blocked. 
+	When troubleshooting layer 4 communications issues, first make sure that no access lists or firewalls are blocking TCP/UPD ports.  
+	Remember that the transport layer controls the reliability of any given link through flow control, segmentation and desegmentation, and error control. 
+	Some protocols can keep track of the segments and retransmit the ones that fail. 
+	The transport layer acknowledges successful data transmission and sends the next data if no errors have occurred. 
+	The transport layer creates packets from the data that it receives from the upper layers.
+
+TCP/IP is aconnection-oriented protocol. 
+It defines how to establish and maintain network communications where application programs can exchange data. 
+Data that is sent through this protocol is divided into smaller chunks calledpackets.	
+
+The goal of TCP/IP was to support an interconnection of networks, which was referred to as aninternetwork, orinternet. The internet comprises the groups of networks that communicate over this protocol.
+In terms of the OSI model, TCP is a transport-layer protocol. 
+It provides reliable virtual-circuit connection between applications; that is, a connection is established before data transmission begins. 
+Data is sent without errors or duplication and is received in the same order as it is sent. 
+No boundaries are imposed on the data; TCP treats the data as a stream of bytes
+
+HTTP is the protocol that is used to reach webpages. A full HTTP address is expressed as a uniform resource locator (URL).
+Secure Hypertext Transfer Protocol (HTTPS) is a combination of HTTP with the SSL/TLS protoco
+
+
+https://us-west-2.console.aws.amazon.com/ec2/home?region=us-west-2#
+
+https://us-west-2.console.aws.amazon.com/ec2/home?region=us-west-2#Images:visibility=owned-by-me
+
+https://us-west-2.console.aws.amazon.com/ec2/home?region=us-west-2#Volumes:
+
+https://us-west-2.console.aws.amazon.com/vpcconsole/home?region=us-west-2#
+
+ICANN - INTERNET CORPORATION FOR ASSIGNED NAMES AND NUMBERS - OVERSEES THE ENTIER dns ROOT ZONE
+	* TOP LEVEL OF THE DOMIN NAME SYSTEM
+IANA  - INTERNET ASSIGNED NUMBERS AUTHORITY 
+	* mANAGES THE ROOT DNS SERVERS
+	* ASSIGNS IP ADDRESS BLOCKS TO REGIONAL INTERNET REGISTRIES
+	* COORINATES TLD ASSIGNMENTS
+
+ROOT DNS OPERATORS
+
+DOMAIN REGISTRIES AND REGISTRARS  
+.com	-> managed by versign
+.org	-> managed by public interset registry
+.in	-> managed by nixi 
+	* Domain registrars(like godadt,Namecheap,google domain)SELL DOMAN TO USERS AND CONNECT THEM TO DNS HOSTING
+
+DNS hosting & resolver companies
+	* DNS resolution services you actually use daily
+
+
+
+
+	
+tracert - traceroute  = is a command that shows the path your data takes to reach another computer or website o the internet
+
+•ping tests connectivity. 
+	This tool tests whether the remote device (server or desktop) is on the network.
+•nslookup queries the DNS and its servers. 
+	It shows the IP addresses that are associated with a given domain name.
+•traceroute permits users to see the networking path that is used. 
+	It is helpful for troubleshooting connectivity problems.
+•telnet is used for service response. 
+	This tool tests whether the service that runs on the remote device is responding to requests
+	
+	
+	
+# https://docs.aws.amazon.com/linux/al2023/ug/ec2-lamp-amazon-linux-2023.html
+
+#!/bin/bash
+dnf upgrade -y
+dnf install -y httpd wget php-fpm php-mysqli php-json php php-devel
+dnf install -y mariadb105-server
+systemctl start httpd
+systemctl enable httpd
+wget https://aws-tc-largeobjects.s3.us-west-2.amazonaws.com/CUR-TF-100-RESTRT-1/267-lab-NF-build-vpc-web-server/s3/lab-app.zip
+unzip lab-app.zip -d /var/www/html/	

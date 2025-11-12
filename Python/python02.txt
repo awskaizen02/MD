@@ -1,0 +1,395 @@
+What is Cloud9?
+
+With AWS Cloud9, you can write, run, and debug your code with just a browser. With AWS Cloud9, you have immediate access to a rich code editor, integrated debugger, and built-in terminal with a preconfigured AWS Command Line Interface (AWS CLI). AWS Cloud9 Amazon Elastic Compute Cloud (Amazon EC2) environments come pre-packaged with tooling for more than 40 programming languages.
+
+AWS Cloud9 environments can be hosted on EC2 instances or on your own server using the AWS Cloud9 installer (Linux only). You can connect the AWS Cloud9 environments to a source control management system such as AWS CodeCommit.
+
+Note: You can create an AWS Cloud9 environment directly from the AWS Management Console or by using the AWS CLI. In this case, the AWS Cloud9 environment and the EC2 instance are automatically created for you for the purposes of the lab.
+
+
+
+python --version
+
+python2 --version
+python3 --version
+
+print("Hello, World")
+
+
+To combine numbers and text, use the str() built-in function, which converts an argument into a collection of letters called a string. In this instance, you are converting the int (integer) data type into the string data type:
+
+print(str(myValue) + " is of the data type " + str(type(myValue)))
+
+There are three numeric types in Python:
+	int  = 1
+	float = 2.8
+	complex = 1j
+
+print("Python has three numeric types: int, float, and complex")
+
+myValue=1
+
+print(myValue)
+
+print(type(myValue))
+
+x = 10
+y = 2000
+z = x + y
+print(z)
+print(type(z))
+
+
+print(str(myValue) + " is of the data type " + str(type(myValue)))
+
+
+myValue=3.14
+print(myValue)
+print(type(myValue))
+print(str(myValue) + " is of the data type " + str(type(myValue)))
+
+
+myValue=5j
+print(myValue)
+print(type(myValue))
+print(str(myValue) + " is of the data type " + str(type(myValue)))
+
+---------------------
+Boolean Values:
+In programming you often need to know if an expression is True or False.
+You can evaluate any expression in Python, and get one of two answers, True or False.
+
+
+
+
+myValue=True
+print(myValue)
+print(type(myValue))
+print(str(myValue) + " is of the data type " + str(type(myValue)))
+
+myValue=False
+print(myValue)
+print(type(myValue))
+print(str(myValue) + " is of the data type " + str(type(myValue)))
+
+---------------------
+
+Strings :
+	Strings in python are surrounded by either single quotation marks, or double quotation marks.
+
+	'hello' is the same as "hello".
+	
+name = input("What is your name? ")
+print(name)
+
+color = input("What is your favorite color?  ")
+animal = input("What is your favorite animal?  ")
+print("{}, you like a {} {}!".format(name,color,animal))	
+
+
+input takes users input as a string
+format fills {} placesholders with the given variables in order
+
+------------------
+
+List
+Lists are used to store multiple items in a single variable.
+
+Lists are one of 4 built-in data types in Python used to store collections of data, the other 3 are Tuple, Set, and Dictionary, all with different qualities and usage.
+
+myFruitList = ["apple", "banana", "cherry"]
+print(myFruitList)
+print(myFruitList[0])
+print(len(myFruitList))
+print(type(myFruitList))
+
+print(myFruitList[1])
+print(myFruitList[2])
+
+myFruitList[2] = "orange"
+print(myFruitList)
+
+---------
+
+
+Defining a tuple
+The tuple is like a list, but it can't be changed. 
+A data type that can't be changed after it's created is said to be immutable. 
+To define a tuple, you use parentheses instead of brackets ([]).
+
+
+
+myFinalAnswerTuple = ("apple", "banana", "pineapple")
+print(myFinalAnswerTuple)
+print(type(myFinalAnswerTuple))
+
+print(myFinalAnswerTuple[0])
+
+print(myFinalAnswerTuple[1])
+print(myFinalAnswerTuple[2])
+
+------------
+Defining a dictionary
+
+	Dictionaries are used to store data values in key:value pairs.
+	A dictionary is a collection which is ordered*, changeable and do not allow duplicates.
+	Dictionaries are written with curly brackets, and have keys and values:
+
+
+A dictionary is a list with named positions (keys). Imagine that your list shows people’s favorite fruit.
+
+myFavoriteFruitDictionary = {
+  "Akua" : "apple",
+  "Saanvi" : "banana",
+  "Paulo" : "pineapple"
+}
+
+print(myFavoriteFruitDictionary)
+
+print(type(myFavoriteFruitDictionary))
+
+print(myFavoriteFruitDictionary["Akua"])
+
+print(myFavoriteFruitDictionary["Saanvi"])
+
+
+print(myFavoriteFruitDictionary["Paulo"])
+
+
+----------------------------
+
+ Creating a mixed-type list
+ 
+ myMixedTypeList = [45, 290578, 1.02, True, "My dog is on the bed.", "45"]
+ for item in myMixedTypeList:
+    print("{} is of the data type {}".format(item,type(item)))
+    
+    	45 is of the data type <class 'int'>
+	290578 is of the data type <class 'int'>
+	1.02 is of the data type <class 'float'>
+	True is of the data type <class 'bool'>
+	My dog is on the bed. is of the data type <class 'str'>
+	45 is of the data type <class 'str'>
+	
+---------------------------
+
+Composite Data Types
+
+import csv
+import copy
+
+myVehicle = {
+    "vin" : "<empty>",
+    "make" : "<empty>" ,
+    "model" : "<empty>" ,
+    "year" : 0,
+    "range" : 0,
+    "topSpeed" : 0,
+    "zeroSixty" : 0.0,
+    "mileage" : 0
+}
+
+for key, value in myVehicle.items():
+    print("{} : {}".format(key,value))
+    
+myInventoryList = []    
+
+
+with open('car_fleet.csv') as csvFile:
+    csvReader = csv.reader(csvFile, delimiter=',')  
+    lineCount = 0  
+    for row in csvReader:
+        if lineCount == 0:
+            print(f'Column names are: {", ".join(row)}')  
+            lineCount += 1  
+        else:  
+            print(f'vin: {row[0]} make: {row[1]}, model: {row[2]}, year: {row[3]}, range: {row[4]}, topSpeed: {row[5]}, zeroSixty: {row[6]}, mileage: {row[7]}')  
+            currentVehicle = copy.deepcopy(myVehicle)  
+            currentVehicle["vin"] = row[0]  
+            currentVehicle["make"] = row[1]  
+            currentVehicle["model"] = row[2]  
+            currentVehicle["year"] = row[3]  
+            currentVehicle["range"] = row[4]  
+            currentVehicle["topSpeed"] = row[5]  
+            currentVehicle["zeroSixty"] = row[6]  
+            currentVehicle["mileage"] = row[7]  
+            myInventoryList.append(currentVehicle)  
+            lineCount += 1  
+    print(f'Processed {lineCount} lines.')
+    
+    currentVehicle = copy.deepcopy(myVehicle)
+
+
+for myCarProperties in myInventoryList:
+    for key, value in myCarProperties.items():
+        print("{} : {}".format(key,value))
+    print("-----") 
+    
+ ---------------
+ userReply = input("Do you need to ship a package? (Enter yes or no) ")
+ 
+ if userReply == "yes":
+     print("We can help you ship that package!")
+ 
+ else:
+     print("Please come back when you need to ship a package. Thank you.")    
+     
+     
+     
+ userReply = input("Would you like to buy stamps, buy an envelope, or make a copy? (Enter stamps, envelope, or copy) ")
+ if userReply == "stamps":
+     print("We have many stamp designs to choose from.")
+ elif userReply == "envelope":
+     print("We have many envelope sizes to choose from.")
+ elif userReply == "copy":
+     copies = input("How many copies would you like? (Enter a number) ")
+     print("Here are {} copies.".format(copies))
+ else:
+    print("Thank you, please come again.")    
+    
+-------------------------------------------
+
+A loop is a segment of code that repeats. 
+You will be introduced to two types of loops: 
+
+while loop
+for loop.
+
+
+With the while loop we can execute a set of statements as long as a condition is true.
+
+print("Welcome to Guess the Number!")
+print("The rules are simple. I will think of a number, and you will try to guess it.")
+
+import random
+number = random.randint(1,10)
+
+isGuessRight = False
+
+while isGuessRight != True:
+    guess = input("Guess a number between 1 and 10: ")
+    if int(guess) == number:
+        print("You guessed {}. That is correct! You win!".format(guess))
+        isGuessRight = True
+    else:
+        print("You guessed {}. Sorry, that isn’t it. Try again.".format(guess))
+        
+------------------
+In Python, you can include a large amount of functionality in a few words. 
+This feature makes Python relatively easy to write compared to other programming languages, but it can also make Python code more difficult to read.
+
+for x in range (0, 19):
+    print(x)
+    
+    
+----------------------------------------------------------------------------------------------------------------
+
+```
+preproinsulin-seq.txt:
+
+ORIGIN      
+        1 malwmrllpl lallalwgpd paaafvnqhl cgshlvealy lvcgergffy tpktrreaed
+       61 lqvgqvelgg gpgagslqpl alegslqkrg iveqcctsic slyqlenycn
+//
+---
+Manually or programmatically delete ORIGIN, 1, 61, //, and the spaces and return carriages.
+
+In the AWS Cloud9 IDE, on the navigation pane, choose File > New File and save the file as preproinsulin-seq-clean.txt.
+
+In the file preproinsulin-seq-clean.txt, copy your results.
+
+Confirm that your file has 110 characters of lowercase letters, which represent the amino acids in the sequence of human preproinsulin.
+
+In the AWS Cloud9 IDE, on the navigation pane, choose File > New File and save the file as lsinsulin-seq-clean.txt.
+
+In lsinsulin-seq-clean.txt, save amino acids 1–24. Verify that your file has 24 characters.
+
+In the AWS Cloud9 IDE, on the navigation pane, choose File > New File and save the file as binsulin-seq-clean.txt.
+
+In binsulin-seq-clean.txt, save amino acids 25–54. Verify that your file has 30 characters.
+
+In the AWS Cloud9 IDE, on the navigation pane, choose File > New File and save the file as cinsulin-seq-clean.txt.
+
+In cinsulin-seq-clean.txt, save amino acids 55–89. Verify that your file has 35 characters.
+
+In the AWS Cloud9 IDE, on the navigation pane, choose File > New File and save the file as ainsulin-seq-clean.txt.
+
+In ainsulin-seq-clean.txt, save amino acids 90–110. Verify that your file has 21 characters.
+
+```
+
+
+with open("preproinsulin-seq.txt", "r") as infile:
+    data = infile.read()
+    
+cleaned = (
+    data.replace("ORIGIN", "")
+        .replace("//", "")
+        .replace(" ", "")
+        .replace("\n", "")
+    
+    )    
+    
+import re
+cleaned = re.sub(r"[0-9]", "", cleaned)
+
+cleaned = cleaned.lower()
+    
+with open("preproinsulin-seq-clean.txt", "w") as outfile:
+        outfile.write(cleaned)
+        
+print(f"Cleaned sequence saved to preproinsulin-seq-clean.txt")
+print(f"Sequence length: {len(cleaned)} characters")
+
+with open("preproinsulin-seq-clean.txt", "r") as infile:
+    seq = infile.read().strip()
+    
+print("Total amino acids:", len(seq))    
+
+lsinsulin = seq[0:24]
+binsulin  = seq[24:54]
+cinsulin  = seq[54:89]
+ainsulin  = seq[89:110]
+
+open("lsinsulin-seq-clean.txt", "w").write(lsinsulin)
+open("binsulin-seq-clean.txt", "w").write(binsulin)
+open("cinsulin-seq-clean.txt", "w").write(cinsulin)
+open("ainsulin-seq-clean.txt", "w").write(ainsulin)
+
+print(f"lsinsulin length: {len(lsinsulin)}")
+print(f"binsulin length: {len(binsulin)}")
+print(f"cinsulin length: {len(cinsulin)}")
+print(f"ainsulin length: {len(ainsulin)}")
+
+
+-----------------------------------------------------------------------------------------------------------------------
+LAB-11 : EXE_1
+
+# Store the human preproinsulin sequence in a variable called preproinsulin:
+
+preproInsulin = "malwmrllpllallalwgpdpaaafvnqhlcgshlvealylvcgergffytpktr" \
+"reaedlqvgqvelgggpgagslqplalegslqkrgiveqcctsicslyqlenycn"
+
+# Store the remaining sequence elements of human insulin in variables:
+
+lsInsulin = "malwmrllpllallalwgpdpaaa"
+
+bInsulin = "fvnqhlcgshlvealylvcgergffytpkt"
+
+aInsulin = "giveqcctsicslyqlenycn"
+
+cInsulin = "rreaedlqvgqvelgggpgagslqplalegslqkr"
+
+insulin = bInsulin + aInsulin
+
+# Printing "the sequence of human insulin" to console using successive print() commands:
+print("The sequence of human preproinsulin:")
+
+print(preproInsulin)
+
+# Printing to console using concatenated strings inside the print function (one-liner):
+
+print("The sequence of human insulin, chain a: " + aInsulin)
+
+-----------------------------------------------------------------------------------------------------------------------
+Lab-11 : EXE-2
