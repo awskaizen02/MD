@@ -1,0 +1,414 @@
+You will learn how to:
+	•Explain what Python is
+	•List reasons for using Python
+	•List examples of programs that can be used to write Python code
+	•Compare Python to shell scripting
+	•Recognize the purpose ofAWS Lambda
+	
+Python is a free, easy-to-learn, general-purpose programming language.
+
+The interpreter enables fast exploratory programming.	
+Dynamic typing makes it easy to write quick scripts. 
+Python syntax is simple when it is compared to other languages.
+Python can support object-oriented, structural, and functional programming styles. 
+
+Another reason to use Python is that it works across platforms.
+It works on macOS, Linux, Microsoft Windows, and otherplatforms.
+Though Bash scripts can be powerful, they mostly run on GNU/Linux
+
+Where can you write Python?
+Python can be written in any text editor if you have the interpreter also installed. 
+Many developers use special programs that are called integrated development environments (IDEs). 
+IDEs help with finding syntax and exception errors.
+Some examples of programs that are used to write Python code include:
+	Python(x,y)
+	PyCharm
+	Vim
+	Eclipse
+	Notepad++
+	Spyder
+	Microsoft Visual Studio Code
+	
+The following core capabilities are associated with IDEs:
+•Syntax highlighting –Highlights keywords within the programming language
+•Code completion –Similar to automatic completion for natural languages on modern cellular phones
+•Debugging –Enables line-by-line inspection of the code while it is running with breakpoint capabilities
+•Version control –Integrates popular version control systems, such as git and subversion	
+
+Declaration of functions, classes, and imports have similar color.
+•Comments are colored green.
+•All syntax highlighting is customizable.
+	Using an IDE: Syntax highlighting
+
+•Functions are portrayed differently in a selection.
+•Functions include arguments that are available
+
+•Step through code line by line.
+•Inspect variables as you step.
+•Change values as you inspect
+
+
+After you finish writing an application in Python, you can:
+•Run the application from the command line: $python myPythonapp.py
+•Run it from inside the IDE However, what if you must run your code or application? 
+For example:
+	1.Make it available to users around the world
+	2.Handle millions of users
+	
+AWS Lambda
+	•Upload your code to AWS Lambda.
+	•Set up your code to trigger from an event, such as a user who is visiting your webpage.
+	•Lambda runs your code only when it is triggered, and it uses only the compute resources that are needed.
+	•You pay only for the compute time that you use.
+	•Multiple languages are supported
+
+Other tools: Shell scripting
+	Shell scripting commands are run directly from the command line of an operating system. 
+	They are available on any machine and on any operating system without the needto install new software.
+	Different environments require different syntax or types of shell scripting,such as Bashand Zshell
+	
+Shell scripting versus Python
+	•Shell scripting can be apowerful tool for system administration and command-line work, but it can be challenging when you want to use more complicated data structures. 
+	•For example: Python can performsome actions—such as creating an HTTP server—in a single line.
+	However, it could require many lines of code to do the same action in Bash.
+	•Python has many external libraries and resources. It is a complete programming language.
+	
+------------------------------------------------------------------------------------------------------
+You will learn how to:
+	•Install Python on a Linux computer
+	•Define basic Python terminology
+	•Declare variables in a Python script and perform operations on those variables
+	•Explain statements, functions, and exceptions
+
+
+Python uses indentation and spacing to group blocks of code together.
+	•If you get runtime errors, check your spacing first.
+	•Next, check your indentation for any missing punctuation, such as colons. 
+Python is also case sensitive. Capitalization matters.
+
+
+
+# https://www.w3schools.com/python/python_ref_keywords.asp
+
+Identifiers
+In Python, identifieris the name for entities like class, functions, and variables. 
+It helps differentiate one entity from another entity.
+When you name objects in Python, you must observe some rules:
+	An identifier cannot start with a digit. 
+	1variableis invalid, but variable1is valid.
+	Keywords cannot be used as identifiers.
+	You cannot use special symbols like !, @, #, $, and % in your identifiers.
+Identifiers can be any length.
+
+File extensions: .py files The extension .py is a script file extension that is used in Python.
+Files with the .py extension can be created in any text editor, but they need a Python interpreter to be run.
+
+Functions:
+	•A function tells the computer to do a specific task.
+	•Functions have a name and are invoked by adding parentheses after the name.
+	•Many functions take arguments, which are information that the function uses to do its specific task.
+	•One useful function is the printfunction.
+	•You can write your own functions. 
+	•Python also has native functions (such as print) that are already built in
+	
+The text editor that you will use is Vim (Vi improved).
+•To open it on the command line, enter vim <file name> or vim
+•Vim opens in normal mode. To write to Vim, enter i (thei stands for insert)
+•To get back to normal mode, press ESC
+•When you are in normal mode, you can save and quit, or continue editing
+•To save a file, enter :w <file name> or :w(the wstands for write)
+•To close Vim, enter :q(the qstands for quit)
+•To save and close, enter :wq	
+
+------
+vi helloworld.py
+
+# This is my first pythion script
+
+print("Hello, World")
+
+esc
+:wq
+
+
+python helloworld.py
+
+------
+Comments:
+	•Comments are notes to yourself and to other developers.
+	•Comments describe the contents of a program and how it works so that a person who reviews the source code can understand it.
+	•Use the pound (#) symbol to start writing a comment.
+	•By starting a line of text with #, you tell the interpreter notto run this line as code
+	
+	# ''' or """
+	'''
+	this is muliple
+	comment
+	for testing
+	'''
+	"""
+	this is muliple
+	comment
+	for testing
+	"""
+	
+Data types determine what kind of data is stored in an object. 
+Python stores the type of an object with the object. 
+When the operation is performed, it checks whether that operation makes sense for that object. 
+(This technique is called dynamic typing.)Example: Some functions or methods in Python expect a certain data type.
+You cannot pass a string into a function that is expecting a float.
+	
+Integer (int):
+	A whole number. Can be negative. 
+		4 ,3000,–29
+
+Float:
+	A number that contains a decimal. Can also be negative
+		Examples: 3.390 ,8.090,–0.001
+		
+Boolean (bool):
+	A condition of True or False.
+		Capitalization matters
+		
+String (str):
+	A set of characters that are enclosed in quotation marks(" "or ' 'or ''''''). 
+	Can include numbers,letters,and special characters.
+		Examples: 
+			"I am a string"
+			'23456'
+			'''I have 56 sheep'''
+	Note:Numbers inside a string are still a string. 
+	Python does not consider them to be integers or floats.	
+	
+
+Data types: Mutable versusimmutable 
+	Mutable means changeable. In Python, some data types are mutable, and others are immutable
+
+Mutable	
+	•List 
+	•Set
+	•Dictionary
+	•Byte array
+	
+immutable
+	•Integers, floats, complex
+	•Strings
+	•Tuples
+	•Frozen sets
+------------------
+x = 2
+print(x)
+print(type(x))
+
+x = 'Hello world'
+print(x)
+print(type(x))
+
+y = [1,2,3]
+print(y)
+print(type(y))
+
+a1 = -12
+print(a1)
+print(type(a1))
+
+a2 = 15.09
+print(a2)
+print(type(a2))
+
+
+a3 = 1 + 3j
+print(a3)
+print(type(a3))
+
+a4 = ''' hello
+     world '''
+print(a4)     
+
+a5 = 'Tims\'s Commands'
+print(a5)
+
+a5 = 'Tim\'s \n Commands'
+print(a5)
+
+a5 = 'Tim\'s \t Commands'
+print(a5)
+
+a5 = 'Tim\'s  Commands \r tom'
+print(a5)
+
+
+x = [1,2,3]
+print(type(x))
+
+y = [1,'a',2.2,'apple']
+print(type(y))
+
+x = (1,2,3)
+print(type(x))
+
+y = (1,'a',2.2,'apple')
+print(type(y))
+
+list1 = [ 'banana','grape','watermelon','orange','passionfruit','cherry']
+print(list1)
+print(list1[0])
+
+print(list1[0:3])
+
+print(list1[1:])
+
+print(list1)
+list1.append('dragon fruit')
+print(list1)
+
+print(list1)
+list1.insert(1,'kiwi')
+print(list1)
+
+print(list1)
+list1.remove('grape')
+print(list1)
+
+tuple1 = ('banana','grape','watermelon','orange',)
+print(tuple1)
+
+set1 = {68,54,23,20,20,1,3,3,3}
+print(set1)
+list2 = [68,54,23,20,20,1,3,3,3]
+print(list2)
+
+y = set(list2)
+print(y)
+
+dict1 = {"ID": '1','Name':"Tim"}
+print(dict1['ID'])
+print(dict1['Name'])
+
+---------------
+Converting data types Python has specific commands that you can use to change an object from one data type to another.
+•float(): In the example, 4 is assigned to the variable x. 
+By its nature, 4 is an integer. However, x must be identified as a float, so the float() command was used. 
+The result is 4.0.
+•int(): By passing x back into the int(x)command, it receives 4 back. This command truncates the decimals. 
+
+•Note: Using int()is not the same as rounding. 
+It only removes any decimal digits that the number has.
+It does not round the decimal numbers up or down, so be careful.
+Lists, sets, tuples, and other data types will be covered later.
+
+	a = 4.9
+	print(a)
+	print(type(a))
+	
+	
+	b =(a)
+	print(b)
+	print(type(b))
+
+	print(int(a))
+	
+--------
+•Strings contain text, which can be a single character or paragraphs of text.
+•Strings are characters that are enclosed between quotation marks. 
+•Strings can contain numbers.
+•Three ways of notating a string are: 
+	–Single quotation marks (' ')
+	–Double quotation marks (" ")
+	–Triple quotation marks (''' ''')
+	
+The triple quote notation allows a string to span multiple lines and include non-printable formatting characters such as Newline and Tab
+
+•Strings are immutable. 
+	When you manipulate them, you create a new string. 
+•You can concatenateor add strings together, which creates a new string.
+•It is possible to create an empty string.
+	–Example: x = ""
+	
+Note: If you want a space between the words of your new string, you must add it into one of the original strings. Otherwise, Python adds them as -is, without inserting a space.
+
+-----------------
+•This simple Python program adds the numbers 1and 1together.
+•The result is 2, as displayed on the following line.
+•The angle brackets (>>>) are not part of the program. The Python interpreter displays them
+>>> 1 +1
+2
+
+•In this example, x is a variable that holds the number 1.
+•When you do something with variables, Python looks up the values to understand what to do.
+>>> x = 1
+>>> x +x
+2
+----------------
+•You can have as many variables as you want.
+•You can name your variables whatever you want, within certain restrictions.
+•Restrictions are:
+	–A variable name can only contain letters, numbers, and underscores ( _ ). 
+	–A variable name cannot begin with a number.
+	–A variable name cannot be a keyword in Python.
+
+
+Arithmetic operators			+, -,*,/, %, **, //
+Comparison (relational) operators	<, >,<=,>=,==, !=
+Assignment operators			=,+=,-=,*=,/=, %=, //=, **=, &=, |=, ^=, >>=, <<= 
+Logical operators			and, or, not
+Membership operators			in, not in
+Identity operators			is, is not
+
+Python also has bitwise operators that allow the manipulation of a number at the bit level
+---------------------
+
+Arithmetic operators:
+
+x = 15
+y = 4
+
+print(x + y)
+print(x - y)
+print(x * y)
+print(x / y)
+print(x % y)
+print(x ** y)
+print(x // y)
+
+---------------------
+•An exception raises an error.
+•Examples include:
+	–Referencing a variable by the incorrect name
+	–Dividing a number by zero
+	–Trying to read a file that does not exist on your computer
+•Exceptions result in a stack trace, which is a listing of the various ways that something went wrong.
+
+print(x)
+10 /0
+"5" +2
+int("abc")
+
+>>> 10 /0
+Traceback (most recent call last):
+  File "<python-input-4>", line 1, in <module>
+    10 /0
+    ~~~^~
+ZeroDivisionError: division by zero
+>>> "5" +2
+Traceback (most recent call last):
+  File "<python-input-5>", line 1, in <module>
+    "5" +2
+    ~~~~^~
+TypeError: can only concatenate str (not "int") to str
+>>> int("abc")
+Traceback (most recent call last):
+  File "<python-input-6>", line 1, in <module>
+    int("abc")
+    ~~~^^^^^^^
+ValueError: invalid literal for int() with base 10: 'abc'
+---------------------
+The plus equals (+=) operator adds the rvalue(the value to the right of the operator) to the lvalue(the value to the left of the operator). The lvalue is usually a variable. For example, if xis 5, consider the following code: x+=10After that code is run, the value of xis 15
+
+x =5
+x +=10
+print(x)
+---------------------
+
+
+

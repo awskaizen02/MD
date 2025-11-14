@@ -1,0 +1,175 @@
+Functions:
+
+	•Explain the purpose of functions
+	•Name the different types of functions
+	•Use functions to organize Python code
+
+A function is a block of reusable code that performs a specific task
+you can defin it once and use it many times, which makes your code cleaner and easier to maintain
+
+def greet():
+	print("Hello Python")
+
+def 	-> keyword to define a function
+greet	-> name of the function
+()	-> parentheses (may contain parameters)	
+
+
+In Python, afunctionis a named sequence of statements that belong together. 
+Their primary purpose is to help organize programs into chunks that match how youthink about the solution to the problem
+
+First, define the function.Name it and put place holders for arguments. 
+Indent lines of code inside the function, like code in loops.
+
+
+Functions:
+
+	•Explain the purpose of functions
+	•Name the different types of functions
+	•Use functions to organize Python code
+
+A function is a block of reusable code that performs a specific task
+you can defin it once and use it many times, which makes your code cleaner and easier to maintain
+
+def greet():
+	print("Hello Python")
+
+def 	-> keyword to define a function
+greet	-> name of the function
+()	-> parentheses (may contain parameters)	
+
+
+In Python, afunctionis a named sequence of statements that belong together. 
+Their primary purpose is to help organize programs into chunks that match how youthink about the solution to the problem
+
+First, define the function.Name it and put place holders for arguments. 
+Indent lines of code inside the function, like code in loops.
+
+Built-in functions (like print) are part of a programming language, or developers can create new functions.
+
+Python has many built-in functions that solve many common problems for you.
+Examples:
+	•print()	# Display output
+	•open()		# Opens a file
+	•sum()		# Adds items in a list/tuple
+	•dict()		# Create a dictionary
+	•len()		# Gives the length of a string or list
+	•type()		# shows the type of a variable
+	•input()	# reads user input
+	
+	
+Types of functions:-
+Types of Python functions
+No argument taken, returns something (fruitful)
+No argument taken, no return given 
+Takes argument or arguments, returns something (fruitful)
+Takes argument or arguments, no return given
+	
+
+•What is the identifier (name of this function)?
+•What is the argument?
+•What is it returning?
+•Is this function fruitful or non-fruitful?
+
+
+def demo(x):
+     y = x + 3
+     return  y
+print(demo(7))  
+
+* in demo taht takes one parameter x
+* inside the function:- it calculates y = x+3
+* returns y = 7 + 3 = 10
+
+On the print line, multiple things are happening:
+•The function demo is being called. Functions do not run until you call them. 
+•The print function is also being called, and it uses demo as the argument for print(). 
+It can be helpful to call a function with another function.
+•What output do you expect to be printed?
+
+
+
+def add(a, b):
+    return a + b
+    
+test = add(8, 2) 
+print(test)
+
+
+def multiple(a,b):
+    return a * b
+    
+t1 = multiple(8,2)    
+print(t1)
+
+-------------------------
+•Is this function fruitful or non-fruitful?
+•When you run this function, what do you expect to happen?
+•What might be some of the advantages of using an argument in a function?
+
+a = 3
+b = 2
+c = 1
+def demo():
+     y = (a+b+c)
+demo
+
+---
+
+a = 3
+b = 2
+c = 1
+def demo():
+     y = (a+b+c)
+     print(y)
+demo() 
+--------------------
+Organizing code with functions 
+
+Organizing code with functions makes it easier to read.
+Example:
+	•It can be difficult to interpret what the first line of code does.
+	•Using an appropriately named function that takes appropriately named arguments makes the code easier to interpret and use
+	
+Easier to read
+	Functions let you give a meaningful name to a lock of code
+Easier to maintain
+	If something changes, you update the dode only once inside the function
+Easier to reuse
+	call the same function multiple times without repeating logic
+Easier to debug
+	probles are easier to find in samll, isolated blocks
+
+-----	
+def calculate_sample(a,b):
+    return (a * b) / 5 +( b -a)
+    
+print(calculate_sample(10,20))    
+
+---
+def gree_user():
+    print("Hello There")
+    
+gree_user()    
+
+
+def gree_user(name):
+    print("Hello" + name)
+    
+gree_user("Tim")
+
+What are arguments?
+Function arguments enable developers to pass values to a function. For example, a function that is called set Colorcould include a string for the color that is being passed. Such a call would appear as setColor(“red”).
+
+All functions must return a value
+False.
+
+How do you call a function?
+You use the name of the function and then its argument in parentheses (which might be empty). 
+For example: setColor(“red”),clearScreen()
+
+Why do you use functions?
+Functions enable developers to use the same code many times without retyping the statements.
+
+Name one built-in function in Python?
+One of the most commonly used built-in functions is print.

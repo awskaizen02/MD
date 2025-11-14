@@ -1,0 +1,140 @@
+Flow Control:
+
+You will learn how to:
+	•Describe the purpose and use of flow control in a program
+	•Use conditional statements to run code based on evaluated criteria
+	•Use loops to run code repeatedly until the criteria are met
+	•Use the input() function to prompt users for input to be used when they run the program
+	
+	
+Flow control is the order that individual statements, instructions, or function calls of an imperative program are run or evaluated
+
+Control refers to the order that the interpreter runs the code.
+Different statements can control this order.
+Sometimes,you want something to happen when a condition is met. 
+Then, you useconditional statements
+
+## https://www.geeksforgeeks.org/computer-science-fundamentals/control-flow-statements-in-programming/
+
+If: The keyword if means that if this condition is met, complete this action.
+
+Elif: The keword elif is short for else if. 
+
+Else, if this condition is true, complete this other action. (You can have multiple elifstatements in a single block.)
+Else: The keyword elsemeans that if none of the above conditions are met, complete this action
+
+
+---------------------
+Conditional statements: Examples
+
+	If the time is between these hours, the store is open. Else, the store is closed.
+	
+	If the gas in the gas tank is belowa certain level, turn on the low fuel warning.
+	
+	If an employee has their badge, allow them into the building. Else, the door is locked. 
+	
+	If someone’s age is greater than 18, consider them to be an adult. Else, if their age is between 13 and 18, consider them to be a teen. Else, consider them a child.
+
+age = 15
+
+if age > 18:
+    print("you are an adult")
+elif age >= 13:
+    print("your are teen")
+else:
+    print("you are child")
+
+---------------------
+conditionals.py
+
+num=2
+
+if num > 5:
+    print(" have a bunch of bananas")
+elif num >= 1 and num <=4:
+    print("I have a small bunch of bananas")
+else:
+    print("I have no bananas")
+
+
+---------------------
+Loops
+
+	•Loops are a technique that tells Python to run a block of code repeatedly. 
+	•Python runs loops for a certain number of times, or whilea certain condition is true.
+	•The two types of Python loops are called for and while.
+
+Whileloops	
+	•Whileloops can run indefinitely, so you must include the condition for the loop to stop. 
+	Otherwise, the code creates an infinite loop.
+	•It is common to use an iterative counter with loops. 
+	As the loop completes, the counter increases (or decreases). When the counter reaches a specific number, the loop stops	
+
+count =5
+
+while count <= 5:
+    print("I love python")
+    
+    count +=1
+	
+	
+---------------------
+
+A forloop reads: 
+	for each element in <thing>,do a certain task.
+	•Some real-life examples are:
+		For every egg in a recipe, add 2 cups of flour.
+		For every package on our truck, add 2 kilograms
+		For every hamburger that is ordered, subtract 1 from the inventory
+
+•Forloops and lists work well together. 
+•For every item in this list, Python prints that item. 
+	–Every time it calls num, it assigns a value from the list (1, then 2, . . . ) to num. 
+	–The loop then prints the value. 
+	–After it goes through the entire list of values, the loop stops.
+	
+numbers = [1,2,3,4,5]
+
+for num in numbers:
+    print(num)
+    
+---------------------
+
+
+•Lists are a mutable data type. Lists can contain multiple data types (strings, ints, floats, and even other lists).
+•Lists are denoted with brackets ([ ]) on each end.
+•Values are enclosed in brackets, and they are separated with commas.
+•Any number of items can be in a list—even zero (no) items.
+
+y = [1,'a',2.2,'apple']
+print(type(y))
+
+
+---------------------
+
+•Dictionaries contain immutable keys, which are associated to their values. 
+Keys must be immutable data types.
+•Dictionaries can be nested inside each other.
+•To create an empty dictionary, use a pair of braces with nothing inside: {}
+•Keys are separated from their values with a colon: {"Key":"Value"}
+•Retrieve a value in the dictionary by its key:   myDict.get("key") or myDict["key"]
+
+dict1 = {"ID": '1','Name':"Tim"}
+print(dict1['ID'])
+print(dict1['Name'])
+
+---------------------
+•The input() function asks the user to enter text and saves the result to a variable.
+•One optional argument is a prompt for the user, as a string.
+
+name = input("Enter your name:")
+print("Hello,", name)
+
+---------------------
+
+
+
+
+
+
+---------------------	
