@@ -1,1 +1,213 @@
 Modules and Libraries
+
+
+What are modules and libraries?
+
+Functions are blocks of code that do specific tasks. 
+Functions can be put into modules. 
+Modules are separate Python files that can be imported into other Python applications. 
+Importing modules makes it possible to reuse code.
+
+A modul is just a single python file (.py) that containes:
+	* Functions
+	* variables
+	* classes
+	* code you want to reuse
+
+
+Libraries are collections of modules. 
+By putting modules into libraries, it is possible to import a large amount of programming capability quickly.
+
+NumPy	-> many modules for math & arrays
+Pandas	-> Modules for data handeling
+Requests-> Modules for HTTP/Web requests
+
+
+Standard library:
+	The Python standard libraryis a collection of script modules thata Python program can access. It simplifies the programming process and reduces the need to rewrite commonly used commands
+	
+	Python libraries canalso consist of modules that are written in C
+	
+	Practical example: Saanvi Sarkar didnot invent the wheel. Instead, sheimported a wheel module from a library to help createsomething new—acar.
+	
+Navigating the Python standard library:
+	The Python standard library is a collection of modules that make programming easier by removing the need to rewrite commonly used commands 
+	
+	The library contains built-in modules to access such functionality as time (time), getting system information (sys), querying the operating system (os), and many more.
+	
+	Using the standard library where possible makes code easier to maintain and port to other platforms
+
+
+Reusing code means that you are less likely to encounter bugs.
+Importing modules can refer to the module’s documentation.
+Commonly used modules can be learned once and reused in multiple projects.
+Other software developers might understand your code better if you work with commonly used modules
+
+
+Modules can be:
+	1.Created by you. You might need Python to complete a specific set of tasks or functions that are grouped together.
+	If so, it can be easier to bind them together into a module. 
+	2.External sources (created by others)..
+	3.Prepackaged with Python and part of the standard library.
+	•Examples: math, time, and random
+	
+Importing modules Standard library modules are imported by using the import command. 
+You can also import specific functions or constants from a module by using the from command
+
+
+To make your own module :
+	•Create a file name with a .py extension ( for instance mymodule.py )
+	•Add your code to define some functions
+	•You can now import mymodule in other python files and use the code defined in the module
+
+
+import mymodule
+
+print(mymodule.greet("Tim"))
+print(mymodule.add(8,8))
+print(mymodule.pi)
+
+--------
+import math
+
+absolute = -5.999
+floor_test = 198.42
+
+result1 = math.fabs(absolute)
+result2 = math.floor(floor_test)
+
+print(result1, " is the absolute value of ", absolute)
+print(result2, " is the flow of ", floor_test) 
+
+-----
+
+Use the built-in open() function.
+Two arguments, both strings
+—the path to the file, and the file mode (read or write)
+—return a file handler object that represents that file.
+File handlers can read data from the file or write data to the file. 
+They can also pass data to other functions that can do so on your behalf (like json.load and json.dump)
+
+File handlers must be closed after use, by calling the attached .close() function.
+----
+
+Exception handling
+	•Exception handling is another form of flow control.
+	•When an error occurs, instead of failing and quitting the program, you can use a try/except block.
+	•You must specify the exception (or exceptions) that you expect might occur.
+------
+try:
+    result = 10/0
+except ZeroDivisionError:
+    print("You cannot divide by zero")
+------    
+    
+try:
+    
+    age = int(input("Enter age: "))
+    result = 10/age
+    print("Age is:", age )
+    
+except ValueError:
+    print("Invalid number entered")
+
+except ZeroDivisionError:
+    print("Age cannot be zero")
+    
+------
+
+Examples: Exception handling
+
+Trying to read a file
+	when that file might not exist
+Trying to understand a file
+	when that file was saved incorrectly or has bad data
+Trying to write to a file on your computer
+	when your computer mightbe out of space
+Trying to handle input from the user
+	when that input might not be valid
+Trying to make an HTTP request
+	when you mightnot have internet access
+	
+---------
+
+•JSON stands for Java Script Object Notation.
+•JSON is a standard file format that transmits data objects. It is language independent. 
+It was originally derived from JavaScript, but now most modern languages include the ability to generate and parse JSON (including Python).
+•JSON is used to serializeobjects, which means that it turns code into a string that can be transmitted over a channel
+
+•Four useful functions in the JSON module are:
+	–dump	-> file	  -> pyhton object -> json write to file
+	–dumps  -> string -> pyhton object -> json string
+	–load	-> file	  -> JSON file     -> pytho object
+	–loads	-> string -> JSON string    -> pthon object	
+	
+•dump and dumps: Turn various kinds of structured data into a string, which can be written to a file.
+•load and loads: Turn a string back into structured data.
+•dump and load work directly with files. 
+•dumps and loads work with strings.
+	–The sat the end of the name is for string.
+
+
+As mentioned earlier, JSON is used to make large amounts of data into strings and then put them back into their correct data types.
+
+JSON takes a float and turns it into a string so that the information can be sent easily. 
+Then, it turns the string back into a float when the information is received.
+This technique is especially useful when you have more than one data type in a dataset. 
+You can translate your Boolean, Integer, Float, and String to a single string.
+You can then store the information in a file or a webpage.
+When the data is retrieved and turned back, they are still the Boolean, Integer, Float, and String data types.
+
+
+import json
+filename = 'userName.json'
+name = ""
+
+# Check for a history file
+try:
+    with open(filename, 'r') as r:
+      name = json.load(r)
+
+except FileNotFoundError:
+    print("First-time login")
+
+if name != "":
+    print("Welcome Back," + name + "!")
+else:
+    name = input("Hello! Whats your name?")
+    print("Welcome, " + name + "!")
+try:    
+    with open(filename, 'w') as f:
+        f.write("saving user data")
+except IOError:
+    print("There was a problem writing to the history file.")
+        
+ -----       
+        
+        
+What is pip?
+pip is the package manager for Python, and it is similar to apt in Linux.
+•It is used to install third-party packages. A package holds one or more Python modules that you can use in your code.
+•It is installed along with Python.It is not called from within Python—pip is called from the command line, like Python itself is
+
+What is the relationship between a function, a module, and a library?
+	Functions are blocks of code that can be wrapped in a module with other functions. Multiple modules can then be wrapped into a single library.
+	
+What is the purpose of file handlers? 
+	File handlers enable Python to read and write to files.
+	
+Can Python be used to run systems commands?
+	Yes, by calling functions like system()from the os library. 
+	
+What are exceptions used for in Python?
+	When an error occurs in a Python application, an exception is raised. The exception can be caught and handled to enable the application to elegantly handle the occurrence of errors.
+	
+True or False: When used, the JSON library automatically creates the correct data type for data.
+	True
+	
+What is pip?
+	pip is the standard package manager for Python. You can use it to install and manage additional packages that are not part of the Python standard library.
+	
+Why use pip?
+	pip makes it easier to manage packages in Python than it would be to install, update, and remove them manually.
+
